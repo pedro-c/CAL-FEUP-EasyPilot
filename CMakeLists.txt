@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.5)
+project(CAL_FEUP_EasyPilot)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+set(SOURCE_FILES
+    src/Coordinates.cpp
+    src/Coordinates.h
+    src/Edge.h
+    src/Graph.h
+    src/Intersection.cpp
+    src/Intersection.h
+    src/main.cpp
+    src/Road.cpp
+    src/Road.h
+    src/Vertex.h)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+
+add_executable(CAL_FEUP_EasyPilot ${SOURCE_FILES})

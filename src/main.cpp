@@ -2,15 +2,17 @@
  * main.cpp
  *
  *  Created on: 08/04/2016
- *      Author: Bernardo Belchior | Maria João Mira Paulo | Pedro Costa
+ *      Author: Bernardo Belchior | Maria Joï¿½o Mira Paulo | Pedro Costa
  */
 
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <unistd.h>
 
 #include "Graph.h"
 #include "Intersection.h"
+#include "Road.h"
 
 using namespace std;
 
@@ -21,8 +23,11 @@ using namespace std;
 int readTxtFiles() {
 	vector<Road*> roads;
 
-	string line;
-	ifstream mainFile("/assets/roads.txt");
+	char dir[200];
+	getcwd(dir, 199);
+	cout << dir;
+
+	ifstream mainFile("../assets/roads.txt");
 	if (mainFile.is_open()) {
 		while (!mainFile.eof()) {
 			unsigned int id;

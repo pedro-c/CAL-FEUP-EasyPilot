@@ -59,6 +59,10 @@ Coordinates Road::getOffset() const {
 	return offset;
 }
 
+double Road::getLength() const {
+	return length;
+}
+
 bool Road::operator ==(const Road &p2) const {
 	return (id == p2.id);
 }
