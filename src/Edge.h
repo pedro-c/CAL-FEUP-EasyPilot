@@ -9,6 +9,9 @@
 #define SRC_EDGE_H_
 
 #include <vector>
+#include "Graph.h"
+#include "Road.h"
+
 using namespace std;
 
 template<class T> class Edge;
@@ -16,18 +19,22 @@ template<class T> class Edge;
 template<class T>
 class Edge {
 	Vertex<T> * dest;
-	double weight;
+	Road* road;
 public:
-	Edge(Vertex<T> *d, double w);
+	Edge(Vertex<T> *d, Road* road);
+	~Edge();
 	friend class Graph<T> ;
 	friend class Vertex<T> ;
 };
 
 
 template<class T>
-Edge<T>::Edge(Vertex<T> *d, double w) :
-		dest(d), weight(w) {
-}
+Edge<T>::Edge(Vertex<T> *d, Road* road) :
+		dest(d), road(road) { }
 
+template<class T>
+Edge<T>::~Edge() {
+	delete road;
+}
 
 #endif /* SRC_EDGE_H_ */

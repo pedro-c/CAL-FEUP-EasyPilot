@@ -9,8 +9,9 @@
 #include <cmath>
 #include <ctgmath>
 
+Coordinates::Coordinates() : Coordinates(0, 0) { }
+
 Coordinates::Coordinates(double x, double y) : x(x), y(y) {}
-Coordinates::Coordinates(){}
 
 
 double Coordinates:: getX() const{
@@ -21,7 +22,7 @@ double Coordinates:: getY() const{
 	return y;
 }
 
-double Coordinates::getDistance(Coordinates c1, Coordinates c2){
-	return sqrt(pow((c2.x-c1.x),2)+ pow((c2.y-c1.y),2));
+double Coordinates::getDistance(const Coordinates &c) const {
+	return sqrt(pow((this->x-c.x),2)+ pow((this->y-c.y),2));
 }
 

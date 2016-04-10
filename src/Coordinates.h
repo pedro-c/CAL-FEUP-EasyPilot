@@ -18,8 +18,7 @@ public:
 	Coordinates(double x, double y);
 	double getX() const;
 	double getY() const;
-	double getDistance(Coordinates c1, Coordinates c2);
-
+	double getDistance(const Coordinates &c) const;
 };
 
 
