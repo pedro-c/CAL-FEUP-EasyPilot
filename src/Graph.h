@@ -89,7 +89,6 @@ public:
 		return true;
 
 	}
-
 	bool removeVertex(const T &in) {
 		Vertex<T>* vertice = new Vertex<T>(in);
 		int indice = -1;
@@ -108,7 +107,6 @@ public:
 		vertexSet.erase(vertexSet.begin() + indice);
 		return true;
 	}
-
 	bool removeEdge(const T &sourc, const T &dest) {
 		int indiceSourc = 0;
 		int indiceDest = 0;
