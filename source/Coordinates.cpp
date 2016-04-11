@@ -7,9 +7,11 @@
 
 #include "Coordinates.h"
 #include <cmath>
-#include <ctgmath>
 
-Coordinates::Coordinates() : Coordinates(0, 0) { }
+Coordinates::Coordinates(){
+	this->x=0;
+	this->y=0;
+}
 
 Coordinates::Coordinates(double x, double y) : x(x), y(y) {}
 
