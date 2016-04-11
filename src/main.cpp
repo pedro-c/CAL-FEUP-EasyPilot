@@ -2,15 +2,18 @@
  * main.cpp
  *
  *  Created on: 08/04/2016
- *      Author: Bernardo Belchior | Maria João Mira Paulo | Pedro Costa
+ *      Author: Bernardo Belchior | Maria Joï¿½o Mira Paulo | Pedro Costa
  */
 
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <unistd.h>
+#include <sstream>
 
 #include "Graph.h"
 #include "Intersection.h"
+#include "Road.h"
 
 using namespace std;
 
@@ -19,10 +22,10 @@ using namespace std;
 //3.txt ROADS(Node id; Road id 1; Road id 2)
 
 int readTxtFiles() {
+	vector<Intersection*> intersections;
 	vector<Road*> roads;
 
-	string line;
-	ifstream mainFile("/assets/roads.txt");
+	ifstream mainFile("../assets/roads.txt");
 	if (mainFile.is_open()) {
 		while (!mainFile.eof()) {
 			unsigned int id;
@@ -30,14 +33,52 @@ int readTxtFiles() {
 			char garbage;
 
 			mainFile >> id >> garbage >> lat >> garbage >> lon >> garbage >> offX >> garbage >> offY;
-			roads.push_back(new Road(id, lat, lon, offX, offY));
+			intersections.push_back(new Intersection(id, lat, lon, offX, offY));
 		}
 		mainFile.close();
-	} else
+	} else {
 		cout << "Unable to open file";
+		return 1;
+	}
+
+	ifstream secFile("../assets/roads2.txt");
+	if (secFile.is_open()) {
+		while (!secFile.eof()) {
+			string line;
+			unsigned int id;
+			char garbage;
+			string name, tw;
+			bool twoWay = true;
+
+			getline(secFile, line);
+
+			stringstream ss(line);
+
+			ss >> id >> garbage;
+
+			getline(ss, name, ';');
+			getline(ss, tw);
+
+			if(tw.find("True") == -1)
+				twoWay = false;
+			else
+				twoWay = true;
+
+			roads.push_back(new Road(id, name, twoWay));
+		}
+		secFile.close();
+	} else {
+		cout << "Unable to open file";
+		return 2;
+	}
+
+	//Debug printing.
+	for(unsigned int i = 0; i < intersections.size(); i++) {
+		cout << "Intersection id: " << intersections[i]->getId() << "\tLat: " << intersections[i]->getLatitude() << "\tLong: " << intersections[i]->getLongitude() << endl;
+	}
 
 	for(unsigned int i = 0; i < roads.size(); i++) {
-		cout << "Road id: " << roads[i]->getId() << "\tLat: " << roads[i]->getLatitude() << "\tLong: " << roads[i]->getLongitude() << "\tLength: " << roads[i]->getLength() << endl;
+		cout << "Road id: " << roads[i]->getId() << "\tName: " << roads[i]->getName() << "\tTwoWay: " << roads[i]->getTwoWay() << endl;
 	}
 
 	return 0;
@@ -46,7 +87,8 @@ int readTxtFiles() {
 
 int main() {
 	Graph<Intersection> map();
-	readTxtFiles();
+	if(readTxtFiles() > 0)
+		return 1;
 	return 0;
 }
 
