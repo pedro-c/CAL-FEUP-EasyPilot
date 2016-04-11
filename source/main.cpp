@@ -25,7 +25,7 @@ int readTxtFiles() {
 	vector<Intersection*> intersections;
 	vector<Road*> roads;
 
-	ifstream mainFile("assets\\roads.txt");
+	ifstream mainFile("roads.txt");
 	if (mainFile.is_open()) {
 		while (!mainFile.eof()) {
 			unsigned int id;
@@ -41,7 +41,7 @@ int readTxtFiles() {
 		return 1;
 	}
 
-	ifstream secFile("assets\\roads2.txt");
+	ifstream secFile("roads2.txt");
 	if (secFile.is_open()) {
 		while (!secFile.eof()) {
 			string line;
