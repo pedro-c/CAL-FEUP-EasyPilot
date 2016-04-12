@@ -4,11 +4,13 @@
  *  Created on: 10/04/2016
  *      Author: mariajoaomirapaulo
  */
-
+#include "Road.h"
 #include "Coordinates.h"
 #include <cmath>
 
+
 Coordinates::Coordinates(){
+	this->road=NULL;
 	this->id=0;
 	this->x=0;
 	this->y=0;
@@ -16,13 +18,18 @@ Coordinates::Coordinates(){
 	this->longitude=0;
 }
 
-Coordinates::Coordinates(unsigned int id,double latitude, double longitude, double x, double y) {
+Coordinates::Coordinates(Road* road, unsigned int id,double latitude, double longitude, double x, double y) {
+	this->road=road;
 	this->id=id;
 	this->latitude=latitude;
 	this->longitude=longitude;
 	this->x=x;
 	this->y=y;
 
+}
+
+Coordinates::~Coordinates(){
+	delete(road);
 }
 
 unsigned int Coordinates:: getId() const{

@@ -8,9 +8,13 @@
 #ifndef SRC_COORDINATES_H_
 #define SRC_COORDINATES_H_
 
+#include "Road.h"
+
 using namespace std;
 
+
 class Coordinates{
+	Road* road;
 	unsigned int id;
 	double latitude;
 	double longitude;
@@ -19,7 +23,8 @@ class Coordinates{
 
 public:
 	Coordinates();
-	Coordinates(unsigned int id,double latitude, double longitude, double x, double y);
+	Coordinates(Road* road, unsigned int id,double latitude, double longitude, double x, double y);
+	~Coordinates();
 	unsigned int getId() const;
 	double getX() const;
 	double getY() const;

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include "Coordinates.h"
 
 using namespace std;
 
@@ -10,6 +9,8 @@ class Road {
 	string name;
 	bool twoWay;
 public:
+	Road();
+	Road(unsigned int id, bool twoWay);
 	Road(unsigned int id, const string &name, bool twoWay);
 	void setName(const string &name);
 	const string& getName() const;

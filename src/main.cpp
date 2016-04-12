@@ -13,9 +13,9 @@
 #include <map>
 
 #include "Graph.h"
-
-#include "Coordinates.h"
 #include "Road.h"
+#include "Coordinates.h"
+
 
 using namespace std;
 
@@ -25,29 +25,11 @@ using namespace std;
 
 int readTxtFiles() {
 
-	vector<Road*> roads;
+
 	std::map<unsigned int,Coordinates> dots;
 	std::map<unsigned int,pair<Coordinates,Coordinates> > edges;
+	std::map<unsigned int,Road*> road;
 
-	ifstream mainFile("roads.txt");
-	if (mainFile.is_open()) {
-		while (!mainFile.eof()) {
-			unsigned int id;
-			double lat, lon, offX, offY;
-			char garbage;
-
-			mainFile >> id >> garbage >> lat >> garbage >> lon >> garbage >> offX >> garbage >> offY;
-
-			Coordinates c(id,lat,lon,offX,offY);
-			dots.insert(std::pair<unsigned int,Coordinates>(id,c));
-
-
-		}
-		mainFile.close();
-	} else {
-		cout << "Unable to open file";
-		return 1;
-	}
 
 	ifstream secFile("roads2.txt");
 	if (secFile.is_open()) {
@@ -67,18 +49,46 @@ int readTxtFiles() {
 			getline(ss, name, ';');
 			getline(ss, tw);
 
-			if(tw.find("True") == -1)
+			if (tw.find("True") == -1)
 				twoWay = false;
 			else
 				twoWay = true;
 
-			roads.push_back(new Road(id, name, twoWay));
+
+			road.insert(std::pair<unsigned int, Road*>(id,new Road(id, name, twoWay)));
+
 		}
 		secFile.close();
 	} else {
 		cout << "Unable to open file";
 		return 2;
 	}
+
+
+	ifstream mainFile("roads.txt");
+	if (mainFile.is_open()) {
+		while (!mainFile.eof()) {
+			unsigned int id;
+			double lat, lon, offX, offY;
+			char garbage;
+
+			mainFile >> id >> garbage >> lat >> garbage >> lon >> garbage >> offX >> garbage >> offY;
+
+			std::map<unsigned int,Road*>::iterator it;
+			it=road.find(id);
+
+			Coordinates c(it->second,id,lat,lon,offX,offY);
+			dots.insert(std::pair<unsigned int,Coordinates>(id,c));
+
+
+		}
+		mainFile.close();
+	} else {
+		cout << "Unable to open file";
+		return 1;
+	}
+
+
 
 
 	ifstream thirdFile("roads3.txt");
@@ -89,7 +99,7 @@ int readTxtFiles() {
 			unsigned int id2;
 			char garbage;
 
-			thirdFile >> id >> garbage >> id1 >> garbage >> id2;
+			thirdFile >> id >> garbage >> id1 >> garbage >> id2 >> garbage;
 
 			std::map<unsigned int,Coordinates>::iterator it1;
 			std::map<unsigned int,Coordinates>::iterator it2;
@@ -110,28 +120,31 @@ int readTxtFiles() {
 		return 1;
 	}
 
+
 	//Debug printing.
 
 	for(std::map<unsigned int,pair<Coordinates,Coordinates> >::iterator it=edges.begin();it!=edges.end();it++){
-		cout<<"idRua:"<<it->first<<" Ponto1:"<<it->second.first.getId()<<" Ponto2:"<<it->second.second.getId();
+		cout<<"idRua:"<<it->first<<" Ponto1:"<<it->second.first.getId()<<" Ponto2:"<<it->second.second.getId() << endl;
 	}
-
 
 	for(std::map<unsigned int,Coordinates>::iterator it=dots.begin();it!=dots.end();it++){
 		cout<<"id:"<<it->first<<" Latitude:"<<it->second.getLatitude()<<"Longitude:"<<it->second.getLongitude()<<endl;
 	}
 
-	for(unsigned int i = 0; i < roads.size(); i++) {
-		cout << "Road id: " << roads[i]->getId() << "\tName: " << roads[i]->getName() << "\tTwoWay: " << roads[i]->getTwoWay() << endl;
-	}
+
+
+	char c;
+	cin >> c;
 
 	return 0;
 }
 
 
 int main() {
-	if(readTxtFiles() > 0)
+	if(readTxtFiles() > 0) {
 		return 1;
+	}
+
 	return 0;
 }
 

@@ -4,6 +4,14 @@
 
 #include "Road.h"
 
+Road::Road(){
+	this->id=0;
+	this->name="";
+	this->twoWay=false;
+}
+
+Road::Road(unsigned int id, bool twoWay) :
+	id(id), name(""), twoWay(twoWay) { }
 
 Road::Road(unsigned int id, const string &name, bool twoWay) :
 	id(id), name(name), twoWay(twoWay) { }
