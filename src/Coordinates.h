@@ -11,15 +11,21 @@
 using namespace std;
 
 class Coordinates{
+	unsigned int id;
+	double latitude;
+	double longitude;
 	double x;
 	double y;
+
 public:
 	Coordinates();
-	Coordinates(double x, double y);
+	Coordinates(unsigned int id,double latitude, double longitude, double x, double y);
+	unsigned int getId() const;
 	double getX() const;
 	double getY() const;
-	double getDistance(Coordinates c1, Coordinates c2);
-
+	double getLatitude() const;
+	double getLongitude() const;
+	double getDistance(const Coordinates &c) const;
 };
 
 

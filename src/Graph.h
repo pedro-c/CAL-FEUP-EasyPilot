@@ -5,6 +5,9 @@
 #define GRAPH_H_
 
 #include <vector>
+#include "Vertex.h"
+#include "Edge.h"
+
 using namespace std;
 
 template<class T> class Edge;
@@ -16,104 +19,116 @@ class Graph {
 public:
 	vector<Vertex<T> *> getVertexSet() const;
 	int getNumVertex() const;
-	bool addVertex(const T &in) {
-		Vertex<T>* vertice = new Vertex<T>(in);
-
-		for (unsigned int i = 0; i < vertexSet.size(); i++) {
-			if (vertexSet[i]->info == vertice->info)
-				return false;
-		}
-
-		vertexSet.push_back(vertice);
-		return true;
-	}
-	bool addEdge(const T &sourc, const T &dest, double w) {
-
-		int indiceSourc = 0;
-		int indiceDest = 0;
-		bool existeSourc, existeDest;
-
-		for (unsigned int i = 0; i < vertexSet.size(); i++) {
-			if (vertexSet[i]->info == sourc) {
-				indiceSourc = i;
-				existeSourc = true;
-			}
-		}
-
-		for (unsigned int i = 0; i < vertexSet.size(); i++) {
-			if (vertexSet[i]->info == dest) {
-				indiceDest = i;
-				existeDest = true;
-			}
-		}
-
-		if (!existeDest)
-			return false;
-		if (!existeSourc)
-			return false;
-
-		Edge<T> aresta(vertexSet[indiceDest], w);
-
-		vertexSet[indiceSourc]->adj.push_back(aresta);
-
-		return true;
-
-	}
-	bool removeVertex(const T &in) {
-		Vertex<T>* vertice = new Vertex<T>(in);
-		int indice = -1;
-		for (unsigned int i = 0; i < vertexSet.size(); i++) {
-			if (vertexSet[i]->info == vertice->info)
-				indice = i;
-		}
-		if (indice == -1)
-			return false;
-
-		for (unsigned int i = 0; i < vertexSet.size(); i++)
-			for (unsigned int x = 0; i < vertexSet[i]->adj.size(); x++)
-				if (vertexSet[i]->adj[x].dest->info == vertice->info)
-					vertexSet[i]->adj.erase(vertexSet[i]->adj.begin() + x);
-
-		vertexSet.erase(vertexSet.begin() + indice);
-		return true;
-	}
-	bool removeEdge(const T &sourc, const T &dest) {
-		int indiceSourc = 0;
-		int indiceDest = 0;
-		bool hasSource, hasSource;
-
-		for (unsigned int i = 0; i < vertexSet.size(); i++) {
-			if (vertexSet[i]->info == sourc) {
-				indiceSourc = i;
-				hasSource = true;
-			}
-		}
-
-		for (unsigned int i=0; i< vertexSet[indiceSourc]->adj.size();i++)
-			if(vertexSet[indiceSourc]->adj[i].dest->info==dest){
-				indiceDest=i;
-				hasSource=true;
-			}
-
-
-		if (!hasSource)
-			return false;
-		if (!hasSource)
-			return false;
-
-		vertexSet[indiceSourc]->adj.erase(vertexSet[indiceSourc]->adj.begin()+indiceDest);
-		return true;
-
-	}
+	bool addVertex(const T &in);
+	bool addEdge(const T &sourc, const T &dest, Road* road);
+	bool removeVertex(const T &in);
+	bool removeEdge(const T &sourc, const T &dest);
 };
+
+template<class T>
+vector<Vertex<T> *> Graph<T>::getVertexSet() const {
+	return vertexSet;
+}
 
 template<class T>
 int Graph<T>::getNumVertex() const {
 	return vertexSet.size();
 }
+
 template<class T>
-vector<Vertex<T> *> Graph<T>::getVertexSet() const {
-	return vertexSet;
+bool Graph<T>::addVertex(const T &in) {
+	Vertex<T>* vertex = new Vertex<T>(in);
+
+	for (unsigned int i = 0; i < vertexSet.size(); i++) {
+		if (vertexSet[i]->info == vertex->info)
+			return false;
+	}
+
+	vertexSet.push_back(vertex);
+	return true;
+}
+
+template<class T>
+bool Graph<T>::addEdge(const T &sourc, const T &dest, Road* road) {
+	int sourceIndex = 0;
+	int destIndex = 0;
+	bool hasSource, hasDest;
+
+	for (unsigned int i = 0; i < vertexSet.size(); i++) {
+		if (vertexSet[i]->info == sourc) {
+			sourceIndex = i;
+			hasSource = true;
+		}
+	}
+
+	for (unsigned int i = 0; i < vertexSet.size(); i++) {
+		if (vertexSet[i]->info == dest) {
+			destIndex = i;
+			hasDest = true;
+		}
+	}
+
+	if (!hasDest)
+		return false;
+	if (!hasSource)
+		return false;
+
+	Edge<T> edge(vertexSet[destIndex], road);
+
+	vertexSet[sourceIndex]->adj.push_back(edge);
+
+	return true;
+}
+
+template<class T>
+bool Graph<T>::removeVertex(const T &in) {
+	Vertex<T>* vertex = new Vertex<T>(in);
+	int index = -1;
+
+	for (unsigned int i = 0; i < vertexSet.size(); i++) {
+		if (vertexSet[i]->info == vertex->info)
+			index = i;
+	}
+	if (index == -1)
+		return false;
+
+	for (unsigned int i = 0; i < vertexSet.size(); i++)
+		for (unsigned int x = 0; i < vertexSet[i]->adj.size(); x++)
+			if (vertexSet[i]->adj[x].dest->info == vertex->info)
+				vertexSet[i]->adj.erase(vertexSet[i]->adj.begin() + x);
+
+	vertexSet.erase(vertexSet.begin() + index);
+	return true;
+}
+
+template<class T>
+bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
+	int sourceIndex = 0;
+	int destIndex = 0;
+	bool hasSource, hasDest;
+
+	for (unsigned int i = 0; i < vertexSet.size(); i++) {
+		if (vertexSet[i]->info == sourc) {
+			sourceIndex = i;
+			hasSource = true;
+		}
+	}
+
+	for (unsigned int i = 0; i < vertexSet[sourceIndex]->adj.size(); i++) {
+		if (vertexSet[sourceIndex]->adj[i].dest->info == dest) {
+			destIndex = i;
+			hasDest = true;
+		}
+	}
+
+	if (!hasSource)
+		return false;
+	if (!hasDest)
+		return false;
+
+	vertexSet[sourceIndex]->adj.erase(
+			vertexSet[sourceIndex]->adj.begin() + destIndex);
+	return true;
 }
 
 #endif /* GRAPH_H_ */

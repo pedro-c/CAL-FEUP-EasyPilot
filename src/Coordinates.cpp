@@ -7,10 +7,27 @@
 
 #include "Coordinates.h"
 #include <cmath>
-#include <ctgmath>
 
-Coordinates::Coordinates(double x, double y) : x(x), y(y) {}
-Coordinates::Coordinates(){}
+Coordinates::Coordinates(){
+	this->id=0;
+	this->x=0;
+	this->y=0;
+	this->latitude=0;
+	this->longitude=0;
+}
+
+Coordinates::Coordinates(unsigned int id,double latitude, double longitude, double x, double y) {
+	this->id=id;
+	this->latitude=latitude;
+	this->longitude=longitude;
+	this->x=x;
+	this->y=y;
+
+}
+
+unsigned int Coordinates:: getId() const{
+	return id;
+}
 
 
 double Coordinates:: getX() const{
@@ -21,7 +38,15 @@ double Coordinates:: getY() const{
 	return y;
 }
 
-double Coordinates::getDistance(Coordinates c1, Coordinates c2){
-	return sqrt(pow((c2.x-c1.x),2)+ pow((c2.y-c1.y),2));
+double  Coordinates:: getLatitude() const{
+	return latitude;
+}
+
+double  Coordinates:: getLongitude() const{
+	return longitude;
+}
+
+double Coordinates::getDistance(const Coordinates &c) const {
+	return sqrt(pow((this->x-c.x),2)+ pow((this->y-c.y),2));
 }
 
