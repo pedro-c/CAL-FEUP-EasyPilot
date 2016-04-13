@@ -8,7 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <unistd.h>
+//#include <unistd.h>
 #include <sstream>
 #include <map>
 
@@ -77,7 +77,7 @@ int readTxtFiles() {
 			std::map<unsigned int,Road*>::iterator it;
 			it=road.find(id);
 
-			Coordinates c(it->second,id,lat,lon,offX,offY);
+			Coordinates c(0,id,lat,lon,offX,offY);
 			dots.insert(std::pair<unsigned int,Coordinates>(id,c));
 
 
@@ -108,6 +108,9 @@ int readTxtFiles() {
 			it2=dots.find(id2);
 			if(it1 != dots.end() && it2 != dots.end()){
 
+				it1->second.setRoad(road.find(id)->second);
+				it2->second.setRoad(road.find(id)->second);
+
 				pair<Coordinates,Coordinates> PairDots=make_pair(it1->second,it2->second);
 
 				edges.insert(std::pair<unsigned int, pair<Coordinates,Coordinates> >(id,PairDots));
@@ -128,8 +131,19 @@ int readTxtFiles() {
 	}
 
 	for(std::map<unsigned int,Coordinates>::iterator it=dots.begin();it!=dots.end();it++){
-		cout<<"id:"<<it->first<<" Latitude:"<<it->second.getLatitude()<<"Longitude:"<<it->second.getLongitude()<<endl;
+		cout << "idRua:" << it->second.getId() << " id:" << it->first << " Latitude:" << it->second.getLatitude() << "Longitude:" << it->second.getLongitude() << endl;
 	}
+
+	for (std::map<unsigned int, Road*>::iterator it = road.begin(); it != road.end(); it++) {
+		string s;
+		if (it->second->getTwoWay()) {
+			s = "TRUE";
+		}else{
+			s = "FALSE";
+		}
+		cout << "idRua: " << it->second->getId() <<  " Nome: " << it->second->getName() << "  twoWay: " << it->second->getTwoWay() << endl;
+	}
+
 
 
 

@@ -24,8 +24,9 @@ class Coordinates{
 public:
 	Coordinates();
 	Coordinates(Road* road, unsigned int id,double latitude, double longitude, double x, double y);
-	~Coordinates();
 	unsigned int getId() const;
+	void setRoad(Road* road);
+	unsigned int getRoadId() const;
 	double getX() const;
 	double getY() const;
 	double getLatitude() const;

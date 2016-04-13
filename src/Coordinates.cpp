@@ -10,7 +10,7 @@
 
 
 Coordinates::Coordinates(){
-	this->road=NULL;
+	this->road = 0;
 	this->id=0;
 	this->x=0;
 	this->y=0;
@@ -28,9 +28,14 @@ Coordinates::Coordinates(Road* road, unsigned int id,double latitude, double lon
 
 }
 
-Coordinates::~Coordinates(){
-	delete(road);
+void Coordinates::setRoad(Road* road) {
+	this->road = road;
 }
+
+unsigned int Coordinates::getRoadId() const{
+	return road->getId();
+}
+
 
 unsigned int Coordinates:: getId() const{
 	return id;
