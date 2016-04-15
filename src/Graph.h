@@ -23,6 +23,7 @@ public:
 	bool addEdge(const T &sourc, const T &dest, Road* road);
 	bool removeVertex(const T &in);
 	bool removeEdge(const T &sourc, const T &dest);
+	void printVertexes() const;
 };
 
 template<class T>
@@ -129,6 +130,13 @@ bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
 	vertexSet[sourceIndex]->adj.erase(
 			vertexSet[sourceIndex]->adj.begin() + destIndex);
 	return true;
+}
+
+template<class T>
+void Graph<T>::printVertexes() const {
+	for(unsigned int i = 0; i < vertexSet.size(); i++) {
+		cout << vertexSet[i]->info << " and have " << vertexSet[i]->adj.size() << " edges.\n";
+	}
 }
 
 #endif /* GRAPH_H_ */

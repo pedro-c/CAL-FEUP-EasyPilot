@@ -19,22 +19,17 @@ template<class T> class Edge;
 template<class T>
 class Edge {
 	Vertex<T> * dest;
+	Vertex<T> * src;
 	Road* road;
 public:
-	Edge(Vertex<T> *d, Road* road);
-	~Edge();
+	Edge(Vertex<T>* s, Vertex<T> *d, Road* road);
 	friend class Graph<T> ;
 	friend class Vertex<T> ;
 };
 
 
 template<class T>
-Edge<T>::Edge(Vertex<T> *d, Road* road) :
-		dest(d), road(road) { }
-
-template<class T>
-Edge<T>::~Edge() {
-	delete road;
-}
+Edge<T>::Edge(Vertex<T> *s, Vertex<T> *d, Road* road) :
+	src(s), dest(d), road(road) { }
 
 #endif /* SRC_EDGE_H_ */

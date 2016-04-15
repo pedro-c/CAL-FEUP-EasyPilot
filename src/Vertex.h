@@ -19,7 +19,7 @@ template<class T> class Graph;
 template<class T>
 class Vertex {
 	T info;
-	vector<Edge<T> > adj;
+	vector<Edge<T> *> adj;
 	bool visited;
 public:
 	Vertex(T in);

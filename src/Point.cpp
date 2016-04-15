@@ -8,6 +8,7 @@
 
 #include "Road.h"
 #include <cmath>
+#include <iostream>
 
 
 Point::Point(){
@@ -61,5 +62,14 @@ double  Point:: getLongitude() const{
 
 double Point::getDistance(const Point &c) const {
 	return sqrt(pow((this->x-c.x),2)+ pow((this->y-c.y),2));
+}
+
+bool Point::operator==(const Point &rhs) const {
+	return this->id == rhs.id;
+}
+
+ostream& operator<<(ostream& out, const Point &point) {
+	out << "ID: " << point.id << "\tLatitude: " << point.latitude << "\tLongitude: " << point.longitude;
+	return out;
 }
 

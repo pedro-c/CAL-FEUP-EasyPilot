@@ -32,8 +32,9 @@ public:
 	double getLatitude() const;
 	double getLongitude() const;
 	double getDistance(const Point &c) const;
+	bool operator==(const Point &rhs) const;
+	friend ostream &operator<<(ostream& out, const Point &point);
 };
-
 
 
 #endif /* SRC_POINT_H_ */
