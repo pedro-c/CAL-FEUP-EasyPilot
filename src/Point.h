@@ -5,15 +5,15 @@
  *      Author: mariajoaomirapaulo
  */
 
-#ifndef SRC_COORDINATES_H_
-#define SRC_COORDINATES_H_
+#ifndef SRC_POINT_H_
+#define SRC_POINT_H_
 
 #include "Road.h"
 
 using namespace std;
 
 
-class Coordinates{
+class Point{
 	Road* road;
 	unsigned int id;
 	double latitude;
@@ -22,8 +22,8 @@ class Coordinates{
 	double y;
 
 public:
-	Coordinates();
-	Coordinates(Road* road, unsigned int id,double latitude, double longitude, double x, double y);
+	Point();
+	Point(Road* road, unsigned int id,double latitude, double longitude, double x, double y);
 	unsigned int getId() const;
 	void setRoad(Road* road);
 	unsigned int getRoadId() const;
@@ -31,9 +31,9 @@ public:
 	double getY() const;
 	double getLatitude() const;
 	double getLongitude() const;
-	double getDistance(const Coordinates &c) const;
+	double getDistance(const Point &c) const;
 };
 
 
 
-#endif /* SRC_COORDINATES_H_ */
+#endif /* SRC_POINT_H_ */

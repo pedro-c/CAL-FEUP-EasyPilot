@@ -4,12 +4,13 @@
  *  Created on: 10/04/2016
  *      Author: mariajoaomirapaulo
  */
+#include "Point.h"
+
 #include "Road.h"
-#include "Coordinates.h"
 #include <cmath>
 
 
-Coordinates::Coordinates(){
+Point::Point(){
 	this->road = 0;
 	this->id=0;
 	this->x=0;
@@ -18,7 +19,7 @@ Coordinates::Coordinates(){
 	this->longitude=0;
 }
 
-Coordinates::Coordinates(Road* road, unsigned int id,double latitude, double longitude, double x, double y) {
+Point::Point(Road* road, unsigned int id,double latitude, double longitude, double x, double y) {
 	this->road=road;
 	this->id=id;
 	this->latitude=latitude;
@@ -28,37 +29,37 @@ Coordinates::Coordinates(Road* road, unsigned int id,double latitude, double lon
 
 }
 
-void Coordinates::setRoad(Road* road) {
+void Point::setRoad(Road* road) {
 	this->road = road;
 }
 
-unsigned int Coordinates::getRoadId() const{
+unsigned int Point::getRoadId() const{
 	return road->getId();
 }
 
 
-unsigned int Coordinates:: getId() const{
+unsigned int Point:: getId() const{
 	return id;
 }
 
 
-double Coordinates:: getX() const{
+double Point:: getX() const{
 	return x;
 }
 
-double Coordinates:: getY() const{
+double Point:: getY() const{
 	return y;
 }
 
-double  Coordinates:: getLatitude() const{
+double  Point:: getLatitude() const{
 	return latitude;
 }
 
-double  Coordinates:: getLongitude() const{
+double  Point:: getLongitude() const{
 	return longitude;
 }
 
-double Coordinates::getDistance(const Coordinates &c) const {
+double Point::getDistance(const Point &c) const {
 	return sqrt(pow((this->x-c.x),2)+ pow((this->y-c.y),2));
 }
 

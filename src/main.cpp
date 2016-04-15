@@ -8,13 +8,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-//#include <unistd.h>
 #include <sstream>
 #include <map>
 
 #include "Graph.h"
+#include "Point.h"
 #include "Road.h"
-#include "Coordinates.h"
 
 
 using namespace std;
@@ -23,12 +22,10 @@ using namespace std;
 //2.txt SUBROADS(Road id; Road name; IsTwoWay)
 //3.txt ROADS(Node id; Road id 1; Road id 2)
 
-int readTxtFiles() {
-
-
-	std::map<unsigned int,Coordinates> dots;
-	std::map<unsigned int,pair<Coordinates,Coordinates> > edges;
-	std::map<unsigned int,Road*> road;
+int readTxtFiles(Graph<Point> *mapGraph) {
+	map<unsigned int,Point> points;
+	map<unsigned int,pair<Point,Point> > edges;
+	map<unsigned int,Road*> road;
 
 
 	ifstream secFile("roads2.txt");
@@ -77,8 +74,8 @@ int readTxtFiles() {
 			std::map<unsigned int,Road*>::iterator it;
 			it=road.find(id);
 
-			Coordinates c(0,id,lat,lon,offX,offY);
-			dots.insert(std::pair<unsigned int,Coordinates>(id,c));
+			Point c(0,id,lat,lon,offX,offY);
+			points.insert(std::pair<unsigned int,Point>(id,c));
 
 
 		}
@@ -101,19 +98,19 @@ int readTxtFiles() {
 
 			thirdFile >> id >> garbage >> id1 >> garbage >> id2 >> garbage;
 
-			std::map<unsigned int,Coordinates>::iterator it1;
-			std::map<unsigned int,Coordinates>::iterator it2;
+			std::map<unsigned int,Point>::iterator it1;
+			std::map<unsigned int,Point>::iterator it2;
 
-			it1=dots.find(id1);
-			it2=dots.find(id2);
-			if(it1 != dots.end() && it2 != dots.end()){
+			it1=points.find(id1);
+			it2=points.find(id2);
+			if(it1 != points.end() && it2 != points.end()){
 
 				it1->second.setRoad(road.find(id)->second);
 				it2->second.setRoad(road.find(id)->second);
 
-				pair<Coordinates,Coordinates> PairDots=make_pair(it1->second,it2->second);
+				pair<Point,Point> PairDots=make_pair(it1->second,it2->second);
 
-				edges.insert(std::pair<unsigned int, pair<Coordinates,Coordinates> >(id,PairDots));
+				edges.insert(std::pair<unsigned int, pair<Point,Point> >(id,PairDots));
 
 			}
 		}
@@ -126,11 +123,11 @@ int readTxtFiles() {
 
 	//Debug printing.
 
-	for(std::map<unsigned int,pair<Coordinates,Coordinates> >::iterator it=edges.begin();it!=edges.end();it++){
+	for(std::map<unsigned int,pair<Point,Point> >::iterator it=edges.begin();it!=edges.end();it++){
 		cout<<"idRua:"<<it->first<<" Ponto1:"<<it->second.first.getId()<<" Ponto2:"<<it->second.second.getId() << endl;
 	}
 
-	for(std::map<unsigned int,Coordinates>::iterator it=dots.begin();it!=dots.end();it++){
+	for(std::map<unsigned int,Point>::iterator it=points.begin();it!=points.end();it++){
 		cout << "idRua:" << it->second.getId() << " id:" << it->first << " Latitude:" << it->second.getLatitude() << "Longitude:" << it->second.getLongitude() << endl;
 	}
 
@@ -144,18 +141,13 @@ int readTxtFiles() {
 		cout << "idRua: " << it->second->getId() <<  " Nome: " << it->second->getName() << "  twoWay: " << it->second->getTwoWay() << endl;
 	}
 
-
-
-
-	char c;
-	cin >> c;
-
 	return 0;
 }
 
 
 int main() {
-	if(readTxtFiles() > 0) {
+	Graph<Point> mapGraph = Graph<Point>();
+	if(readTxtFiles(&mapGraph) > 0) {
 		return 1;
 	}
 
