@@ -4,6 +4,12 @@
 *.o
 *.obj
 
+# Visual Studio Files
+*.VC*
+*.sln
+*.vcxproj*
+.vs/*
+
 # Precompiled Headers
 *.gch
 *.pch

@@ -23,9 +23,9 @@ using namespace std;
 //3.txt ROADS(Road id; PointID 1; PointID 2)
 
 int populateGraph(Graph<Point> &mapGraph) {
-	map<unsigned int,Point> points;
-	map<unsigned int,pair<Point,Point> > edges;
-	map<unsigned int,Road*> road;
+	map<unsigned int,Point*> points;
+	map<unsigned int,pair<Point*,Point*> > edges;
+	map<unsigned int,Road*> roads;
 
 	//2.txt SUBROADS(Road id; Road name; IsTwoWay)
 	ifstream secFile("roads2.txt");
@@ -52,7 +52,7 @@ int populateGraph(Graph<Point> &mapGraph) {
 				twoWay = true;
 
 
-			road.insert(std::pair<unsigned int, Road*>(id,new Road(id, name, twoWay)));
+			roads.insert(std::pair<unsigned int, Road*>(id,new Road(id, name, twoWay)));
 		}
 		secFile.close();
 	} else {
@@ -71,19 +71,17 @@ int populateGraph(Graph<Point> &mapGraph) {
 			mainFile >> id >> garbage >> lat >> garbage >> lon >> garbage >> offX >> garbage >> offY;
 
 			std::map<unsigned int,Road*>::iterator it;
-			it=road.find(id);
+			it=roads.find(id);
 
-			Point c(0,id,lat,lon,offX,offY);
-			points.insert(std::pair<unsigned int,Point>(id,c));
-			mapGraph.addVertex(c);
+			Point* c = new Point(0,id,lat,lon,offX,offY);
+			points.insert(std::pair<unsigned int,Point*>(id,c));
+			mapGraph.addVertex(*c);
 		}
 		mainFile.close();
 	} else {
 		cout << "Unable to open file roads.txt.\n";
 		return 1;
 	}
-
-	mapGraph.printVertexes();
 
 	//3.txt ROADS(Road id; PointID 1; PointID 2)
 	ifstream thirdFile("roads3.txt");
@@ -96,20 +94,15 @@ int populateGraph(Graph<Point> &mapGraph) {
 
 			thirdFile >> id >> garbage >> id1 >> garbage >> id2 >> garbage;
 
-			std::map<unsigned int,Point>::iterator it1;
-			std::map<unsigned int,Point>::iterator it2;
+			map<unsigned int,Point*>::iterator it1, it2;
 
 			it1=points.find(id1);
 			it2=points.find(id2);
 			if(it1 != points.end() && it2 != points.end()){
+				pair<Point*,Point*> PairDots=make_pair(it1->second,it2->second);
 
-				it1->second.setRoad(road.find(id)->second);
-				it2->second.setRoad(road.find(id)->second);
-
-				pair<Point,Point> PairDots=make_pair(it1->second,it2->second);
-
-				edges.insert(std::pair<unsigned int, pair<Point,Point> >(id,PairDots));
-
+				edges.insert(std::pair<unsigned int, pair<Point*,Point*> >(id,PairDots));
+				mapGraph.addEdge(*(it1->second), *(it2->second), roads.find(id)->second);
 			}
 		}
 		thirdFile.close();
@@ -117,27 +110,6 @@ int populateGraph(Graph<Point> &mapGraph) {
 		cout << "Unable to open file roads3.txt.\n";
 		return 3;
 	}
-
-
-	//Debug printing.
-
-	/*for(std::map<unsigned int,pair<Point,Point> >::iterator it=edges.begin();it!=edges.end();it++){
-		cout<<"idRua:"<<it->first<<" Ponto1:"<<it->second.first.getId()<<" Ponto2:"<<it->second.second.getId() << endl;
-	}
-
-	for(std::map<unsigned int,Point>::iterator it=points.begin();it!=points.end();it++){
-		cout << "idRua:" << it->second.getId() << " id:" << it->first << " Latitude:" << it->second.getLatitude() << "Longitude:" << it->second.getLongitude() << endl;
-	}
-
-	for (std::map<unsigned int, Road*>::iterator it = road.begin(); it != road.end(); it++) {
-		string s;
-		if (it->second->getTwoWay()) {
-			s = "TRUE";
-		}else{
-			s = "FALSE";
-		}
-		cout << "idRua: " << it->second->getId() <<  " Nome: " << it->second->getName() << "  twoWay: " << it->second->getTwoWay() << endl;
-	}*/
 
 	return 0;
 }
@@ -149,6 +121,9 @@ int main() {
 	if(populateGraph(mapGraph) > 0) {
 		return 1;
 	}
+
+	mapGraph.printVertexes();
+	mapGraph.getShortestPath(3092764691, 420865858);
 
 	return 0;
 }

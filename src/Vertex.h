@@ -18,20 +18,24 @@ template<class T> class Graph;
 
 template<class T>
 class Vertex {
-	T info;
+	T* info;
 	vector<Edge<T> *> adj;
 	bool visited;
 public:
-	Vertex(T in);
-	friend class Graph<T> ;
+	Vertex(T* in);
+	bool operator==(const Vertex<T> &rhs);
+	friend class Graph<T>;
 };
 
 template<class T>
-Vertex<T>::Vertex(T in) :
+Vertex<T>::Vertex(T* in) :
 		info(in), visited(false) {
 }
 
-
+template<class T>
+bool Vertex<T>::operator==(const Vertex<T> &rhs) {
+	return *(this->info) == *(rhs.info);
+}
 
 
 
