@@ -5,6 +5,7 @@
 #define GRAPH_H_
 
 #include <vector>
+#include "Point.h"
 #include "Vertex.h"
 #include "Edge.h"
 
@@ -21,8 +22,8 @@ public:
 	bool addVertex(const T &in);
 	bool addEdge(const T &sourc, const T &dest, Road* road);
 	void printVertexes() const;
-	vector<Point*>& getShortestPath(unsigned int startID, unsigned int goalID);
-	Vextex<T>* getVertex(unsigned int pointID);
+	vector<Point*> getShortestPath(unsigned int startID, unsigned int goalID);
+	Vertex<T>* getVertex(unsigned int pointID);
 };
 
 template<class T>
@@ -83,14 +84,18 @@ void Graph<T>::printVertexes() const {
 }
 
 template<class T>
-vector<Point*>& Graph<T>::getShortestPath(unsigned int startID, unsigned int goalID) {
-	vector<Point*> path();
+vector<Point*> Graph<T>::getShortestPath(unsigned int startID, unsigned int goalID) {
+	vector<Point*> path;
 	Vertex<T>* start = getVertex(startID);
 	Vertex<T>* goal = getVertex(goalID);
 
+	/*
 	if (start == NULL || goal == NULL)
-		return NULL;
-
+		throw NULL;
+	
+	*/
+	
+	
 	/*
 	https://en.wikipedia.org/wiki/A*_search_algorithm#Description
 	function A*(start, goal)
@@ -149,7 +154,8 @@ vector<Point*>& Graph<T>::getShortestPath(unsigned int startID, unsigned int goa
 	return path;
 }
 
-Vextex<T>* Graph<T>::getVertex(unsigned int pointID) {
+template<class T>
+Vertex<T>* Graph<T>::getVertex(unsigned int pointID) {
 	for (int i = 0; i < vertexSet.size(); i++) {
 		if (vertexSet[i]->info->getId() == pointID)
 			return vertexSet[i];
