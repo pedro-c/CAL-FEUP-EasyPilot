@@ -36,7 +36,7 @@ bool Graph<T>::addVertex(const T &in) {
 	Vertex<T>* vertex = new Vertex<T>(in);
 
 	for (unsigned int i = 0; i < vertexSet.size(); i++) {
-		if (*(vertexSet[i]->info) == *(vertex->info))
+		if (vertexSet[i]->info == vertex->info)
 			return false;
 	}
 
@@ -51,14 +51,14 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, Road* road) {
 	bool hasSource, hasDest;
 
 	for (unsigned int i = 0; i < vertexSet.size(); i++) {
-		if (*(vertexSet[i]->info) == sourc) {
+		if (vertexSet[i]->info == sourc) {
 			sourceIndex = i;
 			hasSource = true;
 		}
 	}
 
 	for (unsigned int i = 0; i < vertexSet.size(); i++) {
-		if (*(vertexSet[i]->info) == dest) {
+		if (vertexSet[i]->info == dest) {
 			destIndex = i;
 			hasDest = true;
 		}
@@ -156,8 +156,8 @@ vector<Point*> Graph<T>::getShortestPath(unsigned int startID, unsigned int goal
 
 template<class T>
 Vertex<T>* Graph<T>::getVertex(unsigned int pointID) {
-	for (int i = 0; i < vertexSet.size(); i++) {
-		if (vertexSet[i]->info->getId() == pointID)
+	for (unsigned int i = 0; i < vertexSet.size(); i++) {
+		if (vertexSet[i]->info.getId() == pointID)
 			return vertexSet[i];
 	}
 
