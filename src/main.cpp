@@ -22,7 +22,7 @@ using namespace std;
 //2.txt SUBROADS(Road id; Road name; IsTwoWay)
 //3.txt ROADS(Road id; PointID 1; PointID 2)
 
-int populateGraph(Graph<Point> &mapGraph) {
+int populateGraph(Graph &mapGraph) {
 	map<unsigned int,Point*> points;
 	map<unsigned int,pair<Point*,Point*> > edges;
 	map<unsigned int,Road*> roads;
@@ -124,14 +124,14 @@ int populateGraph(Graph<Point> &mapGraph) {
 
 
 int main() {
-	Graph<Point> mapGraph = Graph<Point>();
+	Graph mapGraph = Graph();
 
 	if(populateGraph(mapGraph) > 0) {
 		return 1;
 	}
 
 	//mapGraph.printVertexes();
-	mapGraph.getShortestPath(3092764691, 420865858);
+	//mapGraph.getShortestPath(3092764691, 420865858);
 
 	return 0;
 }

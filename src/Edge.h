@@ -12,25 +12,19 @@
 #include "Graph.h"
 #include "Road.h"
 
-using namespace std;
 
-template<class T> class Edge;
+class Vertex;
+class Graph;
 
-template<class T>
 class Edge {
-	Vertex<T> * dest;
-	Vertex<T> * src;
+	Vertex* src;
+	Vertex* dest;
 	Road* road;
 	double distance;
 public:
-	Edge(Vertex<T>* s, Vertex<T> *d, Road* road,double distance);
-	friend class Graph<T> ;
-	friend class Vertex<T> ;
+	Edge(Vertex* s, Vertex *d, Road* road, double distance);
+	friend class Graph;
+	friend class Vertex;
 };
-
-
-template<class T>
-Edge<T>::Edge(Vertex<T> *s, Vertex<T> *d, Road* road,double distance) :
-	src(s), dest(d), road(road), distance(distance){}
 
 #endif /* SRC_EDGE_H_ */
