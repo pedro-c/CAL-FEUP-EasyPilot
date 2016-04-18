@@ -18,10 +18,14 @@ class Vertex {
 	friend class Graph;
 	Point info;
 	vector<Edge*> adj;
+	double minDistance;
 	bool visited;
+	Vertex* previous;
 public:
 	Vertex(const Point &in);
 	bool operator==(const Vertex &rhs);
+	bool operator<(const Vertex &rhs);
+	bool operator!=(const Vertex &rhs);
 };
 
 #endif /* SRC_VERTEX_H_ */

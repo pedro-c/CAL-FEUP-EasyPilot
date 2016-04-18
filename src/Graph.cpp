@@ -7,8 +7,11 @@
 
 #include "Graph.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
+
+Graph::Graph() : lastComputedPath(NULL) { }
 
 int Graph::getNumVertex() const {
 	return vertexSet.size();
@@ -64,8 +67,50 @@ void Graph::printVertexes() const {
 	}
 }
 
-vector<Vertex> Graph::getShortestPath(Vertex* start, Vertex* goal) {
+list<Vertex*> Graph::getShortestPath(Vertex& start, Vertex& goal) {
+	if(start != *lastComputedPath)
+		computePaths(start);
 
+	list<Vertex*> path = list<Vertex*>();
+	Vertex* v = &goal;
+
+	while(v->previous != NULL) {
+		path.push_front(v->previous);
+	}
+
+	return path;
+}
+
+void Graph::computePaths(Vertex &start) {
+	lastComputedPath = &start;
+
+	start.previous = NULL;
+	start.minDistance = 0;
+	vector<Vertex> vertexVector = vector<Vertex>();
+	vertexVector.push_back(start);
+	sort(vertexVector.begin(), vertexVector.end());
+
+	while(!vertexVector.empty()) {
+		Vertex* u = &vertexVector.front();
+		vertexVector.erase(vertexVector.begin());
+
+		for(unsigned int i = 0; i < u->adj.size(); i++) {
+			Edge* e = u->adj[i];
+			Vertex* v = e->dest;
+			double distance = e->distance;
+			double distanceThroughU = u->minDistance + distance;
+
+			if(distanceThroughU < v->minDistance) {
+				vertexVector.erase(find(vertexVector.begin(), vertexVector.end(), *v));
+
+				v->minDistance = distanceThroughU;
+				v->previous = u;
+
+				vertexVector.push_back(*v);
+				sort(vertexVector.begin(), vertexVector.end());
+			}
+		}
+	}
 }
 
 Vertex* Graph::getVertex(unsigned int pointID) {
