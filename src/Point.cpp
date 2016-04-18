@@ -61,7 +61,17 @@ double  Point:: getLongitude() const{
 }
 
 double Point::getDistance(const Point &c) const {
-	return sqrt(pow((this->x-c.x),2)+ pow((this->y-c.y),2));
+	double radlat1 = PI * this->getLatitude()/180;
+	double radlat2 = PI * c.getLatitude()/180;
+	double theta = this->longitude-c.getLongitude();
+	double radtheta =PI * theta/180;
+	double dist = sin(radlat1) * sin(radlat2) +cos(radlat1) * cos(radlat2) * cos(radtheta);
+	dist = acos(dist);
+	dist = dist * 180/PI;
+	dist = dist * 60 * 1.1515;
+	dist = dist * 1.609344;
+
+	return dist;
 }
 
 bool Point::operator==(const Point &rhs) const {
@@ -69,7 +79,7 @@ bool Point::operator==(const Point &rhs) const {
 }
 
 ostream& operator<<(ostream& out, const Point &point) {
-	out << "ID: " << point.id << "\tLatitude: " << point.latitude << "\tLongitude: " << point.longitude;
+	out << "ID: " << point.getId() << "\tLatitude: " << point.getLatitude() << "\tLongitude: " << point.getLongitude();
 	return out;
 }
 

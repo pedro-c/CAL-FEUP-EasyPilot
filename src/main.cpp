@@ -102,7 +102,15 @@ int populateGraph(Graph<Point> &mapGraph) {
 				pair<Point*,Point*> PairDots=make_pair(it1->second,it2->second);
 
 				edges.insert(std::pair<unsigned int, pair<Point*,Point*> >(id,PairDots));
-				mapGraph.addEdge(*(it1->second), *(it2->second), roads.find(id)->second);
+				double distance=(it1->second)->getDistance(*(it2->second));
+				cout << "Ponto 1 - latitude: " << (it1->second)->getLatitude();
+				cout << " Ponto 1 - longitude: " << (it1->second)->getLongitude() << endl;
+				cout << "Ponto 2 - latitude: " << (it2->second)->getLatitude();
+				cout << "Ponto 1 - longitude: " << (it2->second)->getLongitude() << endl;
+				cout << "Distance: " << distance << endl;
+
+
+				mapGraph.addEdge(*(it1->second), *(it2->second), roads.find(id)->second,distance);
 			}
 		}
 		thirdFile.close();
@@ -122,7 +130,7 @@ int main() {
 		return 1;
 	}
 
-	mapGraph.printVertexes();
+	//mapGraph.printVertexes();
 	mapGraph.getShortestPath(3092764691, 420865858);
 
 	return 0;

@@ -9,6 +9,8 @@
 #define SRC_POINT_H_
 
 #include "Road.h"
+#include <math.h>
+#define PI 3.14159265359
 
 using namespace std;
 

@@ -20,9 +20,9 @@ class Graph {
 public:
 	int getNumVertex() const;
 	bool addVertex(const T &in);
-	bool addEdge(const T &sourc, const T &dest, Road* road);
+	bool addEdge(const T &sourc, const T &dest, Road* road, double distance);
 	void printVertexes() const;
-	vector<Point*> getShortestPath(unsigned int startID, unsigned int goalID);
+	vector<Vertex<T>> getShortestPath(Vertex<T>* destiny);
 	Vertex<T>* getVertex(unsigned int pointID);
 };
 
@@ -45,7 +45,7 @@ bool Graph<T>::addVertex(const T &in) {
 }
 
 template<class T>
-bool Graph<T>::addEdge(const T &sourc, const T &dest, Road* road) {
+bool Graph<T>::addEdge(const T &sourc, const T &dest, Road* road,double distance) {
 	int sourceIndex = 0;
 	int destIndex = 0;
 	bool hasSource, hasDest;
@@ -67,7 +67,7 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, Road* road) {
 	if (!hasDest || !hasSource)
 		return false;
 
-	Edge<T>* edge = new Edge<T>(vertexSet[sourceIndex], vertexSet[destIndex], road);
+	Edge<T>* edge = new Edge<T>(vertexSet[sourceIndex], vertexSet[destIndex], road, distance);
 	vertexSet[sourceIndex]->adj.push_back(edge);
 
 	if (road->getTwoWay())
@@ -80,22 +80,14 @@ template<class T>
 void Graph<T>::printVertexes() const {
 	for (unsigned int i = 0; i < vertexSet.size(); i++) {
 		cout << vertexSet[i]->info << " and have " << vertexSet[i]->adj.size() << " edges.\n";
+
 	}
 }
 
 template<class T>
-vector<Point*> Graph<T>::getShortestPath(unsigned int startID, unsigned int goalID) {
-	vector<Point*> path;
-	Vertex<T>* start = getVertex(startID);
-	Vertex<T>* goal = getVertex(goalID);
+vector<Vertex<T>> Graph<T>::getShortestPath(Vertex<T>* destiny ) {
 
-	/*
-	if (start == NULL || goal == NULL)
-		throw NULL;
-	
-	*/
-	
-	
+
 	/*
 	https://en.wikipedia.org/wiki/A*_search_algorithm#Description
 	function A*(start, goal)
@@ -151,7 +143,8 @@ vector<Point*> Graph<T>::getShortestPath(unsigned int startID, unsigned int goal
 								return total_path*/
 
 
-	return path;
+
+
 }
 
 template<class T>

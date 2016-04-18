@@ -21,15 +21,16 @@ class Edge {
 	Vertex<T> * dest;
 	Vertex<T> * src;
 	Road* road;
+	double distance;
 public:
-	Edge(Vertex<T>* s, Vertex<T> *d, Road* road);
+	Edge(Vertex<T>* s, Vertex<T> *d, Road* road,double distance);
 	friend class Graph<T> ;
 	friend class Vertex<T> ;
 };
 
 
 template<class T>
-Edge<T>::Edge(Vertex<T> *s, Vertex<T> *d, Road* road) :
-	src(s), dest(d), road(road) { }
+Edge<T>::Edge(Vertex<T> *s, Vertex<T> *d, Road* road,double distance) :
+	src(s), dest(d), road(road), distance(distance){}
 
 #endif /* SRC_EDGE_H_ */
