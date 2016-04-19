@@ -22,10 +22,11 @@ public:
 	bool addVertex(const Point &in);
 	bool addEdge(const Point &sourc, const Point &dest, Road* road, double distance);
 	void printVertexes() const;
-	list<Vertex*> getShortestPath(Vertex &start, Vertex &goal);
+	list<Vertex*> getShortestPath(Vertex *start, Vertex *goal);
 	Vertex* getVertex(unsigned int pointID);
 private:
-	void computePaths(Vertex& start);
+	void computePaths(Vertex* start);
+	void resetVertexes();
 };
 
 #endif /* GRAPH_H_ */

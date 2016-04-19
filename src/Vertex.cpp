@@ -6,10 +6,10 @@
  */
 
 #include "Vertex.h"
-#include <limits>
+#include <cfloat>
 
 Vertex::Vertex(const Point &in) :
-		info(in), visited(false), minDistance(numeric_limits<double>::infinity()), previous(NULL) {
+		info(in), visited(false), minDistance(DBL_MAX), previous(NULL) {
 }
 
 bool Vertex::operator==(const Vertex &rhs) {
@@ -18,6 +18,15 @@ bool Vertex::operator==(const Vertex &rhs) {
 
 bool Vertex::operator<(const Vertex &rhs) {
 	return this->minDistance < rhs.minDistance;
+}
+
+Road* Vertex::getRoadBetween(Vertex* dest) const {
+	for(unsigned int i = 0; i < adj.size(); i++) {
+		if(adj[i]->dest == dest)
+			return adj[i]->road;
+	}
+
+	return NULL;
 }
 
 bool Vertex::operator!=(const Vertex &rhs) {

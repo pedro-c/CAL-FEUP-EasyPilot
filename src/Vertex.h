@@ -23,6 +23,7 @@ class Vertex {
 	Vertex* previous;
 public:
 	Vertex(const Point &in);
+	Road* getRoadBetween(Vertex* dest) const;
 	bool operator==(const Vertex &rhs);
 	bool operator<(const Vertex &rhs);
 	bool operator!=(const Vertex &rhs);

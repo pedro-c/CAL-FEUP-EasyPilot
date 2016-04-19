@@ -12,7 +12,6 @@
 
 
 Point::Point(){
-	this->road = 0;
 	this->id=0;
 	this->x=0;
 	this->y=0;
@@ -20,8 +19,7 @@ Point::Point(){
 	this->longitude=0;
 }
 
-Point::Point(Road* road, unsigned int id,double latitude, double longitude, double x, double y) {
-	this->road=road;
+Point::Point(unsigned int id,double latitude, double longitude, double x, double y) {
 	this->id=id;
 	this->latitude=latitude;
 	this->longitude=longitude;
@@ -30,19 +28,9 @@ Point::Point(Road* road, unsigned int id,double latitude, double longitude, doub
 
 }
 
-void Point::setRoad(Road* road) {
-	this->road = road;
-}
-
-unsigned int Point::getRoadId() const{
-	return road->getId();
-}
-
-
 unsigned int Point:: getId() const{
 	return id;
 }
-
 
 double Point:: getX() const{
 	return x;

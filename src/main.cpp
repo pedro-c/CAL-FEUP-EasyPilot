@@ -70,10 +70,7 @@ int populateGraph(Graph &mapGraph) {
 
 			mainFile >> id >> garbage >> lat >> garbage >> lon >> garbage >> offX >> garbage >> offY;
 
-			std::map<unsigned int,Road*>::iterator it;
-			it=roads.find(id);
-
-			Point* c = new Point(0,id,lat,lon,offX,offY);
+			Point* c = new Point(id,lat,lon,offX,offY);
 			points.insert(std::pair<unsigned int,Point*>(id,c));
 			mapGraph.addVertex(*c);
 		}
@@ -103,12 +100,11 @@ int populateGraph(Graph &mapGraph) {
 
 				edges.insert(std::pair<unsigned int, pair<Point*,Point*> >(id,PairDots));
 				double distance=(it1->second)->getDistance(*(it2->second));
-				cout << "Ponto 1 - latitude: " << (it1->second)->getLatitude();
+				/*cout << "Ponto 1 - latitude: " << (it1->second)->getLatitude();
 				cout << " Ponto 1 - longitude: " << (it1->second)->getLongitude() << endl;
 				cout << "Ponto 2 - latitude: " << (it2->second)->getLatitude();
 				cout << "Ponto 1 - longitude: " << (it2->second)->getLongitude() << endl;
-				cout << "Distance: " << distance << endl;
-
+				cout << "Distance: " << distance << endl;*/
 
 				mapGraph.addEdge(*(it1->second), *(it2->second), roads.find(id)->second,distance);
 			}
@@ -131,7 +127,16 @@ int main() {
 	}
 
 	//mapGraph.printVertexes();
-	//mapGraph.getShortestPath(3092764691, 420865858);
+	list<Vertex*> path = mapGraph.getShortestPath(mapGraph.getVertex(26015916), mapGraph.getVertex(26015892));
+
+	for(list<Vertex*>::iterator it = path.begin(); it != path.end(); it++) {
+		list<Vertex*>::iterator nextIt = it;
+		nextIt++;
+		Road* roadBetween = (*it)->getRoadBetween(*nextIt);
+		string roadName = (roadBetween == NULL) ? "" : roadBetween->getName();
+
+		cout << "Rua: " << roadName << endl;
+	}
 
 	return 0;
 }

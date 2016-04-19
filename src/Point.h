@@ -16,7 +16,6 @@ using namespace std;
 
 
 class Point{
-	Road* road;
 	unsigned int id;
 	double latitude;
 	double longitude;
@@ -25,10 +24,8 @@ class Point{
 
 public:
 	Point();
-	Point(Road* road, unsigned int id,double latitude, double longitude, double x, double y);
+	Point(unsigned int id,double latitude, double longitude, double x, double y);
 	unsigned int getId() const;
-	void setRoad(Road* road);
-	unsigned int getRoadId() const;
 	double getX() const;
 	double getY() const;
 	double getLatitude() const;
