@@ -122,11 +122,14 @@ int populateGraph(Graph &mapGraph) {
 int main() {
 	Graph mapGraph = Graph();
 
+	cout << "Loading..." << endl;
+
 	if(populateGraph(mapGraph) > 0) {
 		return 1;
 	}
 
 	//mapGraph.printVertexes();
+	/*
 	list<Vertex*> path = mapGraph.getShortestPath(mapGraph.getVertex(26015916), mapGraph.getVertex(26015892));
 
 	for(list<Vertex*>::iterator it = path.begin(); it != path.end(); it++) {
@@ -137,7 +140,16 @@ int main() {
 
 		cout << "Rua: " << roadName << endl;
 	}
+	*/
+	//mapGraph.printVertexes();
 
+
+	
+	mapGraph.getShortestDistance(mapGraph.getVertex(435240919), mapGraph.getVertex(128591046));
+	mapGraph.getShortestPathNames(mapGraph.getVertex(435240919));
+
+	int a;
+	cin >> a;
 	return 0;
 }
 

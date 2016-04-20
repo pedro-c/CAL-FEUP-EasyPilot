@@ -18,7 +18,7 @@ class Vertex {
 	friend class Graph;
 	Point info;
 	vector<Edge*> adj;
-	double minDistance;
+	double minDistance = 100000;
 	bool visited;
 	Vertex* previous;
 public:

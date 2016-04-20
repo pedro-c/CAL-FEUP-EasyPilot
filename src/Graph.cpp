@@ -6,6 +6,7 @@
  */
 
 #include "Graph.h"
+#include "Vertex.h"
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -124,8 +125,79 @@ void Graph::computePaths(Vertex *start) {
 	}
 }*/
 
-void Graph::computePaths(Vertex *start) { }
 
+
+
+
+void Graph::computePaths(Vertex* source)
+{
+	source->minDistance = 0;
+	
+	vector<Vertex*>vertexQueue;
+	vertexQueue.push_back(source);
+	
+	while (!vertexQueue.empty()) {
+		Vertex* u = vertexQueue[0];
+		vertexQueue.erase(vertexQueue.begin());
+
+		//Visit each edge exiting u
+		for (Edge* e : u->adj) {
+
+			Vertex * v = e->dest;
+			double distance = e->distance;
+			double distanceThroughU = u->minDistance + distance;
+
+			if (distanceThroughU < v->minDistance) {
+
+				cout << distanceThroughU << endl;
+				v->minDistance = distanceThroughU;
+				v->previous = u;
+				vertexQueue.push_back(v);
+				
+			}
+
+		}
+
+	}
+
+	cout << vertexQueue.size();
+	
+}
+
+vector<Vertex*> Graph::getShortestPath(Vertex* target) {
+
+
+	vector<Vertex*> path;
+	for (Vertex *vertex = target; vertex != nullptr; vertex = vertex->previous) {
+		path.push_back(vertex);
+	}
+
+	reverse(path.begin(), path.end());
+	return path;
+
+}
+
+void Graph::getShortestDistance(Vertex* target, Vertex* source) {
+	
+	computePaths(source);
+
+	cout << "Min distance from: " << source->info.getId() << " to " << target->info.getId() << " is: " << target->minDistance << endl;
+	
+}
+
+void Graph::getShortestPathNames(Vertex* target) {
+
+	vector<Vertex*> path = getShortestPath(target);
+	cout << path.size();
+	for (unsigned int i = 0; i < path.size() - 1 ; i++) {
+		cout << "Rua " << i << ": " << path[i]->adj[0]->road->getName()<< endl;
+	}
+
+}
+
+
+
+/*
 list<Vertex*> Graph::getShortestPath(Vertex* start, Vertex* goal) {
 	map<unsigned int, double> min_distance = map<unsigned int, double>();
 	int source, target;
@@ -161,6 +233,7 @@ list<Vertex*> Graph::getShortestPath(Vertex* start, Vertex* goal) {
 	}
 	return DBL_MAX;
 }
+*/
 
 Vertex* Graph::getVertex(unsigned int pointID) {
 	for (unsigned int i = 0; i < vertexSet.size(); i++) {
@@ -171,9 +244,11 @@ Vertex* Graph::getVertex(unsigned int pointID) {
 	return NULL;
 }
 
+/*
 void Graph::resetVertexes() {
 	for(unsigned int i = 0; i < vertexSet.size(); i++) {
 		vertexSet[i].visited = false;
 	}
 }
 
+*/
