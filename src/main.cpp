@@ -106,7 +106,13 @@ int populateGraph(Graph &mapGraph) {
 				cout << "Ponto 1 - longitude: " << (it2->second)->getLongitude() << endl;
 				cout << "Distance: " << distance << endl;*/
 
-				mapGraph.addEdge(*(it1->second), *(it2->second), roads.find(id)->second,distance);
+				Road* road = roads.find(id)->second;
+
+				mapGraph.addEdge(*(it1->second), *(it2->second), road, distance);
+
+				if(road->getTwoWay()) {
+					mapGraph.addEdge(*(it2->second), *(it1->second), road, distance);
+				}
 			}
 		}
 		thirdFile.close();
@@ -140,13 +146,28 @@ int main() {
 
 		cout << "Rua: " << roadName << endl;
 	}
-	*/
+	 */
 	//mapGraph.printVertexes();
 
 
-	
-	mapGraph.getShortestDistance(mapGraph.getVertex(435240919), mapGraph.getVertex(128591046));
-	mapGraph.getShortestPathNames(mapGraph.getVertex(435240919));
+
+	//mapGraph.getShortestDistance(mapGraph.getVertex(435240919), mapGraph.getVertex(128591046));
+	Vertex* start = mapGraph.getVertex(3139458282);
+	Vertex* destination = mapGraph.getVertex(287458435);
+	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
+
+	cout << "Path from : " << start->getRoadName() << " to " << destination->getRoadName() << endl;
+
+	for(list<Vertex*>::iterator it = path.begin(); it != path.end(); it++) {
+		list<Vertex*>::iterator nextIt = it;
+		nextIt++;
+		Road* roadBetween = (*it)->getRoadBetween(*nextIt);
+		string roadName = (roadBetween == NULL) ? "" : roadBetween->getName();
+
+		cout << "Rua: " << roadName << endl;
+	}
+
+	cout << "Distance: " << mapGraph.getVertex(287458435)->getDistance() << endl;
 
 	int a;
 	cin >> a;

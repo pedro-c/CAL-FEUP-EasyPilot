@@ -29,6 +29,19 @@ Road* Vertex::getRoadBetween(Vertex* dest) const {
 	return NULL;
 }
 
+double Vertex::getDistance() const {
+	return minDistance;
+}
+
+string Vertex::getRoadName() const {
+	if(adj.size() == 1)
+		return adj[0]->road->getName();
+	else if (adj.size() > 1) {
+		return "Interseção entre " + adj[0]->road->getName() + " e " + adj[1]->road->getName();
+	}
+	else return "";
+}
+
 bool Vertex::operator!=(const Vertex &rhs) {
 	return !(*this == rhs);
 }

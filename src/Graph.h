@@ -22,14 +22,12 @@ public:
 	bool addVertex(const Point &in);
 	bool addEdge(const Point &sourc, const Point &dest, Road* road, double distance);
 	void printVertexes() const;
-	vector<Vertex*> getShortestPath(Vertex *goal);
-	void Graph::computePaths(Vertex *start);
+	list<Vertex*> getShortestPath(Vertex* source, Vertex *goal);
 	Vertex* getVertex(unsigned int pointID);
-	void getShortestDistance(Vertex* target, Vertex* source);
-	void getShortestPathNames(Vertex* target);
 private:
-	//void computePaths(Vertex* start);
-	//void resetVertexes();
+	void computePaths(Vertex* source);
+	void resetVertexes();
+	void resetPathfinding();
 };
 
 #endif /* GRAPH_H_ */

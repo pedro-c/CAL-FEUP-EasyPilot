@@ -12,6 +12,7 @@
 #include <vector>
 #include <map>
 #include <cfloat>
+#include <queue>
 
 using namespace std;
 
@@ -71,169 +72,56 @@ void Graph::printVertexes() const {
 	}
 }
 
-/*list<Vertex*> Graph::getShortestPath(Vertex* start, Vertex* goal) {
-	if(lastComputedPath == NULL || start != lastComputedPath)
-		computePaths(start);
+list<Vertex*> Graph::getShortestPath(Vertex* source, Vertex* goal) {
+	if(lastComputedPath == NULL || source != lastComputedPath)
+		computePaths(source);
 
 	list<Vertex*> path = list<Vertex*>();
 	Vertex* v = goal;
 
 	while(v->previous != NULL) {
 		path.push_front(v->previous);
+		v = v->previous;
 	}
 
 	return path;
 }
 
-void Graph::computePaths(Vertex *start) {
-	resetVertexes();
+void Graph::computePaths(Vertex* source) {
+	resetPathfinding();
 
-	lastComputedPath = start;
-
-	start->previous = NULL;
-	start->minDistance = 0;
-	vector<Vertex*> vertexVector = vector<Vertex*>();
-	vertexVector.push_back(start);
-	sort(vertexVector.begin(), vertexVector.end());
-
-	while(!vertexVector.empty()) {
-		Vertex* u = vertexVector.front();
-		u->visited = true;
-		vertexVector.erase(vertexVector.begin());
-
-		for(unsigned int i = 0; i < u->adj.size(); i++) {
-			Edge* e = u->adj[i];
-			Vertex* v = e->dest;
-			if(v->visited)
-				continue;
-			double distance = e->distance;
-			double distanceThroughU = u->minDistance + distance;
-
-			if(distanceThroughU < v->minDistance) {
-				vector<Vertex*>::iterator vertexIndex;
-				if((vertexIndex = find(vertexVector.begin(), vertexVector.end(), v)) != vertexVector.end()) {
-					vertexVector.erase(vertexIndex);
-
-					v->minDistance = distanceThroughU;
-					v->previous = u;
-
-					vertexVector.push_back(v);
-					sort(vertexVector.begin(), vertexVector.end());
-				}
-			}
-		}
-	}
-}*/
-
-
-
-
-
-void Graph::computePaths(Vertex* source)
-{
+	unsigned int maxIts = 0;
 	source->minDistance = 0;
-	
-	vector<Vertex*>vertexQueue;
-	vertexQueue.push_back(source);
-	
-	while (!vertexQueue.empty()) {
-		Vertex* u = vertexQueue[0];
-		vertexQueue.erase(vertexQueue.begin());
 
-		//Visit each edge exiting u
-		for (Edge* e : u->adj) {
+	priority_queue<Vertex*> toBeProcessed = priority_queue<Vertex*>();
+	toBeProcessed.push(source);
 
-			Vertex * v = e->dest;
-			double distance = e->distance;
-			double distanceThroughU = u->minDistance + distance;
+	while(!toBeProcessed.empty()) {
+		Vertex* beingProcessed = toBeProcessed.top();
+		toBeProcessed.pop();
+		beingProcessed->visited = true;
 
-			if (distanceThroughU < v->minDistance) {
+		if(maxIts > 10000) {
+			cout << "Too much iterations.\n";
+			exit(1);
+		}
 
-				cout << distanceThroughU << endl;
-				v->minDistance = distanceThroughU;
-				v->previous = u;
-				vertexQueue.push_back(v);
-				
+		for(unsigned int i = 0; i < beingProcessed->adj.size(); i++) {
+			Vertex* dest = beingProcessed->adj[i]->dest;
+			double distanceToDest = beingProcessed->adj[i]->distance;
+
+			if(distanceToDest < dest->minDistance) {
+				dest->minDistance = distanceToDest;
+				dest->previous = beingProcessed;
 			}
 
-		}
-
-	}
-
-	cout << vertexQueue.size();
-	
-}
-
-vector<Vertex*> Graph::getShortestPath(Vertex* target) {
-
-
-	vector<Vertex*> path;
-	for (Vertex *vertex = target; vertex != nullptr; vertex = vertex->previous) {
-		path.push_back(vertex);
-	}
-
-	reverse(path.begin(), path.end());
-	return path;
-
-}
-
-void Graph::getShortestDistance(Vertex* target, Vertex* source) {
-	
-	computePaths(source);
-
-	cout << "Min distance from: " << source->info.getId() << " to " << target->info.getId() << " is: " << target->minDistance << endl;
-	
-}
-
-void Graph::getShortestPathNames(Vertex* target) {
-
-	vector<Vertex*> path = getShortestPath(target);
-	cout << path.size();
-	for (unsigned int i = 0; i < path.size() - 1 ; i++) {
-		cout << "Rua " << i << ": " << path[i]->adj[0]->road->getName()<< endl;
-	}
-
-}
-
-
-
-/*
-list<Vertex*> Graph::getShortestPath(Vertex* start, Vertex* goal) {
-	map<unsigned int, double> min_distance = map<unsigned int, double>();
-	int source, target;
-
-	for(unsigned int i = 0; i < vertexSet.size(); i++) {
-		min_distance.insert(vertexSet[i].info.getId(), DBL_MAX);
-	}
-
-	for(unsigned int i = 0; i < vertexSet.size(); i++) {
-		if(*goal == vertexSet[i]) {
-			target = i;
-		}
-	}
-
-	min_distance[ source ] = 0;
-	set< pair<int, Vertex*> > active_vertices;
-	active_vertices.insert( {0, start} );
-
-	while (!active_vertices.empty()) {
-		Vertex* where = active_vertices.begin()->second;
-		if (where == goal)
-			return min_distance[where];
-		active_vertices.erase( active_vertices.begin() );
-		for (unsigned int i = 0; i < where->adj.size(); i++) {
-			Edge* edge = where->adj[i];
-			if (min_distance[edge->dest] > min_distance[where] + edge->distance) {
-				active_vertices.erase( { min_distance[edge->dest], edge->dest } );
-				min_distance[edge->dest] = min_distance[where] + edge->distance;
-				active_vertices.insert( { min_distance[edge->dest], edge->dest } );
+			if(!dest->visited) {
+				toBeProcessed.push(dest);
 			}
 		}
 
 	}
-	return DBL_MAX;
 }
-*/
 
 Vertex* Graph::getVertex(unsigned int pointID) {
 	for (unsigned int i = 0; i < vertexSet.size(); i++) {
@@ -244,11 +132,17 @@ Vertex* Graph::getVertex(unsigned int pointID) {
 	return NULL;
 }
 
-/*
 void Graph::resetVertexes() {
 	for(unsigned int i = 0; i < vertexSet.size(); i++) {
 		vertexSet[i].visited = false;
 	}
 }
 
-*/
+void Graph::resetPathfinding() {
+	resetVertexes();
+
+	for(unsigned int i = 0; i < vertexSet.size(); i++) {
+		vertexSet[i].minDistance = DBL_MAX;
+		vertexSet[i].previous = NULL;
+	}
+}

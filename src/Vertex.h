@@ -18,12 +18,14 @@ class Vertex {
 	friend class Graph;
 	Point info;
 	vector<Edge*> adj;
-	double minDistance = 100000;
 	bool visited;
+	double minDistance;
 	Vertex* previous;
 public:
 	Vertex(const Point &in);
 	Road* getRoadBetween(Vertex* dest) const;
+	double getDistance() const;
+	string getRoadName() const;
 	bool operator==(const Vertex &rhs);
 	bool operator<(const Vertex &rhs);
 	bool operator!=(const Vertex &rhs);
