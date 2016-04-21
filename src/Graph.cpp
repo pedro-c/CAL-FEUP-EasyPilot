@@ -79,7 +79,7 @@ list<Vertex*> Graph::getShortestPath(Vertex* source, Vertex* goal) {
 	list<Vertex*> path = list<Vertex*>();
 	Vertex* v = goal;
 
-	while(v->previous != NULL) {
+	while(v->previous != NULL && v->previous!=v->previous->previous) {
 		path.push_front(v->previous);
 		v = v->previous;
 	}
@@ -93,31 +93,38 @@ void Graph::computePaths(Vertex* source) {
 	unsigned int maxIts = 0;
 	source->minDistance = 0;
 
-	priority_queue<Vertex*> toBeProcessed = priority_queue<Vertex*>();
-	toBeProcessed.push(source);
+	vector<Vertex*> toBeProcessed = vector<Vertex*>();
+	toBeProcessed.push_back(source);
 
 	while(!toBeProcessed.empty()) {
-		Vertex* beingProcessed = toBeProcessed.top();
-		toBeProcessed.pop();
-		beingProcessed->visited = true;
-
-		if(maxIts > 10000) {
-			cout << "Too much iterations.\n";
-			exit(1);
-		}
+		Vertex* beingProcessed = toBeProcessed[0];
+		toBeProcessed.erase(toBeProcessed.begin());
+		//beingProcessed->visited = true;
 
 		for(unsigned int i = 0; i < beingProcessed->adj.size(); i++) {
 			Vertex* dest = beingProcessed->adj[i]->dest;
-			double distanceToDest = beingProcessed->adj[i]->distance;
+			double distanceToDest = dest->minDistance + beingProcessed->adj[i]->distance;
 
 			if(distanceToDest < dest->minDistance) {
+				int x = 0;
+				bool flag = false;
+				for (unsigned int i = 0; i < toBeProcessed.size(); i++) {
+					if (toBeProcessed[i] == dest) {
+						x = i;
+						flag = true;
+						break;
+					}
+				}
+				if (flag) {
+					toBeProcessed.erase(toBeProcessed.begin() + x);
+				}
+				
 				dest->minDistance = distanceToDest;
 				dest->previous = beingProcessed;
+				toBeProcessed.push_back(dest);
 			}
 
-			if(!dest->visited) {
-				toBeProcessed.push(dest);
-			}
+			
 		}
 
 	}
@@ -145,4 +152,16 @@ void Graph::resetPathfinding() {
 		vertexSet[i].minDistance = DBL_MAX;
 		vertexSet[i].previous = NULL;
 	}
+}
+
+Vertex* Graph::findVertexByRoadName(string roadName) {
+
+	for (unsigned int i = 0; i < vertexSet.size(); i++) {
+		
+		if (vertexSet[i].getRoadName() == roadName)
+			return &vertexSet[i];
+
+	}
+	return NULL;
+
 }
