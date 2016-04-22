@@ -90,7 +90,6 @@ list<Vertex*> Graph::getShortestPath(Vertex* source, Vertex* goal) {
 void Graph::computePaths(Vertex* source) {
 	resetPathfinding();
 
-	unsigned int maxIts = 0;
 	source->minDistance = 0;
 
 	priority_queue<Vertex*> toBeProcessed = priority_queue<Vertex*>();
@@ -101,14 +100,9 @@ void Graph::computePaths(Vertex* source) {
 		toBeProcessed.pop();
 		beingProcessed->visited = true;
 
-		if(maxIts > 10000) {
-			cout << "Too much iterations.\n";
-			exit(1);
-		}
-
 		for(unsigned int i = 0; i < beingProcessed->adj.size(); i++) {
 			Vertex* dest = beingProcessed->adj[i]->dest;
-			double distanceToDest = beingProcessed->adj[i]->distance;
+			double distanceToDest = beingProcessed->adj[i]->distance + beingProcessed->minDistance;
 
 			if(distanceToDest < dest->minDistance) {
 				dest->minDistance = distanceToDest;
@@ -139,9 +133,8 @@ void Graph::resetVertexes() {
 }
 
 void Graph::resetPathfinding() {
-	resetVertexes();
-
 	for(unsigned int i = 0; i < vertexSet.size(); i++) {
+		vertexSet[i].visited = false;
 		vertexSet[i].minDistance = DBL_MAX;
 		vertexSet[i].previous = NULL;
 	}

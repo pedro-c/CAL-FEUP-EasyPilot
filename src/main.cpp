@@ -134,40 +134,28 @@ int main() {
 		return 1;
 	}
 
-	//mapGraph.printVertexes();
-	/*
-	list<Vertex*> path = mapGraph.getShortestPath(mapGraph.getVertex(26015916), mapGraph.getVertex(26015892));
-
-	for(list<Vertex*>::iterator it = path.begin(); it != path.end(); it++) {
-		list<Vertex*>::iterator nextIt = it;
-		nextIt++;
-		Road* roadBetween = (*it)->getRoadBetween(*nextIt);
-		string roadName = (roadBetween == NULL) ? "" : roadBetween->getName();
-
-		cout << "Rua: " << roadName << endl;
-	}
-	 */
-	//mapGraph.printVertexes();
-
-
-
-	//mapGraph.getShortestDistance(mapGraph.getVertex(435240919), mapGraph.getVertex(128591046));
-	Vertex* start = mapGraph.getVertex(3139458282);
-	Vertex* destination = mapGraph.getVertex(287458435);
+	Vertex* start = mapGraph.getVertex(26015916);
+	Vertex* destination = mapGraph.getVertex(26015892);
 	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
 
 	cout << "Path from : " << start->getRoadName() << " to " << destination->getRoadName() << endl;
 
-	for(list<Vertex*>::iterator it = path.begin(); it != path.end(); it++) {
-		list<Vertex*>::iterator nextIt = it;
-		nextIt++;
-		Road* roadBetween = (*it)->getRoadBetween(*nextIt);
-		string roadName = (roadBetween == NULL) ? "" : roadBetween->getName();
+	if (path.size() > 1) {
+		list<Vertex*>::iterator nextIt = path.begin()++;
+		for (list<Vertex*>::iterator it = path.begin(); nextIt != path.end(); it++) {
 
-		cout << "Rua: " << roadName << endl;
+			Road* roadBetween = (*it)->getRoadBetween(*nextIt);
+			string roadName = (roadBetween == NULL) ? "" : roadBetween->getName();
+
+			cout << "Rua: " << roadName << endl;
+			nextIt++;
+		}
 	}
 
-	cout << "Distance: " << mapGraph.getVertex(287458435)->getDistance() << endl;
+	if (destination->getDistance() == DBL_MAX)
+		cout << "Path not found.\n";
+	else 
+		cout << "Distance: " << destination->getDistance() << endl;
 
 	int a;
 	cin >> a;
