@@ -10,10 +10,12 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include <cfloat>
 
 #include "Graph.h"
 #include "Point.h"
 #include "Road.h"
+#include "graphviewer.h"
 
 
 using namespace std;
@@ -22,7 +24,7 @@ using namespace std;
 //2.txt SUBROADS(Road id; Road name; IsTwoWay)
 //3.txt ROADS(Road id; PointID 1; PointID 2)
 
-int populateGraph(Graph &mapGraph) {
+int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 	map<unsigned int,Point*> points;
 	map<unsigned int,pair<Point*,Point*> > edges;
 	map<unsigned int,Road*> roads;
@@ -73,6 +75,9 @@ int populateGraph(Graph &mapGraph) {
 			Point* c = new Point(id,lat,lon,offX,offY);
 			points.insert(std::pair<unsigned int,Point*>(id,c));
 			mapGraph.addVertex(*c);
+			cout<<"Ola";
+			gv->addNode(id);
+			gv->rearrange();
 		}
 		mainFile.close();
 	} else {
@@ -127,12 +132,15 @@ int populateGraph(Graph &mapGraph) {
 
 int main() {
 	Graph mapGraph = Graph();
+	GraphViewer *gv = new GraphViewer(1000, 1000, true);
+
 
 	cout << "Loading..." << endl;
 
-	if(populateGraph(mapGraph) > 0) {
+	if(populateGraph(mapGraph,gv) > 0) {
 		return 1;
 	}
+	gv->createWindow(1000, 1000);
 
 	Vertex* start = mapGraph.getVertex(26015916);
 	Vertex* destination = mapGraph.getVertex(26015892);
@@ -151,6 +159,19 @@ int main() {
 			nextIt++;
 		}
 	}
+
+
+	/*	gv->createWindow(600, 600);
+		gv->defineVertexColor("blue");
+		gv->defineEdgeColor("black");
+		gv->addNode(0);
+		gv->rearrange();
+		gv->addNode(1);
+		gv->rearrange();
+		//gv->addEdge(01,0,1,EdgeType::UNDIRECTED);
+		gv->addEdge(01,0,1, EdgeType::DIRECTED);
+		gv->addNode(2);
+		*/
 
 	if (destination->getDistance() == DBL_MAX)
 		cout << "Path not found.\n";
