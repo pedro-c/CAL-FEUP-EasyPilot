@@ -25,7 +25,7 @@ class Point{
 public:
 	Point();
 	Point(unsigned int id,double latitude, double longitude, double x, double y);
-	unsigned int getId() const;
+	unsigned long getId() const;
 	double getX() const;
 	double getY() const;
 	double getLatitude() const;

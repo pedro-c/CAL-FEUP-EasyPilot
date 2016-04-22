@@ -22,6 +22,10 @@ int Graph::getNumVertex() const {
 	return vertexSet.size();
 }
 
+vector<Vertex> Graph::getVertexSet() const {
+	return vertexSet;
+}
+
 bool Graph::addVertex(const Point &in) {
 
 	for (unsigned int i = 0; i < vertexSet.size(); i++) {

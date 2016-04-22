@@ -22,6 +22,7 @@ class Vertex {
 	double minDistance;
 	Vertex* previous;
 public:
+	Point getInfo() const;
 	Vertex(const Point &in);
 	Road* getRoadBetween(Vertex* dest) const;
 	double getDistance() const;

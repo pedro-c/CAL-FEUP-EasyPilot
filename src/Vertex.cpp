@@ -12,6 +12,10 @@ Vertex::Vertex(const Point &in) :
 		info(in), visited(false), minDistance(DBL_MAX), previous(NULL) {
 }
 
+Point Vertex::getInfo() const{
+	return info;
+}
+
 bool Vertex::operator==(const Vertex &rhs) {
 	return this->info == rhs.info;
 }

@@ -11,26 +11,48 @@
 #include <sstream>
 #include <map>
 #include <cfloat>
+#include <cstdio>
+#include <math.h>
+#include <cstdlib>
+
 
 #include "Graph.h"
 #include "Point.h"
 #include "Road.h"
 #include "graphviewer.h"
 
-
+float maxLat=0;
+float minLat=0;
+float maxLon=0;
+float minLon=0;
+bool flag = true;
 using namespace std;
 
 //1.txt NODES(PointID; Latitude; Longitude; projectionCoordinates.X, projectionCoordinates.Y)
 //2.txt SUBROADS(Road id; Road name; IsTwoWay)
 //3.txt ROADS(Road id; PointID 1; PointID 2)
 
+int convertLongitudeToX(GraphViewer *gv, float x){
+
+	cout << "X= " << ((x-minLon)*gv->getheight())/(maxLon-minLon) << endl;
+	return ((x-minLon)*gv->getheight())/(maxLon-minLon);
+
+}
+
+int convertLatitudeToY(GraphViewer *gv, float y){
+	cout << "Y= " << ((y-minLat)*gv->getwidth())/(maxLat-minLat) << endl;
+	return ((y-minLat)*gv->getwidth())/(maxLat-minLat);
+}
+
 int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 	map<unsigned int,Point*> points;
 	map<unsigned int,pair<Point*,Point*> > edges;
 	map<unsigned int,Road*> roads;
+	int edgeID=0;
+
 
 	//2.txt SUBROADS(Road id; Road name; IsTwoWay)
-	ifstream secFile("roads2.txt");
+	ifstream secFile("map2.txt");
 	if (secFile.is_open()) {
 		while (!secFile.eof()) {
 			string line;
@@ -63,7 +85,7 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 	}
 
 	//1.txt NODES(PointID; Latitude; Longitude; projectionCoordinates.X, projectionCoordinates.Y)
-	ifstream mainFile("roads.txt");
+	ifstream mainFile("map1.txt");
 	if (mainFile.is_open()) {
 		while (!mainFile.eof()) {
 			unsigned int id;
@@ -72,12 +94,34 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 
 			mainFile >> id >> garbage >> lat >> garbage >> lon >> garbage >> offX >> garbage >> offY;
 
+
+			if(flag){
+				maxLon=lon;
+				minLon=lon;
+				maxLat=lat;
+				minLat=lat;
+				flag=false;
+			}
+
+			if(lon > maxLon){
+				maxLon=lon;
+			}
+			if(lon < minLon){
+				minLon=lon;
+			}
+			if(lat > maxLat){
+				maxLat=lat;
+			}
+			if(lat < minLat){
+				minLat=lat;
+			}
+
 			Point* c = new Point(id,lat,lon,offX,offY);
 			points.insert(std::pair<unsigned int,Point*>(id,c));
 			mapGraph.addVertex(*c);
-			cout<<"Ola";
-			gv->addNode(id);
-			gv->rearrange();
+
+
+
 		}
 		mainFile.close();
 	} else {
@@ -86,7 +130,7 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 	}
 
 	//3.txt ROADS(Road id; PointID 1; PointID 2)
-	ifstream thirdFile("roads3.txt");
+	ifstream thirdFile("map3.txt");
 	if (thirdFile.is_open()) {
 		while (!thirdFile.eof()) {
 			unsigned int id;
@@ -117,7 +161,11 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 
 				if(road->getTwoWay()) {
 					mapGraph.addEdge(*(it2->second), *(it1->second), road, distance);
+					gv->addEdge(edgeID, id1, id2,EdgeType::UNDIRECTED);
+					edgeID++;
+
 				}
+
 			}
 		}
 		thirdFile.close();
@@ -129,10 +177,23 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 	return 0;
 }
 
+int populateGraphViewer(Graph mapGraph, GraphViewer *gv){
+
+	for(unsigned int i=0; i< mapGraph.getVertexSet().size();i++ ){
+		gv->addNode(mapGraph.getVertexSet()[i].getInfo().getId(),convertLatitudeToY(gv,mapGraph.getVertexSet()[i].getInfo().getLatitude()),convertLongitudeToX(gv,mapGraph.getVertexSet()[i].getInfo().getLongitude()));
+
+	}
+
+
+	return 0;
+
+}
+
 
 int main() {
 	Graph mapGraph = Graph();
-	GraphViewer *gv = new GraphViewer(1000, 1000, true);
+	GraphViewer *gv = new GraphViewer(600, 600, true);
+	gv->createWindow(600, 600);
 
 
 	cout << "Loading..." << endl;
@@ -140,7 +201,9 @@ int main() {
 	if(populateGraph(mapGraph,gv) > 0) {
 		return 1;
 	}
-	gv->createWindow(1000, 1000);
+
+	populateGraphViewer(mapGraph, gv);
+
 
 	Vertex* start = mapGraph.getVertex(26015916);
 	Vertex* destination = mapGraph.getVertex(26015892);

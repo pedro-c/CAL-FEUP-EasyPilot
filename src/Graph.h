@@ -19,6 +19,7 @@ class Graph {
 public:
 	Graph();
 	int getNumVertex() const;
+	vector<Vertex> getVertexSet() const;
 	bool addVertex(const Point &in);
 	bool addEdge(const Point &sourc, const Point &dest, Road* road, double distance);
 	void printVertexes() const;

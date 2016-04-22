@@ -28,7 +28,7 @@ Point::Point(unsigned int id,double latitude, double longitude, double x, double
 
 }
 
-unsigned int Point:: getId() const{
+unsigned long Point:: getId() const{
 	return id;
 }
 
