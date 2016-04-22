@@ -24,7 +24,6 @@ public:
 	void printVertexes() const;
 	list<Vertex*> getShortestPath(Vertex* source, Vertex *goal);
 	Vertex* getVertex(unsigned int pointID);
-	Vertex* findVertexByRoadName(string roadName);
 private:
 	void computePaths(Vertex* source);
 	void resetVertexes();
