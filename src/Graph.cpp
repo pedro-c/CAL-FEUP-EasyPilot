@@ -130,6 +130,18 @@ Vertex* Graph::getVertex(unsigned int pointID) {
 	return NULL;
 }
 
+Vertex* Graph::getVertexFromRoadName(string roadName){
+
+	for(unsigned int i = 0; i < vertexSet.size(); i++){
+		for(unsigned int j = 0; j < vertexSet[i].getAdj().size();j++){
+			if(vertexSet[i].getAdj()[j]->getRoad()->getName()==roadName)
+				return &vertexSet[i];
+		}
+	}
+
+	return NULL;
+}
+
 void Graph::resetVertexes() {
 	for(unsigned int i = 0; i < vertexSet.size(); i++) {
 		vertexSet[i].visited = false;

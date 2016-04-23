@@ -2,7 +2,7 @@
  * main.cpp
  *
  *  Created on: 08/04/2016
- *      Author: Bernardo Belchior | Maria Joï¿½o Mira Paulo | Pedro Costa
+ *      Author: Bernardo Belchior | Maria Joao Mira Paulo | Pedro Costa
  */
 
 #include <iostream>
@@ -204,6 +204,7 @@ int populateGraphViewer(Graph mapGraph, GraphViewer *gv){
 int main() {
 	Graph mapGraph = Graph();
 	GraphViewer *gv = new GraphViewer(1000, 600, false);
+	string startRoad,destinationRoad;
 	gv->createWindow(1000, 800);
 	gv->defineVertexColor("blue");
 	gv->defineEdgeColor("black");
@@ -218,12 +219,33 @@ int main() {
 
 	gv->rearrange();
 
+
 	// Adicionar função para atraves do nome da rua obter ID do vertice
+	cout<<"Enter your Starting Point (Road Name): ";
+	getline(cin,startRoad);
+	cout <<"Enter your destiny (Road Name): ";
+	getline(cin,destinationRoad);
 
-	Vertex* start = mapGraph.getVertex(1223751606);
-	Vertex* destination = mapGraph.getVertex(420776939);
+/*
+	Vertex* start = mapGraph.getVertex(2073943321);
+	Vertex* destination = mapGraph.getVertex(445439340);
 	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
+*/
 
+	Vertex* start = mapGraph.getVertexFromRoadName(startRoad);
+
+	cout<<"UTILIZADOR: "<<startRoad<<endl;
+	if(start==NULL){
+		cout<<"NULLL"<<endl;
+	}
+	cout<<"CHEGUEI"<<endl;
+	cout<<"PC: "<<start->getInfo().getId();
+	cout<<"PC: "<<start->getRoadName();
+	if(start->getRoadName()==startRoad){
+		cout<<"SIIIIIIM"<<endl;
+	}
+	Vertex* destination = mapGraph.getVertexFromRoadName(destinationRoad);
+	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
 
 	cout << "Path from : " << start->getRoadName() << " to " << destination->getRoadName() << endl;
 
