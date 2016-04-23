@@ -23,3 +23,14 @@ Vertex* Edge::getDest() const{
 string Edge::getRoadName() const{
 	return road->getName();
 }
+
+Road* Edge::getRoad() const{
+	return road;
+}
+
+void Edge::setEdgeID(int id){
+	edgeID=id;
+}
+int Edge::getEdgeID() const{
+	return edgeID;
+}

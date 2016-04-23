@@ -34,13 +34,13 @@ using namespace std;
 
 int convertLongitudeToX(GraphViewer *gv, float x){
 
-	cout << "X= " << floor(((x-minLon)*gv->getheight())/(maxLon-minLon)) << endl;
+	//cout << "X= " << floor(((x-minLon)*gv->getheight())/(maxLon-minLon)) << endl;
 	return floor(((x-minLon)*gv->getheight())/(maxLon-minLon));
 
 }
 
 int convertLatitudeToY(GraphViewer *gv, float y){
-	cout << "Y= " << floor(((y-minLat)*gv->getwidth())/(maxLat-minLat)) << endl;
+	//cout << "Y= " << floor(((y-minLat)*gv->getwidth())/(maxLat-minLat)) << endl;
 	return floor(((y-minLat)*gv->getwidth())/(maxLat-minLat));
 }
 
@@ -187,8 +187,9 @@ int populateGraphViewer(Graph mapGraph, GraphViewer *gv){
 			int destID=mapGraph.getVertexSet()[i].getAdj()[x]->getDest()->getInfo().getId();
 			int srcID=mapGraph.getVertexSet()[i].getAdj()[x]->getSrc()->getInfo().getId();
 
-			gv->addEdge(edgeID, srcID, destID,EdgeType::UNDIRECTED);
 
+			gv->addEdge(edgeID, srcID, destID,EdgeType::UNDIRECTED);
+			mapGraph.getVertexSet()[i].getAdj()[x]->setEdgeID(edgeID);
 			//adiciona o nome das ruas
 			//gv->setEdgeLabel(edgeID, mapGraph.getVertexSet()[i].getAdj()[x]->getRoadName());
 			edgeID++;
@@ -217,6 +218,8 @@ int main() {
 
 	gv->rearrange();
 
+	// Adicionar função para atraves do nome da rua obter ID do vertice
+
 	Vertex* start = mapGraph.getVertex(1223751606);
 	Vertex* destination = mapGraph.getVertex(420776939);
 	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
@@ -233,14 +236,38 @@ int main() {
 
 			gv->setVertexColor((*it)->getInfo().getId(), "GREEN");
 
-			//gv->setEdgeLabel((*it)->, roadBetween->getName());
-			//gv->setEdgeColor(roadBetween->getId(), "GREEN");
+			for(unsigned int x=0; x< (*it)->getAdj().size(); x++){
+				list<Vertex*>::iterator it2 = path.begin()++;
+				for (list<Vertex*>::iterator it1 = path.begin(); it2 != path.end(); it1++){
+					if((*it)->getAdj()[x]->getDest() == (*it1)){
+						list<Vertex*>::iterator it4 = path.begin()++;
+						for (list<Vertex*>::iterator it3 = path.begin(); it4 != path.end(); it3++){
+							if((*it)->getAdj()[x]->getSrc() == (*it3)){
+								gv->setEdgeThickness((*it)->getAdj()[x]->getEdgeID(), 5);
+								gv->setEdgeLabel((*it)->getAdj()[x]->getEdgeID(), roadBetween->getName());
+								gv->setEdgeColor((*it)->getAdj()[x]->getEdgeID(), "GREEN");
+							}
+							it4++;
+						}
+					}
+					it2++;
+				}
+			}
 
 
 			cout << "Rua: " << roadName << endl;
 			nextIt++;
+			for(unsigned int i = 0; i < destination->getAdj().size(); i++){
+				if(destination->getAdj()[i]->getDest() == (*it)){
+					gv->setEdgeThickness(destination->getAdj()[i]->getEdgeID(), 5);
+					gv->setEdgeLabel(destination->getAdj()[i]->getEdgeID(), roadBetween->getName());
+					gv->setEdgeColor(destination->getAdj()[i]->getEdgeID(), "GREEN");
+				}
+			}
 		}
 	}
+
+
 
 	gv->setVertexColor(start->getInfo().getId(), "YELLOW");
 	gv->setVertexColor(destination->getInfo().getId(), "MAGENTA");

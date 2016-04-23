@@ -24,6 +24,8 @@ bool Road::getTwoWay() const {
 	return twoWay;
 }
 
+
+
 void Road::setName(const string &name) {
 	this->name = name;
 }
