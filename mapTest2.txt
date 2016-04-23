@@ -8,13 +8,13 @@
 35078501;Rua do Doutor Manuel Laranjeira;True
 35105021;Rua do Guadiana;True
 37141984;Rua do Vouga;True
-37141983;Rua Actor Eduardo Brazão;True
+37141983;Rua Actor Eduardo Brazao;True
 37141982;;True
 37141985;Rua do Corgo;True
 37937534;;True
 37937531;;True
 37937532;;True
-37937530;Rua do Tâmega;True
+37937530;Rua do Tamega;True
 35997812;Rua do Mondego;True
 35145521;Rua Doutor Roberto Frias;True
 106334858;;True
