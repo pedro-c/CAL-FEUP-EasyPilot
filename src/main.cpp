@@ -226,26 +226,35 @@ int main() {
 	cout <<"Enter your destiny (Road Name): ";
 	getline(cin,destinationRoad);
 
-/*
-	Vertex* start = mapGraph.getVertex(2073943321);
-	Vertex* destination = mapGraph.getVertex(445439340);
-	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
-*/
 
-	Vertex* start = mapGraph.getVertexFromRoadName(startRoad);
-
-	cout<<"UTILIZADOR: "<<startRoad<<endl;
-	if(start==NULL){
-		cout<<"NULLL"<<endl;
-	}
-	cout<<"CHEGUEI"<<endl;
-	cout<<"PC: "<<start->getInfo().getId();
-	cout<<"PC: "<<start->getRoadName();
-	if(start->getRoadName()==startRoad){
-		cout<<"SIIIIIIM"<<endl;
-	}
-	Vertex* destination = mapGraph.getVertexFromRoadName(destinationRoad);
+	/*
+	Vertex* start = mapGraph.getVertex(420777495);
+	Vertex* destination = mapGraph.getVertex(3554953622);
 	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
+	 */
+
+	Vertex* start;
+	start = mapGraph.getVertexFromRoadName(startRoad);
+
+	while(start==NULL){
+		cout<<"Invalid Starting Point. Enter a valid Road Name:"<<endl;
+		getline(cin,startRoad);
+		start = mapGraph.getVertexFromRoadName(startRoad);
+	}
+
+	Vertex* destination;
+	destination = mapGraph.getVertexFromRoadName(destinationRoad);
+
+	while(destination==NULL){
+		cout<<"Invalid Destination Point. Enter a valid Road Name:"<<endl;
+		getline(cin,destinationRoad);
+		destination = mapGraph.getVertexFromRoadName(destinationRoad);
+	}
+
+	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
+
+
+	cout<<"Calculating your journey..."<<endl;
 
 	cout << "Path from : " << start->getRoadName() << " to " << destination->getRoadName() << endl;
 
