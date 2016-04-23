@@ -20,3 +20,6 @@ Vertex* Edge::getDest() const{
 	return dest;
 }
 
+string Edge::getRoadName() const{
+	return road->getName();
+}

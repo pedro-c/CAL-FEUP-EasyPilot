@@ -25,6 +25,7 @@ public:
 	Edge(Vertex* s, Vertex *d, Road* road, double distance);
 	Vertex* getSrc() const;
 	Vertex* getDest() const;
+	string getRoadName() const;
 	friend class Graph;
 	friend class Vertex;
 };

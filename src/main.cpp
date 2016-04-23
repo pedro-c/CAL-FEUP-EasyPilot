@@ -52,7 +52,7 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 
 
 	//2.txt SUBROADS(Road id; Road name; IsTwoWay)
-	ifstream secFile("roads2.txt");
+	ifstream secFile("mapTest2.txt");
 	if (secFile.is_open()) {
 		while (!secFile.eof()) {
 			string line;
@@ -85,7 +85,7 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 	}
 
 	//1.txt NODES(PointID; Latitude; Longitude; projectionCoordinates.X, projectionCoordinates.Y)
-	ifstream mainFile("roads1.txt");
+	ifstream mainFile("mapTest1.txt");
 	if (mainFile.is_open()) {
 		while (!mainFile.eof()) {
 			unsigned int id;
@@ -130,7 +130,7 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 	}
 
 	//3.txt ROADS(Road id; PointID 1; PointID 2)
-	ifstream thirdFile("roads3.txt");
+	ifstream thirdFile("mapTest3.txt");
 	if (thirdFile.is_open()) {
 		while (!thirdFile.eof()) {
 			unsigned int id;
@@ -178,7 +178,7 @@ int populateGraphViewer(Graph mapGraph, GraphViewer *gv){
 	int edgeID=0;
 	for(unsigned int i=0; i< mapGraph.getVertexSet().size();i++ ){
 		gv->addNode(mapGraph.getVertexSet()[i].getInfo().getId(),convertLatitudeToY(gv,mapGraph.getVertexSet()[i].getInfo().getLatitude()),convertLongitudeToX(gv,mapGraph.getVertexSet()[i].getInfo().getLongitude()));
-
+		gv->setVertexLabel(mapGraph.getVertexSet()[i].getInfo().getId(), ".");
 	}
 
 	for(unsigned int i=0; i < mapGraph.getVertexSet().size();i++){
@@ -186,7 +186,11 @@ int populateGraphViewer(Graph mapGraph, GraphViewer *gv){
 
 			int destID=mapGraph.getVertexSet()[i].getAdj()[x]->getDest()->getInfo().getId();
 			int srcID=mapGraph.getVertexSet()[i].getAdj()[x]->getSrc()->getInfo().getId();
+
 			gv->addEdge(edgeID, srcID, destID,EdgeType::UNDIRECTED);
+
+			//adiciona o nome das ruas
+			//gv->setEdgeLabel(edgeID, mapGraph.getVertexSet()[i].getAdj()[x]->getRoadName());
 			edgeID++;
 		}
 	}
@@ -213,9 +217,10 @@ int main() {
 
 	gv->rearrange();
 
-	Vertex* start = mapGraph.getVertex(26015881);
-	Vertex* destination = mapGraph.getVertex(3092764691);
+	Vertex* start = mapGraph.getVertex(1223751606);
+	Vertex* destination = mapGraph.getVertex(420776939);
 	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
+
 
 	cout << "Path from : " << start->getRoadName() << " to " << destination->getRoadName() << endl;
 
@@ -226,10 +231,19 @@ int main() {
 			Road* roadBetween = (*it)->getRoadBetween(*nextIt);
 			string roadName = (roadBetween == NULL) ? "" : roadBetween->getName();
 
+			gv->setVertexColor((*it)->getInfo().getId(), "GREEN");
+
+			//gv->setEdgeLabel((*it)->, roadBetween->getName());
+			//gv->setEdgeColor(roadBetween->getId(), "GREEN");
+
+
 			cout << "Rua: " << roadName << endl;
 			nextIt++;
 		}
 	}
+
+	gv->setVertexColor(start->getInfo().getId(), "YELLOW");
+	gv->setVertexColor(destination->getInfo().getId(), "MAGENTA");
 
 
 	if (destination->getDistance() == DBL_MAX)
