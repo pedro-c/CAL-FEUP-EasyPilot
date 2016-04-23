@@ -23,6 +23,8 @@ class Edge {
 	double distance;
 public:
 	Edge(Vertex* s, Vertex *d, Road* road, double distance);
+	Vertex* getSrc() const;
+	Vertex* getDest() const;
 	friend class Graph;
 	friend class Vertex;
 };

@@ -12,6 +12,10 @@ Vertex::Vertex(const Point &in) :
 		info(in), visited(false), minDistance(DBL_MAX), previous(NULL) {
 }
 
+vector<Edge*> Vertex::getAdj() const{
+	return adj;
+}
+
 Point Vertex::getInfo() const{
 	return info;
 }

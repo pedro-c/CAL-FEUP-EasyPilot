@@ -23,6 +23,7 @@ class Vertex {
 	Vertex* previous;
 public:
 	Point getInfo() const;
+	vector<Edge*> getAdj() const;
 	Vertex(const Point &in);
 	Road* getRoadBetween(Vertex* dest) const;
 	double getDistance() const;

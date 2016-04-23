@@ -34,14 +34,14 @@ using namespace std;
 
 int convertLongitudeToX(GraphViewer *gv, float x){
 
-	cout << "X= " << ((x-minLon)*gv->getheight())/(maxLon-minLon) << endl;
-	return ((x-minLon)*gv->getheight())/(maxLon-minLon);
+	cout << "X= " << floor(((x-minLon)*gv->getheight())/(maxLon-minLon)) << endl;
+	return floor(((x-minLon)*gv->getheight())/(maxLon-minLon));
 
 }
 
 int convertLatitudeToY(GraphViewer *gv, float y){
-	cout << "Y= " << ((y-minLat)*gv->getwidth())/(maxLat-minLat) << endl;
-	return ((y-minLat)*gv->getwidth())/(maxLat-minLat);
+	cout << "Y= " << floor(((y-minLat)*gv->getwidth())/(maxLat-minLat)) << endl;
+	return floor(((y-minLat)*gv->getwidth())/(maxLat-minLat));
 }
 
 int populateGraph(Graph &mapGraph,GraphViewer *gv) {
@@ -52,7 +52,7 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 
 
 	//2.txt SUBROADS(Road id; Road name; IsTwoWay)
-	ifstream secFile("map2.txt");
+	ifstream secFile("roads2.txt");
 	if (secFile.is_open()) {
 		while (!secFile.eof()) {
 			string line;
@@ -85,7 +85,7 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 	}
 
 	//1.txt NODES(PointID; Latitude; Longitude; projectionCoordinates.X, projectionCoordinates.Y)
-	ifstream mainFile("map1.txt");
+	ifstream mainFile("roads1.txt");
 	if (mainFile.is_open()) {
 		while (!mainFile.eof()) {
 			unsigned int id;
@@ -130,7 +130,7 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 	}
 
 	//3.txt ROADS(Road id; PointID 1; PointID 2)
-	ifstream thirdFile("map3.txt");
+	ifstream thirdFile("roads3.txt");
 	if (thirdFile.is_open()) {
 		while (!thirdFile.eof()) {
 			unsigned int id;
@@ -149,11 +149,6 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 
 				edges.insert(std::pair<unsigned int, pair<Point*,Point*> >(id,PairDots));
 				double distance=(it1->second)->getDistance(*(it2->second));
-				/*cout << "Ponto 1 - latitude: " << (it1->second)->getLatitude();
-				cout << " Ponto 1 - longitude: " << (it1->second)->getLongitude() << endl;
-				cout << "Ponto 2 - latitude: " << (it2->second)->getLatitude();
-				cout << "Ponto 1 - longitude: " << (it2->second)->getLongitude() << endl;
-				cout << "Distance: " << distance << endl;*/
 
 				Road* road = roads.find(id)->second;
 
@@ -161,9 +156,11 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 
 				if(road->getTwoWay()) {
 					mapGraph.addEdge(*(it2->second), *(it1->second), road, distance);
-					gv->addEdge(edgeID, id1, id2,EdgeType::UNDIRECTED);
-					edgeID++;
-
+					//gv->addEdge(edgeID, id1, id2,EdgeType::UNDIRECTED);
+					//edgeID++;
+				}else{
+					//gv->addEdge(edgeID, id1, id2,EdgeType::DIRECTED);
+					//edgeID++;
 				}
 
 			}
@@ -178,12 +175,21 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 }
 
 int populateGraphViewer(Graph mapGraph, GraphViewer *gv){
-
+	int edgeID=0;
 	for(unsigned int i=0; i< mapGraph.getVertexSet().size();i++ ){
 		gv->addNode(mapGraph.getVertexSet()[i].getInfo().getId(),convertLatitudeToY(gv,mapGraph.getVertexSet()[i].getInfo().getLatitude()),convertLongitudeToX(gv,mapGraph.getVertexSet()[i].getInfo().getLongitude()));
 
 	}
 
+	for(unsigned int i=0; i < mapGraph.getVertexSet().size();i++){
+		for(unsigned int x=0; x < mapGraph.getVertexSet()[i].getAdj().size(); x++){
+
+			int destID=mapGraph.getVertexSet()[i].getAdj()[x]->getDest()->getInfo().getId();
+			int srcID=mapGraph.getVertexSet()[i].getAdj()[x]->getSrc()->getInfo().getId();
+			gv->addEdge(edgeID, srcID, destID,EdgeType::UNDIRECTED);
+			edgeID++;
+		}
+	}
 
 	return 0;
 
@@ -192,9 +198,10 @@ int populateGraphViewer(Graph mapGraph, GraphViewer *gv){
 
 int main() {
 	Graph mapGraph = Graph();
-	GraphViewer *gv = new GraphViewer(600, 600, true);
-	gv->createWindow(600, 600);
-
+	GraphViewer *gv = new GraphViewer(1000, 600, false);
+	gv->createWindow(1000, 800);
+	gv->defineVertexColor("blue");
+	gv->defineEdgeColor("black");
 
 	cout << "Loading..." << endl;
 
@@ -204,9 +211,10 @@ int main() {
 
 	populateGraphViewer(mapGraph, gv);
 
+	gv->rearrange();
 
-	Vertex* start = mapGraph.getVertex(26015916);
-	Vertex* destination = mapGraph.getVertex(26015892);
+	Vertex* start = mapGraph.getVertex(26015881);
+	Vertex* destination = mapGraph.getVertex(3092764691);
 	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
 
 	cout << "Path from : " << start->getRoadName() << " to " << destination->getRoadName() << endl;
@@ -223,18 +231,6 @@ int main() {
 		}
 	}
 
-
-	/*	gv->createWindow(600, 600);
-		gv->defineVertexColor("blue");
-		gv->defineEdgeColor("black");
-		gv->addNode(0);
-		gv->rearrange();
-		gv->addNode(1);
-		gv->rearrange();
-		//gv->addEdge(01,0,1,EdgeType::UNDIRECTED);
-		gv->addEdge(01,0,1, EdgeType::DIRECTED);
-		gv->addNode(2);
-		*/
 
 	if (destination->getDistance() == DBL_MAX)
 		cout << "Path not found.\n";
