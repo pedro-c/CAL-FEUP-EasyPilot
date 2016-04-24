@@ -45,7 +45,7 @@ string Vertex::getRoadName() const {
 	if(adj.size() == 1)
 		return adj[0]->road->getName();
 	else if (adj.size() > 1) {
-		return "Intersecao entre " + adj[0]->road->getName() + " e " + adj[1]->road->getName();
+		return "Interseção entre " + adj[0]->road->getName() + " e " + adj[1]->road->getName();
 	}
 	else return "";
 }

@@ -21,10 +21,12 @@
 #include "Road.h"
 #include "graphviewer.h"
 
-float maxLat=0;
-float minLat=0;
-float maxLon=0;
-float minLon=0;
+float maxLat=41.1856;
+float minLat=41.1705;
+float maxLon=-8.5902;
+float minLon=-8.6161;
+int ImageX=1758;
+int ImageY=2261;
 bool flag = true;
 using namespace std;
 
@@ -35,13 +37,13 @@ using namespace std;
 int convertLongitudeToX(GraphViewer *gv, float x){
 
 	//cout << "X= " << floor(((x-minLon)*gv->getheight())/(maxLon-minLon)) << endl;
-	return floor(((x-minLon)*gv->getheight())/(maxLon-minLon));
+	return floor(((x-minLon)*(ImageY))/(maxLon-minLon));
 
 }
 
 int convertLatitudeToY(GraphViewer *gv, float y){
 	//cout << "Y= " << floor(((y-minLat)*gv->getwidth())/(maxLat-minLat)) << endl;
-	return floor(((y-minLat)*gv->getwidth())/(maxLat-minLat));
+	return floor(((y-minLat)*(ImageX))/(maxLat-minLat));
 }
 
 int populateGraph(Graph &mapGraph,GraphViewer *gv) {
@@ -52,7 +54,7 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 
 
 	//2.txt SUBROADS(Road id; Road name; IsTwoWay)
-	ifstream secFile("mapTest2.txt");
+	ifstream secFile("sjoao2.txt");
 	if (secFile.is_open()) {
 		while (!secFile.eof()) {
 			string line;
@@ -85,7 +87,7 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 	}
 
 	//1.txt NODES(PointID; Latitude; Longitude; projectionCoordinates.X, projectionCoordinates.Y)
-	ifstream mainFile("mapTest1.txt");
+	ifstream mainFile("sjoao1.txt");
 	if (mainFile.is_open()) {
 		while (!mainFile.eof()) {
 			unsigned int id;
@@ -94,7 +96,7 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 
 			mainFile >> id >> garbage >> lat >> garbage >> lon >> garbage >> offX >> garbage >> offY;
 
-
+/*
 			if(flag){
 				maxLon=lon;
 				minLon=lon;
@@ -115,10 +117,13 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 			if(lat < minLat){
 				minLat=lat;
 			}
+*/
+			if(lat > minLat && lat < maxLat && lon > minLon && lon < maxLon){
+				Point* c = new Point(id,lat,lon,offX,offY);
+				points.insert(std::pair<unsigned int,Point*>(id,c));
+				mapGraph.addVertex(*c);
+			}
 
-			Point* c = new Point(id,lat,lon,offX,offY);
-			points.insert(std::pair<unsigned int,Point*>(id,c));
-			mapGraph.addVertex(*c);
 
 
 
@@ -130,7 +135,7 @@ int populateGraph(Graph &mapGraph,GraphViewer *gv) {
 	}
 
 	//3.txt ROADS(Road id; PointID 1; PointID 2)
-	ifstream thirdFile("mapTest3.txt");
+	ifstream thirdFile("sjoao3.txt");
 	if (thirdFile.is_open()) {
 		while (!thirdFile.eof()) {
 			unsigned int id;
@@ -203,9 +208,10 @@ int populateGraphViewer(Graph mapGraph, GraphViewer *gv){
 
 int main() {
 	Graph mapGraph = Graph();
-	GraphViewer *gv = new GraphViewer(1000, 600, false);
+	GraphViewer *gv = new GraphViewer(1200, 700, false);
 	string startRoad,destinationRoad;
-	gv->createWindow(1000, 800);
+	gv->setBackground("sjoao.png");
+	gv->createWindow(1200, 700);
 	gv->defineVertexColor("blue");
 	gv->defineEdgeColor("black");
 
@@ -220,41 +226,33 @@ int main() {
 	gv->rearrange();
 
 
+
 	// Adicionar função para atraves do nome da rua obter ID do vertice
 	cout<<"Enter your Starting Point (Road Name): ";
 	getline(cin,startRoad);
 	cout <<"Enter your destiny (Road Name): ";
 	getline(cin,destinationRoad);
 
-
-	/*
-	Vertex* start = mapGraph.getVertex(420777495);
-	Vertex* destination = mapGraph.getVertex(3554953622);
+/*
+	Vertex* start = mapGraph.getVertex(2073943321);
+	Vertex* destination = mapGraph.getVertex(445439340);
 	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
-	 */
+*/
 
-	Vertex* start;
-	start = mapGraph.getVertexFromRoadName(startRoad);
+	Vertex* start = mapGraph.getVertexFromRoadName(startRoad);
 
-	while(start==NULL){
-		cout<<"Invalid Starting Point. Enter a valid Road Name:"<<endl;
-		getline(cin,startRoad);
-		start = mapGraph.getVertexFromRoadName(startRoad);
+	cout<<"UTILIZADOR: "<<startRoad<<endl;
+	if(start==NULL){
+		cout<<"NULLL"<<endl;
 	}
-
-	Vertex* destination;
-	destination = mapGraph.getVertexFromRoadName(destinationRoad);
-
-	while(destination==NULL){
-		cout<<"Invalid Destination Point. Enter a valid Road Name:"<<endl;
-		getline(cin,destinationRoad);
-		destination = mapGraph.getVertexFromRoadName(destinationRoad);
+	cout<<"CHEGUEI"<<endl;
+	cout<<"PC: "<<start->getInfo().getId();
+	cout<<"PC: "<<start->getRoadName();
+	if(start->getRoadName()==startRoad){
+		cout<<"SIIIIIIM"<<endl;
 	}
-
+	Vertex* destination = mapGraph.getVertexFromRoadName(destinationRoad);
 	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
-
-
-	cout<<"Calculating your journey..."<<endl;
 
 	cout << "Path from : " << start->getRoadName() << " to " << destination->getRoadName() << endl;
 
