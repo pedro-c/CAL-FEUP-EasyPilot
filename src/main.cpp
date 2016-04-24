@@ -231,7 +231,7 @@ int main() {
 
 
 
-	// Adicionar função para atraves do nome da rua obter ID do vertice
+	// Adicionar funï¿½ï¿½o para atraves do nome da rua obter ID do vertice
 	cout<<"Enter your Starting Point (Road Name): ";
 	getline(cin,startRoad);
 	cout <<"Enter your destiny (Road Name): ";
@@ -244,19 +244,15 @@ int main() {
 */
 
 	Vertex* start = mapGraph.getVertexFromRoadName(startRoad);
-
-	cout<<"UTILIZADOR: "<<startRoad<<endl;
-	if(start==NULL){
-		cout<<"NULLL"<<endl;
-	}
-	cout<<"CHEGUEI"<<endl;
-	cout<<"PC: "<<start->getInfo().getId();
-	cout<<"PC: "<<start->getRoadName();
-	if(start->getRoadName()==startRoad){
-		cout<<"SIIIIIIM"<<endl;
-	}
 	Vertex* destination = mapGraph.getVertexFromRoadName(destinationRoad);
-	list<Vertex*> path = mapGraph.getShortestPath(start, destination);
+	list<Vertex*> path;
+
+	if(start == NULL || destination == NULL) {
+		cout << "Invalid inputs.\nExiting...";
+		exit(1);
+	} else {
+		path = mapGraph.getShortestPath(start, destination);
+	}
 
 	cout << "Path from : " << start->getRoadName() << " to " << destination->getRoadName() << endl;
 

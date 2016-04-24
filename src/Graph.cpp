@@ -102,7 +102,6 @@ void Graph::computePaths(Vertex* source) {
 	while(!toBeProcessed.empty()) {
 		Vertex* beingProcessed = toBeProcessed.top();
 		toBeProcessed.pop();
-		beingProcessed->visited = true;
 
 		for(unsigned int i = 0; i < beingProcessed->adj.size(); i++) {
 			Vertex* dest = beingProcessed->adj[i]->dest;
@@ -111,13 +110,10 @@ void Graph::computePaths(Vertex* source) {
 			if(distanceToDest < dest->minDistance) {
 				dest->minDistance = distanceToDest;
 				dest->previous = beingProcessed;
-			}
 
-			if(!dest->visited) {
 				toBeProcessed.push(dest);
 			}
 		}
-
 	}
 }
 
@@ -134,7 +130,7 @@ Vertex* Graph::getVertexFromRoadName(string roadName){
 
 	for(unsigned int i = 0; i < vertexSet.size(); i++){
 		for(unsigned int j = 0; j < vertexSet[i].getAdj().size();j++){
-			if(vertexSet[i].getAdj()[j]->getRoad()->getName()==roadName)
+			if(vertexSet[i].getAdj()[j]->getRoad()->getName().find(roadName) != string::npos)
 				return &vertexSet[i];
 		}
 	}
@@ -150,7 +146,6 @@ void Graph::resetVertexes() {
 
 void Graph::resetPathfinding() {
 	for(unsigned int i = 0; i < vertexSet.size(); i++) {
-		vertexSet[i].visited = false;
 		vertexSet[i].minDistance = DBL_MAX;
 		vertexSet[i].previous = NULL;
 	}
