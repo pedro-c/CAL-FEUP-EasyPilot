@@ -193,7 +193,11 @@ int populateGraphViewer(Graph mapGraph, GraphViewer *gv){
 			int srcID=mapGraph.getVertexSet()[i].getAdj()[x]->getSrc()->getInfo().getId();
 
 
-			gv->addEdge(edgeID, srcID, destID,EdgeType::UNDIRECTED);
+			if(mapGraph.getVertexSet()[i].getAdj()[x]->getRoad()->getTwoWay()){
+				gv->addEdge(edgeID, srcID, destID,EdgeType::UNDIRECTED);
+			}else{
+				gv->addEdge(edgeID, srcID, destID,EdgeType::DIRECTED);
+			}
 			mapGraph.getVertexSet()[i].getAdj()[x]->setEdgeID(edgeID);
 			//adiciona o nome das ruas
 			//gv->setEdgeLabel(edgeID, mapGraph.getVertexSet()[i].getAdj()[x]->getRoadName());
@@ -273,7 +277,7 @@ int main() {
 						for (list<Vertex*>::iterator it3 = path.begin(); it4 != path.end(); it3++){
 							if((*it)->getAdj()[x]->getSrc() == (*it3)){
 								gv->setEdgeThickness((*it)->getAdj()[x]->getEdgeID(), 5);
-								gv->setEdgeLabel((*it)->getAdj()[x]->getEdgeID(), roadBetween->getName());
+								//gv->setEdgeLabel((*it)->getAdj()[x]->getEdgeID(), roadBetween->getName());
 								gv->setEdgeColor((*it)->getAdj()[x]->getEdgeID(), "GREEN");
 							}
 							it4++;
