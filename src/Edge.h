@@ -17,17 +17,18 @@ class Vertex;
 class Graph;
 
 class Edge {
-	Vertex* src;
-	Vertex* dest;
-	unsigned int edgeID = 0;
+	Vertex* source;
+	Vertex* destination;
+	static unsigned int nextEdgeID;
+	unsigned int edgeID;
 	Road* road;
 	double distance;
 public:
 	Edge(Vertex* s, Vertex *d, Road* road, double distance);
-	Vertex* getSrc() const;
-	Vertex* getDest() const;
+	Vertex* getSource() const;
+	Vertex* getDestination() const;
 	void setEdgeID(int id);
-	int getEdgeID() const;
+	unsigned int getEdgeID() const;
 	Road* getRoad() const;
 	string getRoadName() const;
 	friend class Graph;

@@ -24,8 +24,8 @@ public:
 	bool addEdge(const Point &sourc, const Point &dest, Road* road, double distance);
 	void printVertexes() const;
 	list<Vertex*> getShortestPath(Vertex* source, Vertex *goal);
-	Vertex* getVertex(unsigned int pointID);
-	Vertex* getVertexFromRoadName(string roadName);
+	Vertex* getVertexFromID(unsigned int pointID);
+	Vertex* getVertexFromRoadName(const string &roadName);
 private:
 	void computePaths(Vertex* source);
 	void resetVertexes();

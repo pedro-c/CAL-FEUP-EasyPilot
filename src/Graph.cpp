@@ -83,6 +83,9 @@ list<Vertex*> Graph::getShortestPath(Vertex* source, Vertex* goal) {
 	list<Vertex*> path = list<Vertex*>();
 	Vertex* v = goal;
 
+	if(goal->getDistance() == DBL_MAX)
+		return path;
+
 	while(v->previous != NULL) {
 		path.push_front(v->previous);
 		v = v->previous;
@@ -104,7 +107,7 @@ void Graph::computePaths(Vertex* source) {
 		toBeProcessed.pop();
 
 		for(unsigned int i = 0; i < beingProcessed->adj.size(); i++) {
-			Vertex* dest = beingProcessed->adj[i]->dest;
+			Vertex* dest = beingProcessed->adj[i]->destination;
 			double distanceToDest = beingProcessed->adj[i]->distance + beingProcessed->minDistance;
 
 			if(distanceToDest < dest->minDistance) {
@@ -117,7 +120,7 @@ void Graph::computePaths(Vertex* source) {
 	}
 }
 
-Vertex* Graph::getVertex(unsigned int pointID) {
+Vertex* Graph::getVertexFromID(unsigned int pointID) {
 	for (unsigned int i = 0; i < vertexSet.size(); i++) {
 		if (vertexSet[i].info.getId() == pointID)
 			return &vertexSet[i];
@@ -126,7 +129,7 @@ Vertex* Graph::getVertex(unsigned int pointID) {
 	return NULL;
 }
 
-Vertex* Graph::getVertexFromRoadName(string roadName){
+Vertex* Graph::getVertexFromRoadName(const string &roadName) {
 
 	for(unsigned int i = 0; i < vertexSet.size(); i++){
 		for(unsigned int j = 0; j < vertexSet[i].getAdj().size();j++){

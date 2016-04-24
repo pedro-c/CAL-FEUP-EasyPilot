@@ -7,17 +7,19 @@
 
 #include "Edge.h"
 
-
+unsigned int Edge::nextEdgeID = 0;
 
 Edge::Edge(Vertex *s, Vertex *d, Road* road, double distance) :
-	src(s), dest(d), road(road), distance(distance) {}
-
-Vertex* Edge::getSrc() const{
-	return src;
+	source(s), destination(d), road(road), distance(distance), edgeID(nextEdgeID) {
+	nextEdgeID++;
 }
 
-Vertex* Edge::getDest() const{
-	return dest;
+Vertex* Edge::getSource() const{
+	return source;
+}
+
+Vertex* Edge::getDestination() const{
+	return destination;
 }
 
 string Edge::getRoadName() const{
@@ -31,6 +33,6 @@ Road* Edge::getRoad() const{
 void Edge::setEdgeID(int id){
 	edgeID=id;
 }
-int Edge::getEdgeID() const{
+unsigned int Edge::getEdgeID() const{
 	return edgeID;
 }
