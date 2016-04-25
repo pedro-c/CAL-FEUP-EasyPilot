@@ -33,8 +33,7 @@ void EasyPilot::start() {
 	cout << "Please introduce the destination road name: ";
 	Vertex* destination = readVertex();
 
-	displayPath(mapGraph.getShortestPath(start, destination), start,
-			destination);
+	displayPath(mapGraph.getShortestPath(start, destination), start, destination);
 }
 
 int EasyPilot::populateGraph() {
@@ -146,16 +145,16 @@ void EasyPilot::displayPath(const list<Vertex*> &path, Vertex* start,
 	}
 
 	list<Vertex*>::const_iterator nextIt = path.begin()++;
-
-	for (list<Vertex*>::const_iterator it = path.begin(); nextIt != path.end(); it++) {
+	list<Vertex*>::const_iterator it;
+	for (it = path.begin(); nextIt != path.end(); it++) {
 		Edge* edgeBetween = (*it)->getEdgeBetween(*nextIt);
-		Road* roadBetween = edgeBetween->getRoad();
 
 		gv->setVertexColor((*it)->getInfo().getId(), PATH_FOUND_COLOR);
 		cout << (*it)->getRoadName() << endl;
 		if(edgeBetween != NULL) {
-
+			Road* roadBetween = edgeBetween->getRoad();
 			//If the road is two way, we have to color both of the edges.
+			//Even though they may not be displayed
 			if(roadBetween->getTwoWay()) {
 				gv->setEdgeThickness((*nextIt)->getEdgeBetween(*it)->getEdgeID(), 5);
 				gv->setEdgeColor((*nextIt)->getEdgeBetween(*it)->getEdgeID(), PATH_FOUND_COLOR);
@@ -164,17 +163,14 @@ void EasyPilot::displayPath(const list<Vertex*> &path, Vertex* start,
 			gv->setEdgeThickness(edgeBetween->getEdgeID(), 5);
 			gv->setEdgeColor(edgeBetween->getEdgeID(), PATH_FOUND_COLOR);
 		}
-
 		nextIt++;
 	}
 
-	//gv->setVertexColor((*(path.end()--))->getInfo().getId(), END_NODE_COLOR);
-	//gv->setVertexColor((*path.begin())->getInfo().getId(), START_NODE_COLOR);
-	cout << "cheguei\n";
-	cout << (*(path.end()--))->getRoadName() << endl;
-
-	gv->setVertexColor(start->getInfo().getId(), START_NODE_COLOR);
+	gv->setVertexColor((*path.begin())->getInfo().getId(), START_NODE_COLOR);
 	gv->setVertexColor(destination->getInfo().getId(), END_NODE_COLOR);
+
+	//Don't know why this doesn't work...
+	//gv->setVertexColor((*(path.end()--))->getInfo().getId(), END_NODE_COLOR);
 }
 
 void EasyPilot::addNodesToGraphViewer() {

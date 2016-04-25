@@ -30,7 +30,7 @@ bool Vertex::operator<(const Vertex &rhs) {
 
 Edge* Vertex::getEdgeBetween(Vertex* dest) const {
 	for(unsigned int i = 0; i < adj.size(); i++) {
-		if(adj[i]->destination == dest)
+		if(*(adj[i]->destination) == (*dest))
 			return adj[i];
 	}
 

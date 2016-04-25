@@ -86,7 +86,10 @@ list<Vertex*> Graph::getShortestPath(Vertex* source, Vertex* goal) {
 	if(goal->getDistance() == DBL_MAX)
 		return path;
 
+	cout << v->getRoadName() << endl;
+
 	while(v->previous != NULL) {
+		cout << v->previous->getRoadName() << endl;
 		path.push_front(v->previous);
 		v = v->previous;
 	}
