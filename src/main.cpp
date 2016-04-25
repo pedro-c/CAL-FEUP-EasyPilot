@@ -20,8 +20,6 @@ int main() {
 	EasyPilot easyPilot(1200, 700);
 	easyPilot.start();
 
-	int a;
-	cin >> a;
 	return 0;
 }
 

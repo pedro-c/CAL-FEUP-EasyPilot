@@ -6,9 +6,9 @@
  */
 
 #include "EasyPilot.h"
-#include <map>
 #include <fstream>
-#include <sstream>
+#include <map>
+#include <set>
 
 EasyPilot::EasyPilot(unsigned int windowWidth, unsigned int windowHeight) {
 	mapGraph = Graph();
@@ -150,12 +150,12 @@ void EasyPilot::displayPath(const list<Vertex*> &path, Vertex* start,
 		Edge* edgeBetween = (*it)->getEdgeBetween(*nextIt);
 
 		gv->setVertexColor((*it)->getInfo().getId(), PATH_FOUND_COLOR);
-		cout << (*it)->getRoadName() << endl;
 		if(edgeBetween != NULL) {
-			Road* roadBetween = edgeBetween->getRoad();
 			//If the road is two way, we have to color both of the edges.
-			//Even though they may not be displayed
-			if(roadBetween->getTwoWay()) {
+			//Even though one of them may not be displayed
+
+			//FIXME: Not coloring the edges properly...
+			if(edgeBetween->getRoad()->getTwoWay()) {
 				gv->setEdgeThickness((*nextIt)->getEdgeBetween(*it)->getEdgeID(), 5);
 				gv->setEdgeColor((*nextIt)->getEdgeBetween(*it)->getEdgeID(), PATH_FOUND_COLOR);
 			}
@@ -174,8 +174,8 @@ void EasyPilot::displayPath(const list<Vertex*> &path, Vertex* start,
 }
 
 void EasyPilot::addNodesToGraphViewer() {
-	for (unsigned int i = 0; i < mapGraph.getVertexSet().size(); i++) {
-		Vertex* vertex = &mapGraph.getVertexSet()[i];
+	for (unsigned int i = 0; i < mapGraph.getVertexSetSize(); i++) {
+		Vertex* vertex = mapGraph.getVertexFromIndex(i);
 
 		gv->addNode(vertex->getInfo().getId(),
 				convertLatitudeToY(vertex->getInfo().getLatitude()),
@@ -185,18 +185,24 @@ void EasyPilot::addNodesToGraphViewer() {
 }
 
 void EasyPilot::addEdgesToGraphViewer() {
-	for (unsigned int i = 0; i < mapGraph.getVertexSet().size(); i++) {
-		for (unsigned int j = 0; j < mapGraph.getVertexSet()[i].getAdj().size();
+	set<unsigned int> addedEdges = set<unsigned int>();
+
+	for (unsigned int i = 0; i < mapGraph.getVertexSetSize(); i++) {
+		Vertex* vertex = mapGraph.getVertexFromIndex(i);
+		for (unsigned int j = 0; j < vertex->getAdj().size();
 				j++) {
-			Edge* edge = mapGraph.getVertexSet()[i].getAdj()[j];
+			Edge* edge = vertex->getAdj()[j];
 			int destID = edge->getDestination()->getInfo().getId();
 			int srcID = edge->getSource()->getInfo().getId();
 
 			if (edge->getRoad()->getTwoWay()) {
-				//FIXME: Do not remove the other edge, instead check if it is in the graph already.
-				gv->removeEdge(edge->getDestination()->getEdgeBetween(edge->getSource())->getEdgeID());
-				gv->addEdge(edge->getEdgeID(), srcID, destID,
-						EdgeType::UNDIRECTED);
+				set<unsigned int>::iterator it = addedEdges.find(edge->getDestination()->getEdgeBetween(edge->getSource())->getEdgeID());
+				if(it != addedEdges.end())  {
+					addedEdges.erase(it);
+				} else {
+					gv->addEdge(edge->getEdgeID(), srcID, destID, EdgeType::UNDIRECTED);
+					addedEdges.insert(edge->getEdgeID());
+				}
 			} else {
 				gv->addEdge(edge->getEdgeID(), srcID, destID,
 						EdgeType::DIRECTED);

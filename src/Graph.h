@@ -26,6 +26,8 @@ public:
 	list<Vertex*> getShortestPath(Vertex* source, Vertex *goal);
 	Vertex* getVertexFromID(unsigned int pointID);
 	Vertex* getVertexFromRoadName(const string &roadName);
+	unsigned int getVertexSetSize() const;
+	Vertex* getVertexFromIndex(unsigned int index);
 private:
 	void computePaths(Vertex* source);
 	void resetVertexes();

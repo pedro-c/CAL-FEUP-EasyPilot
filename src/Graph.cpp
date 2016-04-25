@@ -86,10 +86,7 @@ list<Vertex*> Graph::getShortestPath(Vertex* source, Vertex* goal) {
 	if(goal->getDistance() == DBL_MAX)
 		return path;
 
-	cout << v->getRoadName() << endl;
-
 	while(v->previous != NULL) {
-		cout << v->previous->getRoadName() << endl;
 		path.push_front(v->previous);
 		v = v->previous;
 	}
@@ -155,4 +152,12 @@ void Graph::resetPathfinding() {
 		vertexSet[i].minDistance = DBL_MAX;
 		vertexSet[i].previous = NULL;
 	}
+}
+
+unsigned int Graph::getVertexSetSize() const {
+	return vertexSet.size();
+}
+
+Vertex* Graph::getVertexFromIndex(unsigned int index) {
+	return &vertexSet[index];
 }
