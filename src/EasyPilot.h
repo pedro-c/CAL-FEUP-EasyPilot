@@ -15,6 +15,7 @@
 #define START_NODE_COLOR "YELLOW"
 #define PATH_FOUND_COLOR "GREEN"
 #define END_NODE_COLOR "MAGENTA"
+#define POI_NODE_COLOR "ORANGE"
 
 class EasyPilot {
 	GraphViewer *gv;

@@ -10,10 +10,11 @@
 #include <map>
 #include <set>
 
+int distance=0;
+
 EasyPilot::EasyPilot(unsigned int windowWidth, unsigned int windowHeight) {
 	mapGraph = Graph();
 	gv = new GraphViewer(windowWidth, windowHeight, false);
-
 	gv->setBackground("sjoao.png");
 	gv->createWindow(windowWidth, windowHeight);
 	gv->defineVertexColor("blue");
@@ -21,6 +22,10 @@ EasyPilot::EasyPilot(unsigned int windowWidth, unsigned int windowHeight) {
 }
 
 void EasyPilot::start() {
+	char answer = 'Y';
+	Vertex* begin;
+	Vertex* destination;
+	list<Vertex*> path;
 	cout << "Reading files...\n";
 	populateGraph();
 	cout << "Finished reading files ...\n";
@@ -30,10 +35,33 @@ void EasyPilot::start() {
 
 	cout << "Please introduce the start road name: ";
 	Vertex* start = readVertex();
-	cout << "Please introduce the destination road name: ";
-	Vertex* destination = readVertex();
 
-	displayPath(mapGraph.getShortestPath(start, destination), start, destination);
+	begin = start;
+
+
+
+	while(toupper(answer) == 'Y'){
+		cin.clear();
+		cout << "Please introduce next point: ";
+		cin.clear();
+		destination = readVertex();
+		list<Vertex*> temp = mapGraph.getShortestPath(start, destination);
+		list<Vertex*>::iterator it2=temp.end();
+		list<Vertex*>::iterator it1=temp.begin();
+		list<Vertex*>::iterator it=path.end();
+		path.insert(it,it1,it2);
+
+		start=destination;
+		cout << "Do you want to add another place?(Y/N)";
+		cin >> answer;
+		cin.ignore();
+	}
+
+	displayPath(path, begin, destination);
+	cin.ignore();
+
+
+	//displayPath(mapGraph.getShortestPath(start, destination), start, destination);
 }
 
 int EasyPilot::populateGraph() {
@@ -42,7 +70,7 @@ int EasyPilot::populateGraph() {
 	map<unsigned int, Road*> roads;
 
 	//2.txt SUBROADS(Road id; Road name; IsTwoWay)
-	ifstream secFile("sjoao2.txt");
+	ifstream secFile("sj2.txt");
 	if (secFile.is_open()) {
 		while (!secFile.eof()) {
 			unsigned int roadID;
@@ -71,21 +99,26 @@ int EasyPilot::populateGraph() {
 	}
 
 	//1.txt NODES(PointID; Latitude; Longitude; projectionCoordinates.X, projectionCoordinates.Y)
-	ifstream mainFile("sjoao1.txt");
+	ifstream mainFile("sj1.txt");
 	if (mainFile.is_open()) {
 		while (!mainFile.eof()) {
 			unsigned int nodeID;
 			double latitude, longitude, projectionX, projectionY;
 			char garbage;
+			string POI;
 
 			mainFile >> nodeID >> garbage >> latitude >> garbage >> longitude
-			>> garbage >> projectionX >> garbage >> projectionY;
+			>> garbage >> projectionX >> garbage >> projectionY >> garbage;
+
+			getline(mainFile, POI, ';');
+
 
 			if (latitude > minLat && latitude < maxLat && longitude > minLon
 					&& longitude < maxLon) {
 				Point* c = new Point(nodeID, latitude, longitude, projectionX,
 						projectionY);
 				points.insert(std::pair<unsigned int, Point*>(nodeID, c));
+				c->setPOI(POI);
 				mapGraph.addVertex(*c);
 			}
 		}
@@ -96,7 +129,7 @@ int EasyPilot::populateGraph() {
 	}
 
 	//3.txt ROADS(Road id; PointID 1; PointID 2)
-	ifstream thirdFile("sjoao3.txt");
+	ifstream thirdFile("sj3.txt");
 	if (thirdFile.is_open()) {
 		while (!thirdFile.eof()) {
 			unsigned int roadID;
@@ -177,10 +210,15 @@ void EasyPilot::addNodesToGraphViewer() {
 	for (unsigned int i = 0; i < mapGraph.getVertexSetSize(); i++) {
 		Vertex* vertex = mapGraph.getVertexFromIndex(i);
 
+
 		gv->addNode(vertex->getInfo().getId(),
 				convertLatitudeToY(vertex->getInfo().getLatitude()),
 				convertLongitudeToX(vertex->getInfo().getLongitude()));
 		gv->setVertexLabel(vertex->getInfo().getId(), ".");
+		if(vertex->getInfo().getPOI() != ""){
+			gv->setVertexColor(vertex->getInfo().getId(),POI_NODE_COLOR);
+			gv->setVertexLabel(vertex->getInfo().getId(), vertex->getInfo().getPOI());
+		}
 	}
 }
 
@@ -226,6 +264,7 @@ Vertex* EasyPilot::readVertex() {
 	Vertex *vertex;
 	string roadName;
 
+	//cin.clear();
 	getline(cin, roadName);
 
 	while ((vertex = mapGraph.getVertexFromRoadName(roadName)) == NULL) {

@@ -48,6 +48,14 @@ double  Point:: getLongitude() const{
 	return longitude;
 }
 
+void Point::setPOI(string POI){
+	this->POI=POI;
+}
+
+string Point::getPOI() const{
+	return POI;
+}
+
 double Point::getDistance(const Point &c) const {
 	double radlat1 = PI * this->getLatitude()/180;
 	double radlat2 = PI * c.getLatitude()/180;

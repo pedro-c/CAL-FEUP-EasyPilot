@@ -21,6 +21,7 @@ class Point{
 	double longitude;
 	double x;
 	double y;
+	string POI = "";
 
 public:
 	Point();
@@ -30,6 +31,8 @@ public:
 	double getY() const;
 	double getLatitude() const;
 	double getLongitude() const;
+	void setPOI(string POI);
+	string getPOI() const;
 	double getDistance(const Point &c) const;
 	bool operator==(const Point &rhs) const;
 	friend ostream &operator<<(ostream& out, const Point &point);
