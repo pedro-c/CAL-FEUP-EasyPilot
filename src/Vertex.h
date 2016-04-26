@@ -22,7 +22,7 @@ class Vertex {
 	double minDistance;
 	Vertex* previous;
 public:
-	Point getInfo() const;
+	Point& getInfo();
 	vector<Edge*>& getAdj();
 	Vertex(const Point &in);
 	Edge* getEdgeBetween(Vertex* dest) const;

@@ -16,7 +16,7 @@ vector<Edge*>& Vertex::getAdj() {
 	return adj;
 }
 
-Point Vertex::getInfo() const{
+Point& Vertex::getInfo() {
 	return info;
 }
 

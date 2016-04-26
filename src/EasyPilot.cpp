@@ -104,7 +104,6 @@ int EasyPilot::populateGraph() {
 
 			getline(mainFile, POI, ';');
 
-
 			if (latitude > minLat && latitude < maxLat && longitude > minLon
 					&& longitude < maxLon) {
 				Point* c = new Point(nodeID, latitude, longitude, projectionX,
@@ -158,15 +157,6 @@ int EasyPilot::populateGraph() {
 		exit(FILE_READING_FAILURE);
 	}
 
-	unsigned int nEdges = 0;
-	for(unsigned int i = 0; i < mapGraph.getVertexSetSize(); i++) {
-		Vertex * vertex = mapGraph.getVertexFromIndex(i);
-		for(unsigned int j = 0; j < vertex->getAdj().size(); j++) {
-			nEdges++;
-		}
-	}
-	cout << nEdges;
-
 	return 0;
 }
 
@@ -208,14 +198,23 @@ void EasyPilot::displayPath(const list<Vertex*> &path, Vertex* start,
 }
 
 void EasyPilot::addNodesToGraphViewer() {
+	set<unsigned long> cenas = set<unsigned long>();
+
 	for (unsigned int i = 0; i < mapGraph.getVertexSetSize(); i++) {
 		Vertex* vertex = mapGraph.getVertexFromIndex(i);
 
+		if(cenas.find(vertex->getInfo().getId()) != cenas.end()) {
+			cout << "JÁ EXISTE ESTE ID CARALHO\n";
+		}
 
 		gv->addNode(vertex->getInfo().getId(),
 				convertLatitudeToY(vertex->getInfo().getLatitude()),
 				convertLongitudeToX(vertex->getInfo().getLongitude()));
-		gv->setVertexLabel(vertex->getInfo().getId(), ".");
+			cenas.insert(vertex->getInfo().getId());
+
+
+
+		//gv->setVertexLabel(vertex->getInfo().getId(), ".");
 		if(vertex->getInfo().getPOI() != ""){
 			gv->setVertexColor(vertex->getInfo().getId(),POI_NODE_COLOR);
 			gv->setVertexLabel(vertex->getInfo().getId(), vertex->getInfo().getPOI());
@@ -265,7 +264,6 @@ Vertex* EasyPilot::readVertex() {
 	Vertex *vertex;
 	string roadName;
 
-	//cin.clear();
 	getline(cin, roadName);
 
 	while ((vertex = mapGraph.getVertexFromRoadName(roadName)) == NULL) {
