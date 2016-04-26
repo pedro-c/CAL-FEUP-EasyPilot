@@ -16,7 +16,7 @@ using namespace std;
 
 
 class Point{
-	unsigned int id;
+	unsigned long id;
 	double latitude;
 	double longitude;
 	double x;
@@ -25,7 +25,7 @@ class Point{
 
 public:
 	Point();
-	Point(unsigned int id,double latitude, double longitude, double x, double y);
+	Point(unsigned long id,double latitude, double longitude, double x, double y);
 	unsigned long getId() const;
 	double getX() const;
 	double getY() const;

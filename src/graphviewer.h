@@ -78,12 +78,12 @@ class GraphViewer {
    * @param x Posição horizontal do nó.
    * @param y Posição vertical do nó.
    */
-  bool addNode(unsigned long id, int x, int y);
+  bool addNode(int id, int x, int y);
   /**
    * Acrescenta um nó à representação do grafo, numa posição ao critério do programa.
    * @param id Identificador único do nó.
    */
-  bool addNode(unsigned long id);
+  bool addNode(int id);
   /**
    * Acrescenta uma aresta à representação do grafo.
    * @param id Identificador único da aresta.
@@ -103,7 +103,7 @@ class GraphViewer {
    * Remove uma aresta da representação do grafo.
    * @param id Identificador único da aresta a remover.
    */
-  bool removeEdge(int id); 
+  bool removeEdge(int id);
 
   /**
    * Função que define o texto de um nó.

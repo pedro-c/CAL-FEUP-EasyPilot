@@ -9,6 +9,7 @@
 #include <fstream>
 #include <map>
 #include <set>
+#include <cfloat>
 
 int distance=0;
 
@@ -58,14 +59,14 @@ void EasyPilot::start() {
 
 int EasyPilot::populateGraph() {
 	//Used to temporarily store information from the text files.
-	map<unsigned int, Point*> points;
-	map<unsigned int, Road*> roads;
+	map<unsigned long, Point*> points;
+	map<unsigned long, Road*> roads;
 
 	//2.txt SUBROADS(Road id; Road name; IsTwoWay)
 	ifstream secFile("sj2.txt");
 	if (secFile.is_open()) {
 		while (!secFile.eof()) {
-			unsigned int roadID;
+			unsigned long roadID;
 			char garbage;
 			string name, twoWayStr;
 			bool isTwoWay;
@@ -81,7 +82,7 @@ int EasyPilot::populateGraph() {
 				isTwoWay = true;
 
 			roads.insert(
-					std::pair<unsigned int, Road*>(roadID,
+					std::pair<unsigned long, Road*>(roadID,
 							new Road(roadID, name, isTwoWay)));
 		}
 		secFile.close();
@@ -94,7 +95,7 @@ int EasyPilot::populateGraph() {
 	ifstream mainFile("sj1.txt");
 	if (mainFile.is_open()) {
 		while (!mainFile.eof()) {
-			unsigned int nodeID;
+			unsigned long nodeID;
 			double latitude, longitude, projectionX, projectionY;
 			char garbage;
 			string POI;
@@ -104,13 +105,12 @@ int EasyPilot::populateGraph() {
 
 			getline(mainFile, POI, ';');
 
-			if (latitude > minLat && latitude < maxLat && longitude > minLon
-					&& longitude < maxLon) {
-				Point* c = new Point(nodeID, latitude, longitude, projectionX,
-						projectionY);
-				points.insert(std::pair<unsigned int, Point*>(nodeID, c));
-				c->setPOI(POI);
-				mapGraph.addVertex(*c);
+			if (latitude > minLat && latitude < maxLat && longitude > minLon	&& longitude < maxLon) {
+			Point* c = new Point(nodeID, latitude, longitude, projectionX,
+					projectionY);
+			points.insert(std::pair<unsigned long, Point*>(nodeID, c));
+			c->setPOI(POI);
+			mapGraph.addVertex(*c);
 			}
 		}
 		mainFile.close();
@@ -123,16 +123,15 @@ int EasyPilot::populateGraph() {
 	ifstream thirdFile("sj3.txt");
 	if (thirdFile.is_open()) {
 		while (!thirdFile.eof()) {
-			unsigned int roadID;
-			unsigned int firstNodeID;
-			unsigned int secondNodeID;
+			unsigned long roadID;
+			unsigned long firstNodeID;
+			unsigned long secondNodeID;
 			char garbage;
 
 			thirdFile >> roadID >> garbage >> firstNodeID >> garbage
 			>> secondNodeID >> garbage;
 
-			map<unsigned int, Point*>::iterator firstNodeIterator,
-			secondNodeIterator;
+			map<unsigned long, Point*>::iterator firstNodeIterator, secondNodeIterator;
 
 			firstNodeIterator = points.find(firstNodeID);
 			secondNodeIterator = points.find(secondNodeID);
@@ -198,23 +197,14 @@ void EasyPilot::displayPath(const list<Vertex*> &path, Vertex* start,
 }
 
 void EasyPilot::addNodesToGraphViewer() {
-	set<unsigned long> cenas = set<unsigned long>();
-
 	for (unsigned int i = 0; i < mapGraph.getVertexSetSize(); i++) {
 		Vertex* vertex = mapGraph.getVertexFromIndex(i);
-
-		if(cenas.find(vertex->getInfo().getId()) != cenas.end()) {
-			cout << "JÁ EXISTE ESTE ID CARALHO\n";
-		}
 
 		gv->addNode(vertex->getInfo().getId(),
 				convertLatitudeToY(vertex->getInfo().getLatitude()),
 				convertLongitudeToX(vertex->getInfo().getLongitude()));
-			cenas.insert(vertex->getInfo().getId());
+		gv->setVertexLabel(vertex->getInfo().getId(), ".");
 
-
-
-		//gv->setVertexLabel(vertex->getInfo().getId(), ".");
 		if(vertex->getInfo().getPOI() != ""){
 			gv->setVertexColor(vertex->getInfo().getId(),POI_NODE_COLOR);
 			gv->setVertexLabel(vertex->getInfo().getId(), vertex->getInfo().getPOI());

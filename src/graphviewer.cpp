@@ -93,23 +93,23 @@ bool GraphViewer::closeWindow() {
   return con->sendMsg(str);
 }
 
-bool GraphViewer::addNode(unsigned long id) {
+bool GraphViewer::addNode(int id) {
   char buff[200];
-  sprintf(buff, "addNode1 %l\n", id);
+  sprintf(buff, "addNode1 %d\n", id);
   string str(buff);
   return con->sendMsg(str);
 }
 
-bool GraphViewer::addNode(unsigned long id, int x, int y) {
+bool GraphViewer::addNode(int id, int x, int y) {
   char buff[500];
-  sprintf(buff, "addNode3 %u %u %u\n", id, x, y);
+  sprintf(buff, "addNode3 %d %d %d\n", id, x, y);
   string str(buff);
   return con->sendMsg(str);
 }
 
 bool GraphViewer::addEdge(int id, int v1, int v2, int edgeType) {
   char buff[500];
-  sprintf(buff, "addEdge %u %u %u %d\n", id, v1, v2, edgeType);
+  sprintf(buff, "addEdge %d %d %d %d\n", id, v1, v2, edgeType);
   string str(buff);
   return con->sendMsg(str);
 }

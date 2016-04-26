@@ -19,7 +19,7 @@ Point::Point(){
 	this->longitude=0;
 }
 
-Point::Point(unsigned int id,double latitude, double longitude, double x, double y) {
+Point::Point(unsigned long id,double latitude, double longitude, double x, double y) {
 	this->id=id;
 	this->latitude=latitude;
 	this->longitude=longitude;
