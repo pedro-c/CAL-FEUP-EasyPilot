@@ -10,10 +10,10 @@ Road::Road(){
 	this->twoWay=false;
 }
 
-Road::Road(unsigned int id, bool twoWay) :
+Road::Road(unsigned long id, bool twoWay) :
 	id(id), name(""), twoWay(twoWay) { }
 
-Road::Road(unsigned int id, const string &name, bool twoWay) :
+Road::Road(unsigned long id, const string &name, bool twoWay) :
 	id(id), name(name), twoWay(twoWay) { }
 
 void Road::setTwoWay(bool twoWay) {
@@ -34,7 +34,7 @@ const string& Road::getName() const {
 	return this->name;
 }
 
-unsigned int Road::getId() const {
+unsigned long Road::getId() const {
 	return id;
 }
 

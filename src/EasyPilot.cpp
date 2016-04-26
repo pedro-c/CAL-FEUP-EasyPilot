@@ -9,6 +9,7 @@
 #include <fstream>
 #include <map>
 #include <set>
+#include <cfloat>
 
 int distance=0;
 
@@ -33,17 +34,12 @@ void EasyPilot::start() {
 	populateGraphViewer();
 	cout << "Finished populating graph viewer...\n";
 
-	cout << "Please introduce the start road name: ";
+	cout << "Please introduce the starting point: ";
 	Vertex* start = readVertex();
-
 	begin = start;
 
-
-
 	while(toupper(answer) == 'Y'){
-		cin.clear();
 		cout << "Please introduce next point: ";
-		cin.clear();
 		destination = readVertex();
 		list<Vertex*> temp = mapGraph.getShortestPath(start, destination);
 		list<Vertex*>::iterator it2=temp.end();
@@ -52,28 +48,25 @@ void EasyPilot::start() {
 		path.insert(it,it1,it2);
 
 		start=destination;
-		cout << "Do you want to add another place?(Y/N)";
+		cout << "Do you want to add another place?(Y/N) ";
 		cin >> answer;
 		cin.ignore();
+		cin.clear();
 	}
 
 	displayPath(path, begin, destination);
-	cin.ignore();
-
-
-	//displayPath(mapGraph.getShortestPath(start, destination), start, destination);
 }
 
 int EasyPilot::populateGraph() {
 	//Used to temporarily store information from the text files.
-	map<unsigned int, Point*> points;
-	map<unsigned int, Road*> roads;
+	map<unsigned long, Point*> points;
+	map<unsigned long, Road*> roads;
 
 	//2.txt SUBROADS(Road id; Road name; IsTwoWay)
 	ifstream secFile("sj2.txt");
 	if (secFile.is_open()) {
 		while (!secFile.eof()) {
-			unsigned int roadID;
+			unsigned long roadID;
 			char garbage;
 			string name, twoWayStr;
 			bool isTwoWay;
@@ -89,7 +82,7 @@ int EasyPilot::populateGraph() {
 				isTwoWay = true;
 
 			roads.insert(
-					std::pair<unsigned int, Road*>(roadID,
+					std::pair<unsigned long, Road*>(roadID,
 							new Road(roadID, name, isTwoWay)));
 		}
 		secFile.close();
@@ -102,7 +95,7 @@ int EasyPilot::populateGraph() {
 	ifstream mainFile("sj1.txt");
 	if (mainFile.is_open()) {
 		while (!mainFile.eof()) {
-			unsigned int nodeID;
+			unsigned long nodeID;
 			double latitude, longitude, projectionX, projectionY;
 			char garbage;
 			string POI;
@@ -112,14 +105,12 @@ int EasyPilot::populateGraph() {
 
 			getline(mainFile, POI, ';');
 
-
-			if (latitude > minLat && latitude < maxLat && longitude > minLon
-					&& longitude < maxLon) {
-				Point* c = new Point(nodeID, latitude, longitude, projectionX,
-						projectionY);
-				points.insert(std::pair<unsigned int, Point*>(nodeID, c));
-				c->setPOI(POI);
-				mapGraph.addVertex(*c);
+			if (latitude > minLat && latitude < maxLat && longitude > minLon	&& longitude < maxLon) {
+			Point* c = new Point(nodeID, latitude, longitude, projectionX,
+					projectionY);
+			points.insert(std::pair<unsigned long, Point*>(nodeID, c));
+			c->setPOI(POI);
+			mapGraph.addVertex(*c);
 			}
 		}
 		mainFile.close();
@@ -132,16 +123,15 @@ int EasyPilot::populateGraph() {
 	ifstream thirdFile("sj3.txt");
 	if (thirdFile.is_open()) {
 		while (!thirdFile.eof()) {
-			unsigned int roadID;
-			unsigned int firstNodeID;
-			unsigned int secondNodeID;
+			unsigned long roadID;
+			unsigned long firstNodeID;
+			unsigned long secondNodeID;
 			char garbage;
 
 			thirdFile >> roadID >> garbage >> firstNodeID >> garbage
 			>> secondNodeID >> garbage;
 
-			map<unsigned int, Point*>::iterator firstNodeIterator,
-			secondNodeIterator;
+			map<unsigned long, Point*>::iterator firstNodeIterator, secondNodeIterator;
 
 			firstNodeIterator = points.find(firstNodeID);
 			secondNodeIterator = points.find(secondNodeID);
@@ -210,11 +200,11 @@ void EasyPilot::addNodesToGraphViewer() {
 	for (unsigned int i = 0; i < mapGraph.getVertexSetSize(); i++) {
 		Vertex* vertex = mapGraph.getVertexFromIndex(i);
 
-
 		gv->addNode(vertex->getInfo().getId(),
 				convertLatitudeToY(vertex->getInfo().getLatitude()),
 				convertLongitudeToX(vertex->getInfo().getLongitude()));
 		gv->setVertexLabel(vertex->getInfo().getId(), ".");
+
 		if(vertex->getInfo().getPOI() != ""){
 			gv->setVertexColor(vertex->getInfo().getId(),POI_NODE_COLOR);
 			gv->setVertexLabel(vertex->getInfo().getId(), vertex->getInfo().getPOI());
@@ -264,7 +254,6 @@ Vertex* EasyPilot::readVertex() {
 	Vertex *vertex;
 	string roadName;
 
-	//cin.clear();
 	getline(cin, roadName);
 
 	while ((vertex = mapGraph.getVertexFromRoadName(roadName)) == NULL) {

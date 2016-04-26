@@ -41,7 +41,7 @@ bool Graph::addEdge(const Point &sourc, const Point &dest, Road* road,
 		double distance) {
 	int sourceIndex = 0;
 	int destIndex = 0;
-	bool hasSource, hasDest;
+	bool hasSource = false, hasDest = false;
 
 	for (unsigned int i = 0; i < vertexSet.size(); i++) {
 		if (vertexSet[i].info == sourc) {
@@ -63,8 +63,9 @@ bool Graph::addEdge(const Point &sourc, const Point &dest, Road* road,
 	Edge* edge = new Edge(&vertexSet[sourceIndex], &vertexSet[destIndex], road, distance);
 	vertexSet[sourceIndex].adj.push_back(edge);
 
-	if (road->getTwoWay())
+	if (road->getTwoWay()) {
 		vertexSet[destIndex].adj.push_back(edge);
+	}
 
 	return true;
 }
@@ -133,12 +134,8 @@ Vertex* Graph::getVertexFromRoadName(const string &roadName) {
 
 	for(unsigned int i = 0; i < vertexSet.size(); i++){
 		for(unsigned int j = 0; j < vertexSet[i].getAdj().size();j++){
-			if(vertexSet[i].getAdj()[j]->getRoad()->getName().find(roadName) != string::npos){
-
-				return &vertexSet[i];
-			}
-
-			if(vertexSet[i].getInfo().getPOI()==roadName)
+			if(vertexSet[i].getAdj()[j]->getRoad()->getName().find(roadName) != string::npos ||
+					vertexSet[i].getInfo().getPOI().find(roadName) != string::npos)
 				return &vertexSet[i];
 		}
 	}
