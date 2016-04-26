@@ -33,17 +33,12 @@ void EasyPilot::start() {
 	populateGraphViewer();
 	cout << "Finished populating graph viewer...\n";
 
-	cout << "Please introduce the start road name: ";
+	cout << "Please introduce the starting point: ";
 	Vertex* start = readVertex();
-
 	begin = start;
 
-
-
 	while(toupper(answer) == 'Y'){
-		cin.clear();
 		cout << "Please introduce next point: ";
-		cin.clear();
 		destination = readVertex();
 		list<Vertex*> temp = mapGraph.getShortestPath(start, destination);
 		list<Vertex*>::iterator it2=temp.end();
@@ -52,16 +47,13 @@ void EasyPilot::start() {
 		path.insert(it,it1,it2);
 
 		start=destination;
-		cout << "Do you want to add another place?(Y/N)";
+		cout << "Do you want to add another place?(Y/N) ";
 		cin >> answer;
 		cin.ignore();
+		cin.clear();
 	}
 
 	displayPath(path, begin, destination);
-	cin.ignore();
-
-
-	//displayPath(mapGraph.getShortestPath(start, destination), start, destination);
 }
 
 int EasyPilot::populateGraph() {
@@ -165,6 +157,15 @@ int EasyPilot::populateGraph() {
 		cout << "Unable to open file roads3.txt.\n";
 		exit(FILE_READING_FAILURE);
 	}
+
+	unsigned int nEdges = 0;
+	for(unsigned int i = 0; i < mapGraph.getVertexSetSize(); i++) {
+		Vertex * vertex = mapGraph.getVertexFromIndex(i);
+		for(unsigned int j = 0; j < vertex->getAdj().size(); j++) {
+			nEdges++;
+		}
+	}
+	cout << nEdges;
 
 	return 0;
 }
