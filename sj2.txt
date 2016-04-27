@@ -24,8 +24,8 @@
 30912881;;False
 41284280;Travessa da Ferreira;False
 41380173;;False
-34597087;Rua HonÃ³rio de Lima;False
-30911275;Rua LuÃ­s Woodhouse;False
+34597087;Rua Honario de Lima;False
+30911275;Rua Luas Woodhouse;False
 34771961;Rua de Costa e Almeida;False
 13798272;;False
 13798575;;False
