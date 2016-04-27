@@ -9,7 +9,7 @@
 #include <cfloat>
 
 Vertex::Vertex(const Point &in) :
-info(in), visited(false), minDistance(DBL_MAX), previous(NULL) {
+info(in), minDistance(DBL_MAX), previous(NULL) {
 }
 
 vector<Edge*>& Vertex::getAdj() {

@@ -16,7 +16,7 @@
 
 using namespace std;
 
-Graph::Graph() : lastComputedPath(NULL) { }
+Graph::Graph() : lastComputedSource(NULL) { }
 
 int Graph::getNumVertex() const {
 	return vertexSet.size();
@@ -69,15 +69,8 @@ bool Graph::addEdge(const Point &sourc, const Point &dest, Road* road) {
 	return true;
 }
 
-void Graph::printVertexes() const {
-	for (unsigned int i = 0; i < vertexSet.size(); i++) {
-		cout << vertexSet[i].info << " and have " << vertexSet[i].adj.size()
-										<< " edges.\n";
-	}
-}
-
 list<Vertex*> Graph::getShortestPath(Vertex* source, Vertex* goal) {
-	if(lastComputedPath == NULL || source != lastComputedPath)
+	if(lastComputedSource == NULL || source != lastComputedSource)
 		computePaths(source);
 
 	list<Vertex*> path = list<Vertex*>();
@@ -140,12 +133,6 @@ Vertex* Graph::getVertexFromRoadName(const string &roadName) {
 	}
 
 	return NULL;
-}
-
-void Graph::resetVertexes() {
-	for(unsigned int i = 0; i < vertexSet.size(); i++) {
-		vertexSet[i].visited = false;
-	}
 }
 
 void Graph::resetPathfinding() {
