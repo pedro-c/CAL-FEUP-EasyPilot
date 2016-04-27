@@ -12,9 +12,11 @@
 
 using namespace std;
 
-//1.txt NODES(PointID; Latitude; Longitude; projectionCoordinates.X, projectionCoordinates.Y)
-//2.txt SUBROADS(Road id; Road name; IsTwoWay)
-//3.txt ROADS(Road id; PointID 1; PointID 2)
+/**
+* @brief Main do programa.
+* Populates the graph and the graphviewer with all the nodes and edges and starts
+* the interface.
+*/
 
 int main() {
 	EasyPilot easyPilot(1200, 700);

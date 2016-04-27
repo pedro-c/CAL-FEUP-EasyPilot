@@ -11,6 +11,8 @@
 #include <iostream>
 
 
+/* Class Point*/
+
 Point::Point(){
 	this->id=0;
 	this->x=0;
