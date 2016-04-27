@@ -23,6 +23,7 @@ EasyPilot::EasyPilot(unsigned int windowWidth, unsigned int windowHeight) {
 }
 
 void EasyPilot::start() {
+	float distance = 0;
 	char answer = 'Y';
 	Vertex* begin;
 	Vertex* destination;
@@ -42,19 +43,22 @@ void EasyPilot::start() {
 		cout << "Please introduce next point: ";
 		destination = readVertex();
 		list<Vertex*> temp = mapGraph.getShortestPath(start, destination);
+		distance += destination->getDistance();
+		cout << "\nDistance between " << start->getRoadName() << " and " << destination->getRoadName() << " is " << destination->getDistance() << " kilometers.\n";
 		list<Vertex*>::iterator it2=temp.end();
 		list<Vertex*>::iterator it1=temp.begin();
 		list<Vertex*>::iterator it=path.end();
 		path.insert(it,it1,it2);
 
 		start=destination;
-		cout << "Do you want to add another place?(Y/N) ";
+		cout << "Do you want to add another place? (Y/N) ";
 		cin >> answer;
 		cin.ignore();
 		cin.clear();
 	}
 
 	displayPath(path, begin, destination);
+	cout << "\nTotal path distance is " << distance << " kilometers.\n";
 }
 
 int EasyPilot::populateGraph() {

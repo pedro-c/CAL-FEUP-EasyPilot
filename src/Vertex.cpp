@@ -48,6 +48,9 @@ double Vertex::getDistance() const {
 }
 
 string Vertex::getRoadName() const {
+	if(info.getPOI() != "")
+		return info.getPOI();
+
 	if(adj.size() == 1)
 		return adj[0]->road->getName();
 	else if (adj.size() > 1) {
