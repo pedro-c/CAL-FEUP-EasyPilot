@@ -9,8 +9,9 @@
 
 unsigned int Edge::nextEdgeID = 0;
 
-Edge::Edge(Vertex *s, Vertex *d, Road* road, double distance) :
-	source(s), destination(d), road(road), distance(distance), edgeID(nextEdgeID) {
+Edge::Edge(Vertex *s, Vertex *d, Road* road) :
+	source(s), destination(d), road(road), edgeID(nextEdgeID) {
+	distance = s->getInfo().getDistance(d->getInfo());
 	nextEdgeID++;
 }
 
@@ -30,9 +31,6 @@ Road* Edge::getRoad() const{
 	return road;
 }
 
-void Edge::setEdgeID(int id){
-	edgeID=id;
-}
 unsigned int Edge::getEdgeID() const{
 	return edgeID;
 }

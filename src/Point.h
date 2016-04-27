@@ -49,31 +49,31 @@ public:
 
 	/**
 	 * @brief function that returns the point identifier;
-	 * return identifier;
+	 * @return identifier;
 	 */
 	unsigned long getId() const;
 
 	/**
 	 * @brief function the returns the projected coordinate on x
-	 * return projected coordinate on x
+	 * @return projected coordinate on x
 	 */
 	double getX() const;
 
 	/**
 	 * @brief function the returns the projected coordinate on y
-	 * return projected coordinate on y
-	*/
+	 * @return projected coordinate on y
+	 */
 	double getY() const;
 
 	/**
 	 * @brief function the returns the latitude
-	 * return latitude
+	 * @return latitude
 	 */
 	double getLatitude() const;
 
 	/**
 	 * @brief function the returns the longitude
-	 * return longitude
+	 * @return longitude
 	 */
 	double getLongitude() const;
 
@@ -85,14 +85,14 @@ public:
 	/**
 	 * @brief if it is a point of interest returns its name, else
 	 * returns an empty string
-	 * return string of point of interest
-	*/
+	 * @return string of point of interest
+	 */
 	string getPOI() const;
 
 	/**
 	 * @brief returns the distance between this point and the point given
 	 * in the argument
-	 * return a double containing the distance
+	 * @return a double containing the distance
 	 */
 	double getDistance(const Point &c) const;
 
@@ -100,15 +100,15 @@ public:
 	 * @brief function that allows the overloading of the operator == , in order to compare to points
 	 * @param point
 	 * @return true if equal, false if different
-	*/
+	 */
 	bool operator==(const Point &rhs) const;
 
 	/**
-		 * @brief function that allows the overloading of the operator <<, in order to compare to points
-		 * @param ostream
-		 * @param point
-		 * @return
-		*/
+	 * @brief function that allows the overloading of the operator <<, in order to compare to points
+	 * @param ostream
+	 * @param point
+	 * @return the stream
+	 */
 	friend ostream &operator<<(ostream& out, const Point &point);
 };
 

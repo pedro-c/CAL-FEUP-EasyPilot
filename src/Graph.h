@@ -21,7 +21,7 @@ public:
 	int getNumVertex() const;
 	vector<Vertex> getVertexSet() const;
 	bool addVertex(const Point &in);
-	bool addEdge(const Point &sourc, const Point &dest, Road* road, double distance);
+	bool addEdge(const Point &sourc, const Point &dest, Road* road);
 	void printVertexes() const;
 	list<Vertex*> getShortestPath(Vertex* source, Vertex *goal);
 	Vertex* getVertexFromID(unsigned int pointID);

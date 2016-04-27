@@ -37,8 +37,7 @@ bool Graph::addVertex(const Point &in) {
 	return true;
 }
 
-bool Graph::addEdge(const Point &sourc, const Point &dest, Road* road,
-		double distance) {
+bool Graph::addEdge(const Point &sourc, const Point &dest, Road* road) {
 	int sourceIndex = 0;
 	int destIndex = 0;
 	bool hasSource = false, hasDest = false;
@@ -60,7 +59,7 @@ bool Graph::addEdge(const Point &sourc, const Point &dest, Road* road,
 	if (!hasDest || !hasSource)
 		return false;
 
-	Edge* edge = new Edge(&vertexSet[sourceIndex], &vertexSet[destIndex], road, distance);
+	Edge* edge = new Edge(&vertexSet[sourceIndex], &vertexSet[destIndex], road);
 	vertexSet[sourceIndex].adj.push_back(edge);
 
 	if (road->getTwoWay()) {

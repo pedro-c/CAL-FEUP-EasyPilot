@@ -11,7 +11,16 @@
 #include <set>
 #include <cfloat>
 
-int distance=0;
+const string EasyPilot::START_NODE_COLOR = "YELLOW";
+const string EasyPilot::PATH_FOUND_COLOR = "GREEN";
+const string EasyPilot::END_NODE_COLOR = "MAGENTA";
+const string EasyPilot::POI_NODE_COLOR = "ORANGE";
+const float EasyPilot::MAX_LAT = 41.1856;
+const float EasyPilot::MIN_LAT = 41.1705;
+const float EasyPilot::MAX_LON = -8.5902;
+const float EasyPilot::MIN_LON = -8.6161;
+const int EasyPilot::IMAGE_X = 1758;
+const int EasyPilot::IMAGE_Y = 2261;
 
 EasyPilot::EasyPilot(unsigned int windowWidth, unsigned int windowHeight) {
 	mapGraph = Graph();
@@ -114,7 +123,7 @@ int EasyPilot::populateGraph() {
 
 			getline(mainFile, POI, ';');
 
-			if (latitude > minLat && latitude < maxLat && longitude > minLon	&& longitude < maxLon) {
+			if (latitude > MIN_LAT && latitude < MAX_LAT && longitude > MIN_LON	&& longitude < MAX_LON) {
 				Point* c = new Point(nodeID, latitude, longitude, projectionX,
 						projectionY);
 				points.insert(std::pair<unsigned long, Point*>(nodeID, c));
@@ -146,17 +155,15 @@ int EasyPilot::populateGraph() {
 			secondNodeIterator = points.find(secondNodeID);
 			if (firstNodeIterator != points.end()
 					&& secondNodeIterator != points.end()) {
-				double distance = (firstNodeIterator->second)->getDistance(
-						*(secondNodeIterator->second));
 
 				Road* road = roads.find(roadID)->second;
 
 				mapGraph.addEdge(*(firstNodeIterator->second),
-						*(secondNodeIterator->second), road, distance);
+						*(secondNodeIterator->second), road);
 
 				if (road->getTwoWay())
 					mapGraph.addEdge(*(secondNodeIterator->second),
-							*(firstNodeIterator->second), road, distance);
+							*(firstNodeIterator->second), road);
 			}
 		}
 		thirdFile.close();
@@ -273,10 +280,10 @@ Vertex* EasyPilot::readVertex() {
 }
 
 int EasyPilot::convertLongitudeToX(float x) {
-	return floor(((x - minLon) * (ImageY)) / (maxLon - minLon));
+	return floor(((x - MIN_LON) * (IMAGE_Y)) / (MAX_LON - MIN_LON));
 }
 
 int EasyPilot::convertLatitudeToY(float y) {
-	return floor(((y - minLat) * (ImageX)) / (maxLat - minLat));
+	return floor(((y - MIN_LAT) * (IMAGE_X)) / (MAX_LAT - MIN_LAT));
 }
 
