@@ -1,0 +1,142 @@
+\hypertarget{class_edge}{}\section{Edge Class Reference}
+\label{class_edge}\index{Edge@{Edge}}
+
+
+Class \hyperlink{class_edge}{Edge}. Class that represents an \hyperlink{class_edge}{Edge} belonging to a \hyperlink{class_graph}{Graph}. It has source and destination vertexes, a unique identification number, a pointer to the \hyperlink{class_road}{Road} it belongs to and the distance between source and destination.  
+
+
+
+
+{\ttfamily \#include $<$Edge.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_edge_a6f3e5890f75a60b8ef4f184a732b0902}{Edge} (\hyperlink{class_vertex}{Vertex} $\ast$s, \hyperlink{class_vertex}{Vertex} $\ast$d, \hyperlink{class_road}{Road} $\ast$road)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_edge}{Edge} constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_vertex}{Vertex} $\ast$ \hyperlink{class_edge_a81d05b230991af82d5413a80ada767e3}{get\+Source} () const 
+\begin{DoxyCompactList}\small\item\em Gets the source \hyperlink{class_vertex}{Vertex}. \end{DoxyCompactList}\item 
+\hyperlink{class_vertex}{Vertex} $\ast$ \hyperlink{class_edge_aceb8cb1946f591c08447cad8fdb2f74c}{get\+Destination} () const 
+\begin{DoxyCompactList}\small\item\em Gets the destination \hyperlink{class_vertex}{Vertex}. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{class_edge_aeab37304f58ea52a6a56ab8c67e19e04}{get\+Edge\+ID} () const 
+\begin{DoxyCompactList}\small\item\em Gets the \hyperlink{class_edge}{Edge} ID. \end{DoxyCompactList}\item 
+\hyperlink{class_road}{Road} $\ast$ \hyperlink{class_edge_ae6d5104814cd5626346943b58d3ae30a}{get\+Road} () const 
+\begin{DoxyCompactList}\small\item\em Gets the road the \hyperlink{class_edge}{Edge} belongs to. \end{DoxyCompactList}\item 
+string \hyperlink{class_edge_ad0fd8905a0c065cf288e95211edc731b}{get\+Road\+Name} () const 
+\begin{DoxyCompactList}\small\item\em Gets the road name the \hyperlink{class_edge}{Edge} belongs to. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries Graph}\hypertarget{class_edge_afab89afd724f1b07b1aaad6bdc61c47a}{}\label{class_edge_afab89afd724f1b07b1aaad6bdc61c47a}
+
+\item 
+class {\bfseries Vertex}\hypertarget{class_edge_a1251d18f08324022e8e73506c3768f3c}{}\label{class_edge_a1251d18f08324022e8e73506c3768f3c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class \hyperlink{class_edge}{Edge}. Class that represents an \hyperlink{class_edge}{Edge} belonging to a \hyperlink{class_graph}{Graph}. It has source and destination vertexes, a unique identification number, a pointer to the \hyperlink{class_road}{Road} it belongs to and the distance between source and destination. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Edge@{Edge}!Edge@{Edge}}
+\index{Edge@{Edge}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{Edge(\+Vertex $\ast$s, Vertex $\ast$d, Road $\ast$road)}{Edge(Vertex *s, Vertex *d, Road *road)}}]{\setlength{\rightskip}{0pt plus 5cm}Edge\+::\+Edge (
+\begin{DoxyParamCaption}
+\item[{{\bf Vertex} $\ast$}]{s, }
+\item[{{\bf Vertex} $\ast$}]{d, }
+\item[{{\bf Road} $\ast$}]{road}
+\end{DoxyParamCaption}
+)}\hypertarget{class_edge_a6f3e5890f75a60b8ef4f184a732b0902}{}\label{class_edge_a6f3e5890f75a60b8ef4f184a732b0902}
+
+
+\hyperlink{class_edge}{Edge} constructor. 
+
+$<$Distance between source and destination 
+\begin{DoxyParams}{Parameters}
+{\em s} & Pointer to \hyperlink{class_edge}{Edge} source \\
+\hline
+{\em d} & Pointer to \hyperlink{class_edge}{Edge} destination \\
+\hline
+{\em road} & Pointer to road the \hyperlink{class_edge}{Edge} belongs to \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Edge@{Edge}!get\+Destination@{get\+Destination}}
+\index{get\+Destination@{get\+Destination}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{get\+Destination() const }{getDestination() const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vertex} $\ast$ Edge\+::get\+Destination (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_edge_aceb8cb1946f591c08447cad8fdb2f74c}{}\label{class_edge_aceb8cb1946f591c08447cad8fdb2f74c}
+
+
+Gets the destination \hyperlink{class_vertex}{Vertex}. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to destination \hyperlink{class_vertex}{Vertex} 
+\end{DoxyReturn}
+\index{Edge@{Edge}!get\+Edge\+ID@{get\+Edge\+ID}}
+\index{get\+Edge\+ID@{get\+Edge\+ID}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{get\+Edge\+I\+D() const }{getEdgeID() const }}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Edge\+::get\+Edge\+ID (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_edge_aeab37304f58ea52a6a56ab8c67e19e04}{}\label{class_edge_aeab37304f58ea52a6a56ab8c67e19e04}
+
+
+Gets the \hyperlink{class_edge}{Edge} ID. 
+
+\begin{DoxyReturn}{Returns}
+Returns the \hyperlink{class_edge}{Edge} ID 
+\end{DoxyReturn}
+\index{Edge@{Edge}!get\+Road@{get\+Road}}
+\index{get\+Road@{get\+Road}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{get\+Road() const }{getRoad() const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Road} $\ast$ Edge\+::get\+Road (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_edge_ae6d5104814cd5626346943b58d3ae30a}{}\label{class_edge_ae6d5104814cd5626346943b58d3ae30a}
+
+
+Gets the road the \hyperlink{class_edge}{Edge} belongs to. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the road the \hyperlink{class_edge}{Edge} belongs to 
+\end{DoxyReturn}
+\index{Edge@{Edge}!get\+Road\+Name@{get\+Road\+Name}}
+\index{get\+Road\+Name@{get\+Road\+Name}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{get\+Road\+Name() const }{getRoadName() const }}]{\setlength{\rightskip}{0pt plus 5cm}string Edge\+::get\+Road\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_edge_ad0fd8905a0c065cf288e95211edc731b}{}\label{class_edge_ad0fd8905a0c065cf288e95211edc731b}
+
+
+Gets the road name the \hyperlink{class_edge}{Edge} belongs to. 
+
+\begin{DoxyReturn}{Returns}
+Name of the road the \hyperlink{class_edge}{Edge} belongs to 
+\end{DoxyReturn}
+\index{Edge@{Edge}!get\+Source@{get\+Source}}
+\index{get\+Source@{get\+Source}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{get\+Source() const }{getSource() const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vertex} $\ast$ Edge\+::get\+Source (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_edge_a81d05b230991af82d5413a80ada767e3}{}\label{class_edge_a81d05b230991af82d5413a80ada767e3}
+
+
+Gets the source \hyperlink{class_vertex}{Vertex}. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to source \hyperlink{class_vertex}{Vertex} 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Edge.\+h\item 
+src/Edge.\+cpp\end{DoxyCompactItemize}

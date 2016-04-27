@@ -37,7 +37,6 @@ public:
 	Point();
 	/**
 	 * @brief Constructor of Point
-	 * Initializes an empty Point
 	 * @param unique identifier
 	 * @param latitude
 	 * @param longitude

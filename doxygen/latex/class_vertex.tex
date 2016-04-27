@@ -1,0 +1,222 @@
+\hypertarget{class_vertex}{}\section{Vertex Class Reference}
+\label{class_vertex}\index{Vertex@{Vertex}}
+
+
+Class \hyperlink{class_vertex}{Vertex} This class contains the vertex info, such as its edges, mindistance and previous vertex.  
+
+
+
+
+{\ttfamily \#include $<$Vertex.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_point}{Point} \& \hyperlink{class_vertex_ad14b55aeaf32f8fccca64928bf00da35}{get\+Info} ()
+\begin{DoxyCompactList}\small\item\em function that returns the point \end{DoxyCompactList}\item 
+vector$<$ \hyperlink{class_edge}{Edge} $\ast$ $>$ \& \hyperlink{class_vertex_ae201ccd5215730e9ca67a146ebadbd8f}{get\+Adj} ()
+\begin{DoxyCompactList}\small\item\em function that returns the vector with all the adjacent edges \end{DoxyCompactList}\item 
+\hyperlink{class_vertex_a9851482e39d2aacb7640ece7e7d6cdad}{Vertex} (const \hyperlink{class_point}{Point} \&in)
+\begin{DoxyCompactList}\small\item\em Constructor of \hyperlink{class_vertex}{Vertex} Initializes an empty \hyperlink{class_road}{Road}. \end{DoxyCompactList}\item 
+\hyperlink{class_edge}{Edge} $\ast$ \hyperlink{class_vertex_a611c3438f35378fe1848f28656712b01}{get\+Edge\+Between} (\hyperlink{class_vertex}{Vertex} $\ast$dest) const 
+\begin{DoxyCompactList}\small\item\em function that return the edge between this point and the other given as argument \end{DoxyCompactList}\item 
+\hyperlink{class_road}{Road} $\ast$ \hyperlink{class_vertex_a525c785bd79cd912c4734739bdda4e9d}{get\+Road\+Between} (\hyperlink{class_vertex}{Vertex} $\ast$dest) const 
+\begin{DoxyCompactList}\small\item\em function that return the road between this point and the other given as argument \end{DoxyCompactList}\item 
+double \hyperlink{class_vertex_a6bb81e47c596a1d08df08569664c01ad}{get\+Distance} () const 
+\begin{DoxyCompactList}\small\item\em function that return the distance \end{DoxyCompactList}\item 
+string \hyperlink{class_vertex_a82fdd355fdcd549c9f193fb141281246}{get\+Road\+Name} () const 
+\begin{DoxyCompactList}\small\item\em function that returns the road\textquotesingle{}s name \end{DoxyCompactList}\item 
+bool \hyperlink{class_vertex_a2b8c6de7599f56315c5f349351446005}{operator==} (const \hyperlink{class_vertex}{Vertex} \&rhs)
+\begin{DoxyCompactList}\small\item\em function that allows the overloading of the operator == , in order to compare two vertexes \end{DoxyCompactList}\item 
+bool \hyperlink{class_vertex_a666b9e590347fa9a3e10d468ae6d6836}{operator$<$} (const \hyperlink{class_vertex}{Vertex} \&rhs)
+\begin{DoxyCompactList}\small\item\em function that allows the overloading of the operator $<$ , in order to compare two vertexes \end{DoxyCompactList}\item 
+bool \hyperlink{class_vertex_a48a04c7e82a7902cd0c630e7ad3981c6}{operator!=} (const \hyperlink{class_vertex}{Vertex} \&rhs)
+\begin{DoxyCompactList}\small\item\em function that allows the overloading of the operator == , in order to compare two vertexes \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries Graph}\hypertarget{class_vertex_afab89afd724f1b07b1aaad6bdc61c47a}{}\label{class_vertex_afab89afd724f1b07b1aaad6bdc61c47a}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class \hyperlink{class_vertex}{Vertex} This class contains the vertex info, such as its edges, mindistance and previous vertex. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Vertex@{Vertex}!Vertex@{Vertex}}
+\index{Vertex@{Vertex}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{Vertex(const Point \&in)}{Vertex(const Point &in)}}]{\setlength{\rightskip}{0pt plus 5cm}Vertex\+::\+Vertex (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{in}
+\end{DoxyParamCaption}
+)}\hypertarget{class_vertex_a9851482e39d2aacb7640ece7e7d6cdad}{}\label{class_vertex_a9851482e39d2aacb7640ece7e7d6cdad}
+
+
+Constructor of \hyperlink{class_vertex}{Vertex} Initializes an empty \hyperlink{class_road}{Road}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Vertex@{Vertex}!get\+Adj@{get\+Adj}}
+\index{get\+Adj@{get\+Adj}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Adj()}{getAdj()}}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf Edge} $\ast$ $>$ \& Vertex\+::get\+Adj (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_vertex_ae201ccd5215730e9ca67a146ebadbd8f}{}\label{class_vertex_ae201ccd5215730e9ca67a146ebadbd8f}
+
+
+function that returns the vector with all the adjacent edges 
+
+\begin{DoxyReturn}{Returns}
+vector of edges 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!get\+Distance@{get\+Distance}}
+\index{get\+Distance@{get\+Distance}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Distance() const }{getDistance() const }}]{\setlength{\rightskip}{0pt plus 5cm}double Vertex\+::get\+Distance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_vertex_a6bb81e47c596a1d08df08569664c01ad}{}\label{class_vertex_a6bb81e47c596a1d08df08569664c01ad}
+
+
+function that return the distance 
+
+\begin{DoxyReturn}{Returns}
+double containg the distance 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!get\+Edge\+Between@{get\+Edge\+Between}}
+\index{get\+Edge\+Between@{get\+Edge\+Between}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Edge\+Between(\+Vertex $\ast$dest) const }{getEdgeBetween(Vertex *dest) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Edge} $\ast$ Vertex\+::get\+Edge\+Between (
+\begin{DoxyParamCaption}
+\item[{{\bf Vertex} $\ast$}]{dest}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_vertex_a611c3438f35378fe1848f28656712b01}{}\label{class_vertex_a611c3438f35378fe1848f28656712b01}
+
+
+function that return the edge between this point and the other given as argument 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+edge 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!get\+Info@{get\+Info}}
+\index{get\+Info@{get\+Info}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Info()}{getInfo()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Point} \& Vertex\+::get\+Info (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_vertex_ad14b55aeaf32f8fccca64928bf00da35}{}\label{class_vertex_ad14b55aeaf32f8fccca64928bf00da35}
+
+
+function that returns the point 
+
+$<$private member=\char`\"{}\char`\"{} contains=\char`\"{}\char`\"{} the=\char`\"{}\char`\"{} previous=\char`\"{}\char`\"{} vertex$>$=\char`\"{}\char`\"{}$>$ \begin{DoxyReturn}{Returns}
+\hyperlink{class_point}{Point} 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!get\+Road\+Between@{get\+Road\+Between}}
+\index{get\+Road\+Between@{get\+Road\+Between}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Road\+Between(\+Vertex $\ast$dest) const }{getRoadBetween(Vertex *dest) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Road} $\ast$ Vertex\+::get\+Road\+Between (
+\begin{DoxyParamCaption}
+\item[{{\bf Vertex} $\ast$}]{dest}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_vertex_a525c785bd79cd912c4734739bdda4e9d}{}\label{class_vertex_a525c785bd79cd912c4734739bdda4e9d}
+
+
+function that return the road between this point and the other given as argument 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+edge 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!get\+Road\+Name@{get\+Road\+Name}}
+\index{get\+Road\+Name@{get\+Road\+Name}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Road\+Name() const }{getRoadName() const }}]{\setlength{\rightskip}{0pt plus 5cm}string Vertex\+::get\+Road\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_vertex_a82fdd355fdcd549c9f193fb141281246}{}\label{class_vertex_a82fdd355fdcd549c9f193fb141281246}
+
+
+function that returns the road\textquotesingle{}s name 
+
+\begin{DoxyReturn}{Returns}
+string containing the road\textquotesingle{}s name 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{operator"!=(const Vertex \&rhs)}{operator!=(const Vertex &rhs)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Vertex\+::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Vertex} \&}]{rhs}
+\end{DoxyParamCaption}
+)}\hypertarget{class_vertex_a48a04c7e82a7902cd0c630e7ad3981c6}{}\label{class_vertex_a48a04c7e82a7902cd0c630e7ad3981c6}
+
+
+function that allows the overloading of the operator == , in order to compare two vertexes 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if different, false if true 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{operator$<$(const Vertex \&rhs)}{operator<(const Vertex &rhs)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Vertex\+::operator$<$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf Vertex} \&}]{rhs}
+\end{DoxyParamCaption}
+)}\hypertarget{class_vertex_a666b9e590347fa9a3e10d468ae6d6836}{}\label{class_vertex_a666b9e590347fa9a3e10d468ae6d6836}
+
+
+function that allows the overloading of the operator $<$ , in order to compare two vertexes 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if smaller, false if bigger 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!operator==@{operator==}}
+\index{operator==@{operator==}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{operator==(const Vertex \&rhs)}{operator==(const Vertex &rhs)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Vertex\+::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Vertex} \&}]{rhs}
+\end{DoxyParamCaption}
+)}\hypertarget{class_vertex_a2b8c6de7599f56315c5f349351446005}{}\label{class_vertex_a2b8c6de7599f56315c5f349351446005}
+
+
+function that allows the overloading of the operator == , in order to compare two vertexes 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if equal, false if different 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Vertex.\+h\item 
+src/Vertex.\+cpp\end{DoxyCompactItemize}

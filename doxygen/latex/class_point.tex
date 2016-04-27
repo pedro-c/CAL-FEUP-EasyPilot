@@ -1,0 +1,228 @@
+\hypertarget{class_point}{}\section{Point Class Reference}
+\label{class_point}\index{Point@{Point}}
+
+
+Class \hyperlink{class_point}{Point}. Class that contains all the dots of the map, containing information on its latitude, longitude, projected coordinates and, if it is a point of interest, the name of the P\+OI;.  
+
+
+
+
+{\ttfamily \#include $<$Point.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_point_ad92f2337b839a94ce97dcdb439b4325a}{Point} ()\hypertarget{class_point_ad92f2337b839a94ce97dcdb439b4325a}{}\label{class_point_ad92f2337b839a94ce97dcdb439b4325a}
+
+\begin{DoxyCompactList}\small\item\em Constructor of \hyperlink{class_point}{Point} Initializes an empty \hyperlink{class_point}{Point}. \end{DoxyCompactList}\item 
+\hyperlink{class_point_ae794d6534bb41f435228f5c174989495}{Point} (unsigned long id, double latitude, double longitude, double x, double y)
+\begin{DoxyCompactList}\small\item\em Constructor of \hyperlink{class_point}{Point}. \end{DoxyCompactList}\item 
+unsigned long \hyperlink{class_point_a6f912f5d0a33c1155be5698a11b9bbf3}{get\+Id} () const 
+\begin{DoxyCompactList}\small\item\em function that returns the point identifier; \end{DoxyCompactList}\item 
+double \hyperlink{class_point_af52a20a376f8f31e87658837565d3812}{getX} () const 
+\begin{DoxyCompactList}\small\item\em function the returns the projected coordinate on x \end{DoxyCompactList}\item 
+double \hyperlink{class_point_aac5008459bf0e0053ce744a69187bae7}{getY} () const 
+\begin{DoxyCompactList}\small\item\em function the returns the projected coordinate on y \end{DoxyCompactList}\item 
+double \hyperlink{class_point_a95c56354c86ccf7e2ae5a38a20c8bee4}{get\+Latitude} () const 
+\begin{DoxyCompactList}\small\item\em function the returns the latitude \end{DoxyCompactList}\item 
+double \hyperlink{class_point_a881db202379ef461a25d740c3194fae8}{get\+Longitude} () const 
+\begin{DoxyCompactList}\small\item\em function the returns the longitude \end{DoxyCompactList}\item 
+void \hyperlink{class_point_a85e160dd7bb11d584f52a797557f5a60}{set\+P\+OI} (string P\+OI)\hypertarget{class_point_a85e160dd7bb11d584f52a797557f5a60}{}\label{class_point_a85e160dd7bb11d584f52a797557f5a60}
+
+\begin{DoxyCompactList}\small\item\em sets the name of the P\+OI \end{DoxyCompactList}\item 
+string \hyperlink{class_point_ae3f1aa6c4314c2c6d628f84da7538547}{get\+P\+OI} () const 
+\begin{DoxyCompactList}\small\item\em if it is a point of interest returns its name, else returns an empty string \end{DoxyCompactList}\item 
+double \hyperlink{class_point_a71c24131d9fba05674a1295102b0c7a3}{get\+Distance} (const \hyperlink{class_point}{Point} \&c) const 
+\begin{DoxyCompactList}\small\item\em returns the distance between this point and the point given in the argument \end{DoxyCompactList}\item 
+bool \hyperlink{class_point_a381c5b2ac13d8a3966f5225f94fff6fa}{operator==} (const \hyperlink{class_point}{Point} \&rhs) const 
+\begin{DoxyCompactList}\small\item\em function that allows the overloading of the operator == , in order to compare to points \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+ostream \& \hyperlink{class_point_ab70fc46f0389b8eb1b377d966d144e05}{operator$<$$<$} (ostream \&out, const \hyperlink{class_point}{Point} \&point)
+\begin{DoxyCompactList}\small\item\em function that allows the overloading of the operator $<$$<$, in order to compare to points \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class \hyperlink{class_point}{Point}. Class that contains all the dots of the map, containing information on its latitude, longitude, projected coordinates and, if it is a point of interest, the name of the P\+OI;. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Point@{Point}!Point@{Point}}
+\index{Point@{Point}!Point@{Point}}
+\subsubsection[{\texorpdfstring{Point(unsigned long id, double latitude, double longitude, double x, double y)}{Point(unsigned long id, double latitude, double longitude, double x, double y)}}]{\setlength{\rightskip}{0pt plus 5cm}Point\+::\+Point (
+\begin{DoxyParamCaption}
+\item[{unsigned long}]{id, }
+\item[{double}]{latitude, }
+\item[{double}]{longitude, }
+\item[{double}]{x, }
+\item[{double}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{class_point_ae794d6534bb41f435228f5c174989495}{}\label{class_point_ae794d6534bb41f435228f5c174989495}
+
+
+Constructor of \hyperlink{class_point}{Point}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em unique} & identifier \\
+\hline
+{\em latitude} & \\
+\hline
+{\em longitude} & \\
+\hline
+{\em projected} & coordinate on x \\
+\hline
+{\em projected} & coordinate on y \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Point@{Point}!get\+Distance@{get\+Distance}}
+\index{get\+Distance@{get\+Distance}!Point@{Point}}
+\subsubsection[{\texorpdfstring{get\+Distance(const Point \&c) const }{getDistance(const Point &c) const }}]{\setlength{\rightskip}{0pt plus 5cm}double Point\+::get\+Distance (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{c}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_point_a71c24131d9fba05674a1295102b0c7a3}{}\label{class_point_a71c24131d9fba05674a1295102b0c7a3}
+
+
+returns the distance between this point and the point given in the argument 
+
+\begin{DoxyReturn}{Returns}
+a double containing the distance 
+\end{DoxyReturn}
+\index{Point@{Point}!get\+Id@{get\+Id}}
+\index{get\+Id@{get\+Id}!Point@{Point}}
+\subsubsection[{\texorpdfstring{get\+Id() const }{getId() const }}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long Point\+::get\+Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_point_a6f912f5d0a33c1155be5698a11b9bbf3}{}\label{class_point_a6f912f5d0a33c1155be5698a11b9bbf3}
+
+
+function that returns the point identifier; 
+
+\begin{DoxyReturn}{Returns}
+identifier; 
+\end{DoxyReturn}
+\index{Point@{Point}!get\+Latitude@{get\+Latitude}}
+\index{get\+Latitude@{get\+Latitude}!Point@{Point}}
+\subsubsection[{\texorpdfstring{get\+Latitude() const }{getLatitude() const }}]{\setlength{\rightskip}{0pt plus 5cm}double Point\+::get\+Latitude (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_point_a95c56354c86ccf7e2ae5a38a20c8bee4}{}\label{class_point_a95c56354c86ccf7e2ae5a38a20c8bee4}
+
+
+function the returns the latitude 
+
+\begin{DoxyReturn}{Returns}
+latitude 
+\end{DoxyReturn}
+\index{Point@{Point}!get\+Longitude@{get\+Longitude}}
+\index{get\+Longitude@{get\+Longitude}!Point@{Point}}
+\subsubsection[{\texorpdfstring{get\+Longitude() const }{getLongitude() const }}]{\setlength{\rightskip}{0pt plus 5cm}double Point\+::get\+Longitude (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_point_a881db202379ef461a25d740c3194fae8}{}\label{class_point_a881db202379ef461a25d740c3194fae8}
+
+
+function the returns the longitude 
+
+\begin{DoxyReturn}{Returns}
+longitude 
+\end{DoxyReturn}
+\index{Point@{Point}!get\+P\+OI@{get\+P\+OI}}
+\index{get\+P\+OI@{get\+P\+OI}!Point@{Point}}
+\subsubsection[{\texorpdfstring{get\+P\+O\+I() const }{getPOI() const }}]{\setlength{\rightskip}{0pt plus 5cm}string Point\+::get\+P\+OI (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_point_ae3f1aa6c4314c2c6d628f84da7538547}{}\label{class_point_ae3f1aa6c4314c2c6d628f84da7538547}
+
+
+if it is a point of interest returns its name, else returns an empty string 
+
+\begin{DoxyReturn}{Returns}
+string of point of interest 
+\end{DoxyReturn}
+\index{Point@{Point}!getX@{getX}}
+\index{getX@{getX}!Point@{Point}}
+\subsubsection[{\texorpdfstring{get\+X() const }{getX() const }}]{\setlength{\rightskip}{0pt plus 5cm}double Point\+::getX (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_point_af52a20a376f8f31e87658837565d3812}{}\label{class_point_af52a20a376f8f31e87658837565d3812}
+
+
+function the returns the projected coordinate on x 
+
+\begin{DoxyReturn}{Returns}
+projected coordinate on x 
+\end{DoxyReturn}
+\index{Point@{Point}!getY@{getY}}
+\index{getY@{getY}!Point@{Point}}
+\subsubsection[{\texorpdfstring{get\+Y() const }{getY() const }}]{\setlength{\rightskip}{0pt plus 5cm}double Point\+::getY (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_point_aac5008459bf0e0053ce744a69187bae7}{}\label{class_point_aac5008459bf0e0053ce744a69187bae7}
+
+
+function the returns the projected coordinate on y 
+
+\begin{DoxyReturn}{Returns}
+projected coordinate on y 
+\end{DoxyReturn}
+\index{Point@{Point}!operator==@{operator==}}
+\index{operator==@{operator==}!Point@{Point}}
+\subsubsection[{\texorpdfstring{operator==(const Point \&rhs) const }{operator==(const Point &rhs) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Point\+::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{rhs}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_point_a381c5b2ac13d8a3966f5225f94fff6fa}{}\label{class_point_a381c5b2ac13d8a3966f5225f94fff6fa}
+
+
+function that allows the overloading of the operator == , in order to compare to points 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if equal, false if different 
+\end{DoxyReturn}
+
+
+\subsection{Friends And Related Function Documentation}
+\index{Point@{Point}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Point@{Point}}
+\subsubsection[{\texorpdfstring{operator$<$$<$}{operator<<}}]{\setlength{\rightskip}{0pt plus 5cm}ostream\& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{out, }
+\item[{const {\bf Point} \&}]{point}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [friend]}}\hypertarget{class_point_ab70fc46f0389b8eb1b377d966d144e05}{}\label{class_point_ab70fc46f0389b8eb1b377d966d144e05}
+
+
+function that allows the overloading of the operator $<$$<$, in order to compare to points 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ostream} & \\
+\hline
+{\em point} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the stream 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Point.\+h\item 
+src/Point.\+cpp\end{DoxyCompactItemize}

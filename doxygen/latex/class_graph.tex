@@ -1,0 +1,225 @@
+\hypertarget{class_graph}{}\section{Graph Class Reference}
+\label{class_graph}\index{Graph@{Graph}}
+
+
+Class graph \hyperlink{class_graph}{Graph} class that holds the nodes and edges.  
+
+
+
+
+{\ttfamily \#include $<$Graph.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_graph_ae4c72b8ac4d693c49800a4c7e273654f}{Graph} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_graph}{Graph} constructor. \end{DoxyCompactList}\item 
+int \hyperlink{class_graph_a74d463ee71d33c39b05602fbca6dbdbc}{get\+Num\+Vertex} () const 
+\begin{DoxyCompactList}\small\item\em Gets number of vertexes in the graph. \end{DoxyCompactList}\item 
+vector$<$ \hyperlink{class_vertex}{Vertex} $>$ \hyperlink{class_graph_aaf18b5cfd029a621c90a649f21ac0193}{get\+Vertex\+Set} () const 
+\begin{DoxyCompactList}\small\item\em Gets the vertex set. \end{DoxyCompactList}\item 
+bool \hyperlink{class_graph_a30f9bf4c9e309345269d798afea98741}{add\+Vertex} (const \hyperlink{class_point}{Point} \&in)
+\begin{DoxyCompactList}\small\item\em Adds a vertex with info in. \end{DoxyCompactList}\item 
+bool \hyperlink{class_graph_ab30449fbb88bf7169d01683a01eb0961}{add\+Edge} (const \hyperlink{class_point}{Point} \&sourc, const \hyperlink{class_point}{Point} \&dest, \hyperlink{class_road}{Road} $\ast$road)
+\begin{DoxyCompactList}\small\item\em Adds a edge connected to sourc and dest, belonging to road. \end{DoxyCompactList}\item 
+list$<$ \hyperlink{class_vertex}{Vertex} $\ast$ $>$ \hyperlink{class_graph_a856f74decc1d00f6454cdfead6980f75}{get\+Shortest\+Path} (\hyperlink{class_vertex}{Vertex} $\ast$source, \hyperlink{class_vertex}{Vertex} $\ast$goal)
+\begin{DoxyCompactList}\small\item\em Gets the shortest path between source and goal. \end{DoxyCompactList}\item 
+\hyperlink{class_vertex}{Vertex} $\ast$ \hyperlink{class_graph_abeaeffa08d30d195ac640cd5b694c908}{get\+Vertex\+From\+ID} (unsigned int point\+ID)
+\begin{DoxyCompactList}\small\item\em Gets vertex from ID. \end{DoxyCompactList}\item 
+\hyperlink{class_vertex}{Vertex} $\ast$ \hyperlink{class_graph_a43795178d34bdc42663aa360e0e89750}{get\+Vertex\+From\+Road\+Name} (const string \&road\+Name)
+\begin{DoxyCompactList}\small\item\em Gets vertex from road name. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{class_graph_aab5c890d1cbbe3286a2e3f3bf722afb6}{get\+Vertex\+Set\+Size} () const 
+\begin{DoxyCompactList}\small\item\em Gets the vertex set size. \end{DoxyCompactList}\item 
+\hyperlink{class_vertex}{Vertex} $\ast$ \hyperlink{class_graph_a1e365eb376b956218c3a9b5b042a7c41}{get\+Vertex\+From\+Index} (unsigned int index)
+\begin{DoxyCompactList}\small\item\em Gets the vertex in the index of the vertex set. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class graph \hyperlink{class_graph}{Graph} class that holds the nodes and edges. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Graph@{Graph}!Graph@{Graph}}
+\index{Graph@{Graph}!Graph@{Graph}}
+\subsubsection[{\texorpdfstring{Graph()}{Graph()}}]{\setlength{\rightskip}{0pt plus 5cm}Graph\+::\+Graph (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_graph_ae4c72b8ac4d693c49800a4c7e273654f}{}\label{class_graph_ae4c72b8ac4d693c49800a4c7e273654f}
+
+
+\hyperlink{class_graph}{Graph} constructor. 
+
+$<$ Last computed source 
+
+\subsection{Member Function Documentation}
+\index{Graph@{Graph}!add\+Edge@{add\+Edge}}
+\index{add\+Edge@{add\+Edge}!Graph@{Graph}}
+\subsubsection[{\texorpdfstring{add\+Edge(const Point \&sourc, const Point \&dest, Road $\ast$road)}{addEdge(const Point &sourc, const Point &dest, Road *road)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Graph\+::add\+Edge (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{sourc, }
+\item[{const {\bf Point} \&}]{dest, }
+\item[{{\bf Road} $\ast$}]{road}
+\end{DoxyParamCaption}
+)}\hypertarget{class_graph_ab30449fbb88bf7169d01683a01eb0961}{}\label{class_graph_ab30449fbb88bf7169d01683a01eb0961}
+
+
+Adds a edge connected to sourc and dest, belonging to road. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sourc} & \hyperlink{class_edge}{Edge} source \\
+\hline
+{\em dest} & \hyperlink{class_edge}{Edge} destination \\
+\hline
+{\em road} & \hyperlink{class_road}{Road} the edge belongs to\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true on success 
+\end{DoxyReturn}
+\index{Graph@{Graph}!add\+Vertex@{add\+Vertex}}
+\index{add\+Vertex@{add\+Vertex}!Graph@{Graph}}
+\subsubsection[{\texorpdfstring{add\+Vertex(const Point \&in)}{addVertex(const Point &in)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Graph\+::add\+Vertex (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{in}
+\end{DoxyParamCaption}
+)}\hypertarget{class_graph_a30f9bf4c9e309345269d798afea98741}{}\label{class_graph_a30f9bf4c9e309345269d798afea98741}
+
+
+Adds a vertex with info in. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & \hyperlink{class_vertex}{Vertex} info\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true on success. 
+\end{DoxyReturn}
+\index{Graph@{Graph}!get\+Num\+Vertex@{get\+Num\+Vertex}}
+\index{get\+Num\+Vertex@{get\+Num\+Vertex}!Graph@{Graph}}
+\subsubsection[{\texorpdfstring{get\+Num\+Vertex() const }{getNumVertex() const }}]{\setlength{\rightskip}{0pt plus 5cm}int Graph\+::get\+Num\+Vertex (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_graph_a74d463ee71d33c39b05602fbca6dbdbc}{}\label{class_graph_a74d463ee71d33c39b05602fbca6dbdbc}
+
+
+Gets number of vertexes in the graph. 
+
+\begin{DoxyReturn}{Returns}
+Returns the vertex set size 
+\end{DoxyReturn}
+\index{Graph@{Graph}!get\+Shortest\+Path@{get\+Shortest\+Path}}
+\index{get\+Shortest\+Path@{get\+Shortest\+Path}!Graph@{Graph}}
+\subsubsection[{\texorpdfstring{get\+Shortest\+Path(\+Vertex $\ast$source, Vertex $\ast$goal)}{getShortestPath(Vertex *source, Vertex *goal)}}]{\setlength{\rightskip}{0pt plus 5cm}list$<$ {\bf Vertex} $\ast$ $>$ Graph\+::get\+Shortest\+Path (
+\begin{DoxyParamCaption}
+\item[{{\bf Vertex} $\ast$}]{source, }
+\item[{{\bf Vertex} $\ast$}]{goal}
+\end{DoxyParamCaption}
+)}\hypertarget{class_graph_a856f74decc1d00f6454cdfead6980f75}{}\label{class_graph_a856f74decc1d00f6454cdfead6980f75}
+
+
+Gets the shortest path between source and goal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & Path beginning point \\
+\hline
+{\em goal} & Path ending point\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the path as a list of pointer to vertexes. 
+\end{DoxyReturn}
+\index{Graph@{Graph}!get\+Vertex\+From\+ID@{get\+Vertex\+From\+ID}}
+\index{get\+Vertex\+From\+ID@{get\+Vertex\+From\+ID}!Graph@{Graph}}
+\subsubsection[{\texorpdfstring{get\+Vertex\+From\+I\+D(unsigned int point\+I\+D)}{getVertexFromID(unsigned int pointID)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vertex} $\ast$ Graph\+::get\+Vertex\+From\+ID (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{point\+ID}
+\end{DoxyParamCaption}
+)}\hypertarget{class_graph_abeaeffa08d30d195ac640cd5b694c908}{}\label{class_graph_abeaeffa08d30d195ac640cd5b694c908}
+
+
+Gets vertex from ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point\+ID} & ID of the point represented by the vertex\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a pointer to the vertex 
+\end{DoxyReturn}
+\index{Graph@{Graph}!get\+Vertex\+From\+Index@{get\+Vertex\+From\+Index}}
+\index{get\+Vertex\+From\+Index@{get\+Vertex\+From\+Index}!Graph@{Graph}}
+\subsubsection[{\texorpdfstring{get\+Vertex\+From\+Index(unsigned int index)}{getVertexFromIndex(unsigned int index)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vertex} $\ast$ Graph\+::get\+Vertex\+From\+Index (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{index}
+\end{DoxyParamCaption}
+)}\hypertarget{class_graph_a1e365eb376b956218c3a9b5b042a7c41}{}\label{class_graph_a1e365eb376b956218c3a9b5b042a7c41}
+
+
+Gets the vertex in the index of the vertex set. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Index in the vertex set vector\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a pointer to the vertex in the position index of vertex set. 
+\end{DoxyReturn}
+\index{Graph@{Graph}!get\+Vertex\+From\+Road\+Name@{get\+Vertex\+From\+Road\+Name}}
+\index{get\+Vertex\+From\+Road\+Name@{get\+Vertex\+From\+Road\+Name}!Graph@{Graph}}
+\subsubsection[{\texorpdfstring{get\+Vertex\+From\+Road\+Name(const string \&road\+Name)}{getVertexFromRoadName(const string &roadName)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vertex} $\ast$ Graph\+::get\+Vertex\+From\+Road\+Name (
+\begin{DoxyParamCaption}
+\item[{const string \&}]{road\+Name}
+\end{DoxyParamCaption}
+)}\hypertarget{class_graph_a43795178d34bdc42663aa360e0e89750}{}\label{class_graph_a43795178d34bdc42663aa360e0e89750}
+
+
+Gets vertex from road name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em road\+Name} & road name\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a pointer to the vertex 
+\end{DoxyReturn}
+\index{Graph@{Graph}!get\+Vertex\+Set@{get\+Vertex\+Set}}
+\index{get\+Vertex\+Set@{get\+Vertex\+Set}!Graph@{Graph}}
+\subsubsection[{\texorpdfstring{get\+Vertex\+Set() const }{getVertexSet() const }}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf Vertex} $>$ Graph\+::get\+Vertex\+Set (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_graph_aaf18b5cfd029a621c90a649f21ac0193}{}\label{class_graph_aaf18b5cfd029a621c90a649f21ac0193}
+
+
+Gets the vertex set. 
+
+\begin{DoxyReturn}{Returns}
+Returns the vertex set 
+\end{DoxyReturn}
+\index{Graph@{Graph}!get\+Vertex\+Set\+Size@{get\+Vertex\+Set\+Size}}
+\index{get\+Vertex\+Set\+Size@{get\+Vertex\+Set\+Size}!Graph@{Graph}}
+\subsubsection[{\texorpdfstring{get\+Vertex\+Set\+Size() const }{getVertexSetSize() const }}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Graph\+::get\+Vertex\+Set\+Size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_graph_aab5c890d1cbbe3286a2e3f3bf722afb6}{}\label{class_graph_aab5c890d1cbbe3286a2e3f3bf722afb6}
+
+
+Gets the vertex set size. 
+
+\begin{DoxyReturn}{Returns}
+Returns the vertex set size 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Graph.\+h\item 
+src/Graph.\+cpp\end{DoxyCompactItemize}

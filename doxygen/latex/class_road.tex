@@ -1,0 +1,197 @@
+\hypertarget{class_road}{}\section{Road Class Reference}
+\label{class_road}\index{Road@{Road}}
+
+
+Class \hyperlink{class_road}{Road} This class contains a unique identifier for each road, its name and a boolean flag telling if the road is one or two ways;.  
+
+
+
+
+{\ttfamily \#include $<$Road.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_road_a90bb6be2a5c3b6997849a915e2af0cf0}{Road} ()\hypertarget{class_road_a90bb6be2a5c3b6997849a915e2af0cf0}{}\label{class_road_a90bb6be2a5c3b6997849a915e2af0cf0}
+
+\begin{DoxyCompactList}\small\item\em Constructor of \hyperlink{class_road}{Road} Initializes an empty \hyperlink{class_road}{Road}. \end{DoxyCompactList}\item 
+\hyperlink{class_road_a37a287816f8e1bac4bb655bdc357f77f}{Road} (unsigned long id, bool two\+Way)
+\begin{DoxyCompactList}\small\item\em Constructor of \hyperlink{class_road}{Road}. \end{DoxyCompactList}\item 
+\hyperlink{class_road_a74b26f072c8a311b7ed06ad839dfb885}{Road} (unsigned long id, const string \&name, bool two\+Way)
+\begin{DoxyCompactList}\small\item\em Constructor of \hyperlink{class_road}{Road}. \end{DoxyCompactList}\item 
+void \hyperlink{class_road_afce03f37f554b9580b1cae21a486ba43}{set\+Name} (const string \&name)\hypertarget{class_road_afce03f37f554b9580b1cae21a486ba43}{}\label{class_road_afce03f37f554b9580b1cae21a486ba43}
+
+\begin{DoxyCompactList}\small\item\em function that sets the name of the road \end{DoxyCompactList}\item 
+const string \& \hyperlink{class_road_a55877c477adb8c1985916da16830b70e}{get\+Name} () const 
+\begin{DoxyCompactList}\small\item\em function that returns the name of the road \end{DoxyCompactList}\item 
+void \hyperlink{class_road_a0c749600d4e5a338643134d8f3e538b0}{set\+Two\+Way} (bool two\+Way)
+\begin{DoxyCompactList}\small\item\em function that sets the boolean two way \end{DoxyCompactList}\item 
+bool \hyperlink{class_road_ac984e95bef715c5c47145ac2d47177fa}{get\+Two\+Way} () const 
+\begin{DoxyCompactList}\small\item\em returns true if the road is two away \end{DoxyCompactList}\item 
+unsigned long \hyperlink{class_road_a2ba91475393a567e94bb6cf18d8164b8}{get\+Id} () const 
+\begin{DoxyCompactList}\small\item\em function that returns the road\textquotesingle{}s id \end{DoxyCompactList}\item 
+bool \hyperlink{class_road_a201ac4ee9b61b415b7144310998cff44}{operator==} (const \hyperlink{class_road}{Road} \&p2) const 
+\begin{DoxyCompactList}\small\item\em function that allows the overloading of the operator == , in order to compare two roads \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+ostream \& \hyperlink{class_road_abab53dff350b03ef5c3b69c9f2570247}{operator$<$$<$} (ostream \&os, \hyperlink{class_road}{Road} \&p)
+\begin{DoxyCompactList}\small\item\em function that allows the overloading of the operator $<$$<$, in order to compare to roads \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class \hyperlink{class_road}{Road} This class contains a unique identifier for each road, its name and a boolean flag telling if the road is one or two ways;. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Road@{Road}!Road@{Road}}
+\index{Road@{Road}!Road@{Road}}
+\subsubsection[{\texorpdfstring{Road(unsigned long id, bool two\+Way)}{Road(unsigned long id, bool twoWay)}}]{\setlength{\rightskip}{0pt plus 5cm}Road\+::\+Road (
+\begin{DoxyParamCaption}
+\item[{unsigned long}]{id, }
+\item[{bool}]{two\+Way}
+\end{DoxyParamCaption}
+)}\hypertarget{class_road_a37a287816f8e1bac4bb655bdc357f77f}{}\label{class_road_a37a287816f8e1bac4bb655bdc357f77f}
+
+
+Constructor of \hyperlink{class_road}{Road}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em unique} & identifier \\
+\hline
+{\em boolean} & telling if the road has two ways \\
+\hline
+\end{DoxyParams}
+\index{Road@{Road}!Road@{Road}}
+\index{Road@{Road}!Road@{Road}}
+\subsubsection[{\texorpdfstring{Road(unsigned long id, const string \&name, bool two\+Way)}{Road(unsigned long id, const string &name, bool twoWay)}}]{\setlength{\rightskip}{0pt plus 5cm}Road\+::\+Road (
+\begin{DoxyParamCaption}
+\item[{unsigned long}]{id, }
+\item[{const string \&}]{name, }
+\item[{bool}]{two\+Way}
+\end{DoxyParamCaption}
+)}\hypertarget{class_road_a74b26f072c8a311b7ed06ad839dfb885}{}\label{class_road_a74b26f072c8a311b7ed06ad839dfb885}
+
+
+Constructor of \hyperlink{class_road}{Road}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em unique} & identifier \\
+\hline
+{\em string} & containing the road\textquotesingle{}s name \\
+\hline
+{\em boolean} & telling if the road has two ways \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Road@{Road}!get\+Id@{get\+Id}}
+\index{get\+Id@{get\+Id}!Road@{Road}}
+\subsubsection[{\texorpdfstring{get\+Id() const }{getId() const }}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long Road\+::get\+Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_road_a2ba91475393a567e94bb6cf18d8164b8}{}\label{class_road_a2ba91475393a567e94bb6cf18d8164b8}
+
+
+function that returns the road\textquotesingle{}s id 
+
+\begin{DoxyReturn}{Returns}
+unsigned long of the road\textquotesingle{}s id 
+\end{DoxyReturn}
+\index{Road@{Road}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!Road@{Road}}
+\subsubsection[{\texorpdfstring{get\+Name() const }{getName() const }}]{\setlength{\rightskip}{0pt plus 5cm}const string \& Road\+::get\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_road_a55877c477adb8c1985916da16830b70e}{}\label{class_road_a55877c477adb8c1985916da16830b70e}
+
+
+function that returns the name of the road 
+
+\begin{DoxyReturn}{Returns}
+road name 
+\end{DoxyReturn}
+\index{Road@{Road}!get\+Two\+Way@{get\+Two\+Way}}
+\index{get\+Two\+Way@{get\+Two\+Way}!Road@{Road}}
+\subsubsection[{\texorpdfstring{get\+Two\+Way() const }{getTwoWay() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Road\+::get\+Two\+Way (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_road_ac984e95bef715c5c47145ac2d47177fa}{}\label{class_road_ac984e95bef715c5c47145ac2d47177fa}
+
+
+returns true if the road is two away 
+
+\begin{DoxyReturn}{Returns}
+true if the road is two way 
+\end{DoxyReturn}
+\index{Road@{Road}!operator==@{operator==}}
+\index{operator==@{operator==}!Road@{Road}}
+\subsubsection[{\texorpdfstring{operator==(const Road \&p2) const }{operator==(const Road &p2) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Road\+::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Road} \&}]{p2}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_road_a201ac4ee9b61b415b7144310998cff44}{}\label{class_road_a201ac4ee9b61b415b7144310998cff44}
+
+
+function that allows the overloading of the operator == , in order to compare two roads 
+
+
+\begin{DoxyParams}{Parameters}
+{\em road} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if equal, false if different 
+\end{DoxyReturn}
+\index{Road@{Road}!set\+Two\+Way@{set\+Two\+Way}}
+\index{set\+Two\+Way@{set\+Two\+Way}!Road@{Road}}
+\subsubsection[{\texorpdfstring{set\+Two\+Way(bool two\+Way)}{setTwoWay(bool twoWay)}}]{\setlength{\rightskip}{0pt plus 5cm}void Road\+::set\+Two\+Way (
+\begin{DoxyParamCaption}
+\item[{bool}]{two\+Way}
+\end{DoxyParamCaption}
+)}\hypertarget{class_road_a0c749600d4e5a338643134d8f3e538b0}{}\label{class_road_a0c749600d4e5a338643134d8f3e538b0}
+
+
+function that sets the boolean two way 
+
+
+\begin{DoxyParams}{Parameters}
+{\em boolean} & that tells if the road is two way \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Friends And Related Function Documentation}
+\index{Road@{Road}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Road@{Road}}
+\subsubsection[{\texorpdfstring{operator$<$$<$}{operator<<}}]{\setlength{\rightskip}{0pt plus 5cm}ostream\& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{os, }
+\item[{{\bf Road} \&}]{p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [friend]}}\hypertarget{class_road_abab53dff350b03ef5c3b69c9f2570247}{}\label{class_road_abab53dff350b03ef5c3b69c9f2570247}
+
+
+function that allows the overloading of the operator $<$$<$, in order to compare to roads 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ostream} & \\
+\hline
+{\em road} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the stream 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Road.\+h\item 
+src/Road.\+cpp\end{DoxyCompactItemize}
