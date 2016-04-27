@@ -22,7 +22,7 @@ using namespace std;
  */
 
 class Point{
-	unsigned int id; /**< private member that contains the unique identifier */
+	unsigned long id; /**< private member that contains the unique identifier */
 	double latitude; /**< private member that contains the latitude */
 	double longitude; /**< private member that contains the longitude */
 	double x; /**< private member that contains the projected coordinate on x */
@@ -45,7 +45,7 @@ public:
 	 * @param projected coordinate on y
 	 *
 	 */
-	Point(unsigned int id,double latitude, double longitude, double x, double y);
+	Point(unsigned long id,double latitude, double longitude, double x, double y);
 
 	/**
 	 * @brief function that returns the point identifier;
