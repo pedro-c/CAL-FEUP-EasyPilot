@@ -238,7 +238,6 @@ void EasyPilot::addEdgesToGraphViewer() {
 				} else {
 					gv->addEdge(edge->getEdgeID(), srcID, destID, EdgeType::UNDIRECTED);
 					addedEdges.insert(edge->getEdgeID());
-					//addedEdges.insert(edge->getDestination()->getEdgeBetween(vertex)->getEdgeID());
 				}
 			} else {
 				gv->addEdge(edge->getEdgeID(), srcID, destID,
