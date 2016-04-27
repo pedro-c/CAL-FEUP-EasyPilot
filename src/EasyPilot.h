@@ -17,31 +17,85 @@
 #define END_NODE_COLOR "MAGENTA"
 #define POI_NODE_COLOR "ORANGE"*/
 
+
+/**
+ * @brief Class EasyPilot.
+ * Main class of the program.
+ */
 class EasyPilot {
-	GraphViewer *gv;
-	Graph mapGraph;
-	const static string START_NODE_COLOR;
-	const static string PATH_FOUND_COLOR;
-	const static string END_NODE_COLOR;
-	const static string POI_NODE_COLOR;
-	const static float MAX_LAT;
-	const static float MIN_LAT;
-	const static float MAX_LON;
-	const static float MIN_LON;
-	const static int IMAGE_X;
-	const static int IMAGE_Y;
+	GraphViewer *gv; /** < Pointer to Graph Viewer Interface*/
+	Graph mapGraph; /** < Graph that contains the map */
+	const static string START_NODE_COLOR; /** < Start node color */
+	const static string PATH_FOUND_COLOR; /** < Nodes in the path color*/
+	const static string END_NODE_COLOR; /** < End node color*/
+	const static string POI_NODE_COLOR; /** < Points of interest color*/
+	const static float MAX_LAT; /** < Maximum latitude*/
+	const static float MIN_LAT; /** < Minimum latitude*/
+	const static float MAX_LON; /** < Maximum longitude*/
+	const static float MIN_LON; /** < Minimum longitude*/
+	const static int IMAGE_X; /** < Image width*/
+	const static int IMAGE_Y; /** < Image height*/
 public:
+	/**
+	 * @brief EasyPilot constructor
+	 *
+	 * @param windowWidth Graphical interface window width
+	 * @param windowHeight Graphical interface window height
+	 */
 	EasyPilot(unsigned int windowWidth, unsigned int windowHeight);
+
+	/**
+	 * @brief Starts the program
+	 */
 	void start();
 private:
+	/**
+	 * @brief Populates the graph with information read from files
+	 *
+	 * @return Returns 0 on success.
+	 */
 	int populateGraph();
+
+	/**
+	 * @brief Displays path in GUI
+	 *
+	 * @param path Path to be displayed
+	 * @param start Start node
+	 * @param destination Destination node
+	 */
 	void displayPath(const list<Vertex*> &path, Vertex* start,
 			Vertex* destination);
+
+	/**
+	 * @brief Populates the GUI with nodes and edges from the graph
+	 */
 	void populateGraphViewer();
+
+	/**
+	 * @brief Reads a vertex from the console.
+	 *
+	 * @return Returns the vertex read.
+	 */
 	Vertex* readVertex();
+
+	/**
+	 * @brief Adds nodes to the GUI
+	 */
 	void addNodesToGraphViewer();
+
+	/**
+	 * @brief Adds edges to the GUI
+	 */
 	void addEdgesToGraphViewer();
+
+	/**
+	 * @brief Converts longitude to the x GUI coordinate
+	 */
 	int convertLongitudeToX(float x);
+
+	/**
+	 * @brief Converts latitude to the y GUI coordinate
+	 */
 	int convertLatitudeToY(float y);
 };
 
