@@ -43,8 +43,12 @@ void EasyPilot::start() {
 		cout << "Please introduce next point: ";
 		destination = readVertex();
 		list<Vertex*> temp = mapGraph.getShortestPath(start, destination);
-		distance += destination->getDistance();
-		cout << "\nDistance between " << start->getRoadName() << " and " << destination->getRoadName() << " is " << destination->getDistance() << " kilometers.\n";
+
+		if(destination->getDistance() != DBL_MAX) {
+			distance += destination->getDistance();
+			cout << "\nDistance between " << start->getRoadName() << " and " << destination->getRoadName() << " is " << destination->getDistance() << " kilometers.\n";
+		}
+
 		list<Vertex*>::iterator it2=temp.end();
 		list<Vertex*>::iterator it1=temp.begin();
 		list<Vertex*>::iterator it=path.end();
@@ -58,7 +62,8 @@ void EasyPilot::start() {
 	}
 
 	displayPath(path, begin, destination);
-	cout << "\nTotal path distance is " << distance << " kilometers.\n";
+	if(distance > 0)
+		cout << "\nTotal path distance is " << distance << " kilometers.\n";
 }
 
 int EasyPilot::populateGraph() {
@@ -110,11 +115,11 @@ int EasyPilot::populateGraph() {
 			getline(mainFile, POI, ';');
 
 			if (latitude > minLat && latitude < maxLat && longitude > minLon	&& longitude < maxLon) {
-			Point* c = new Point(nodeID, latitude, longitude, projectionX,
-					projectionY);
-			points.insert(std::pair<unsigned long, Point*>(nodeID, c));
-			c->setPOI(POI);
-			mapGraph.addVertex(*c);
+				Point* c = new Point(nodeID, latitude, longitude, projectionX,
+						projectionY);
+				points.insert(std::pair<unsigned long, Point*>(nodeID, c));
+				c->setPOI(POI);
+				mapGraph.addVertex(*c);
 			}
 		}
 		mainFile.close();
@@ -174,6 +179,7 @@ void EasyPilot::displayPath(const list<Vertex*> &path, Vertex* start,
 	list<Vertex*>::const_iterator nextIt = path.begin()++;
 	list<Vertex*>::const_iterator it;
 	for (it = path.begin(); nextIt != path.end(); it++) {
+		nextIt++;
 		Edge* edgeBetween = (*it)->getEdgeBetween(*nextIt);
 
 		gv->setVertexColor((*it)->getInfo().getId(), PATH_FOUND_COLOR);
@@ -181,7 +187,6 @@ void EasyPilot::displayPath(const list<Vertex*> &path, Vertex* start,
 			//If the road is two way, we have to color both of the edges.
 			//Even though one of them may not be displayed
 
-			//FIXME: Not coloring the edges properly...
 			if(edgeBetween->getRoad()->getTwoWay()) {
 				gv->setEdgeThickness((*nextIt)->getEdgeBetween(*it)->getEdgeID(), 5);
 				gv->setEdgeColor((*nextIt)->getEdgeBetween(*it)->getEdgeID(), PATH_FOUND_COLOR);
@@ -190,7 +195,6 @@ void EasyPilot::displayPath(const list<Vertex*> &path, Vertex* start,
 			gv->setEdgeThickness(edgeBetween->getEdgeID(), 5);
 			gv->setEdgeColor(edgeBetween->getEdgeID(), PATH_FOUND_COLOR);
 		}
-		nextIt++;
 	}
 
 	gv->setVertexColor((*path.begin())->getInfo().getId(), START_NODE_COLOR);
@@ -234,6 +238,7 @@ void EasyPilot::addEdgesToGraphViewer() {
 				} else {
 					gv->addEdge(edge->getEdgeID(), srcID, destID, EdgeType::UNDIRECTED);
 					addedEdges.insert(edge->getEdgeID());
+					//addedEdges.insert(edge->getDestination()->getEdgeBetween(vertex)->getEdgeID());
 				}
 			} else {
 				gv->addEdge(edge->getEdgeID(), srcID, destID,
