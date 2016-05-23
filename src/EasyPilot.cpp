@@ -265,6 +265,52 @@ void EasyPilot::populateGraphViewer() {
 	gv->rearrange();
 }
 
+void EasyPilot::computePrefix(const string &pattern, unsigned int prefix[]) {
+	unsigned int length = pattern.length();
+	int k = -1;
+
+	prefix[0] = 0;
+
+	for(unsigned int i = 1; i < length; i++) {
+		while(k > 0 && pattern[k+1] != pattern[i])
+			k = prefix[k];
+
+		if(pattern[k+1] == pattern[i])
+			k++;
+
+		prefix[i] = k;
+	}
+
+	for(unsigned int i = 0; i < length; i++) {
+		cout << prefix[i] << '|';
+	}
+
+	cout << endl;
+}
+
+unsigned int EasyPilot::editDistance(const string &pattern, const string &text) {
+	unsigned int matrix[pattern.length()+1][text.length()+1];
+
+	for(unsigned int i = 0; i <= pattern.length(); i++) {
+		matrix[i][0] = i;
+	}
+
+	for(unsigned int i = 1; i <= text.length(); i++) {
+			matrix[0][i] = i;
+	}
+
+	for(unsigned int i = 1; i <= pattern.length(); i++) {
+		for(unsigned int j = 1; j <= text.length(); j++) {
+			if(pattern[i] == text[j])
+				matrix[i][j] = matrix[i-1][j-1];
+			else
+				matrix[i][j] = 1 + min(min(matrix[i-1][j-1], matrix[i-1][j]), matrix[i][j-1]);
+		}
+	}
+
+	return matrix[pattern.length()][text.length()];
+}
+
 Vertex* EasyPilot::readVertex() {
 	Vertex *vertex;
 	string roadName;
@@ -279,11 +325,11 @@ Vertex* EasyPilot::readVertex() {
 	return vertex;
 }
 
-int EasyPilot::convertLongitudeToX(float x) {
-	return floor(((x - MIN_LON) * (IMAGE_Y)) / (MAX_LON - MIN_LON));
+int EasyPilot::convertLongitudeToX(float longitude) {
+	return floor(((longitude - MIN_LON) * (IMAGE_Y)) / (MAX_LON - MIN_LON));
 }
 
-int EasyPilot::convertLatitudeToY(float y) {
-	return floor(((y - MIN_LAT) * (IMAGE_X)) / (MAX_LAT - MIN_LAT));
+int EasyPilot::convertLatitudeToY(float latitude) {
+	return floor(((latitude - MIN_LAT) * (IMAGE_X)) / (MAX_LAT - MIN_LAT));
 }
 

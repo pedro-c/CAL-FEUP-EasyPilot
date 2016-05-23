@@ -48,6 +48,24 @@ public:
 	 * @brief Starts the program
 	 */
 	void start();
+
+	/**
+	 * @brief Gives the distance between to strings
+	 *
+	 * @param pattern Pattern to search
+	 * @param text Text to search
+	 *
+	 * @return Returns the distance
+	 */
+	static unsigned int editDistance(const string &pattern, const string &text);
+
+	/**
+	 * @brief Computes the prefix of the given pattern
+	 *
+	 * @param pattern Pattern to compute the prefix
+	 * @param prefix Prefix
+	 */
+	static void computePrefix(const string &pattern, unsigned int prefix[]);
 private:
 	/**
 	 * @brief Populates the graph with information read from files
@@ -90,13 +108,21 @@ private:
 
 	/**
 	 * @brief Converts longitude to the x GUI coordinate
+	 *
+	 * @param longitude Longitude to convert
+	 *
+	 * @return Returns the x coordinate
 	 */
-	int convertLongitudeToX(float x);
+	int convertLongitudeToX(float longitude);
 
 	/**
 	 * @brief Converts latitude to the y GUI coordinate
+	 *
+	 * @param latitude Latitude to convert
+	 *
+	 * @return Returns the y coordinate
 	 */
-	int convertLatitudeToY(float y);
+	int convertLatitudeToY(float latitude);
 };
 
 #endif /* SRC_EASYPILOT_H_ */

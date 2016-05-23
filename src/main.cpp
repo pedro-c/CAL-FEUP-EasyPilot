@@ -6,7 +6,6 @@
  */
 
 #include <iostream>
-
 #include "EasyPilot.h"
 
 
@@ -19,8 +18,12 @@ using namespace std;
 */
 
 int main() {
-	EasyPilot easyPilot(1200, 700);
-	easyPilot.start();
+	/*EasyPilot easyPilot(1200, 700);
+	easyPilot.start();*/
+
+	string pattern = "cocacola";
+	unsigned int prefix[pattern.length()];
+	EasyPilot::computePrefix(pattern, prefix);
 
 	cin.ignore();
 

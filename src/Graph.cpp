@@ -135,6 +135,19 @@ Vertex* Graph::getVertexFromRoadName(const string &roadName) {
 	return NULL;
 }
 
+/*Vertex* Graph::getVertexFromRoadName(const string &roadName) {
+
+	for(unsigned int i = 0; i < vertexSet.size(); i++){
+		for(unsigned int j = 0; j < vertexSet[i].getAdj().size();j++){
+			if(vertexSet[i].getAdj()[j]->getRoad()->getName().find(roadName) != string::npos ||
+					vertexSet[i].getInfo().getPOI().find(roadName) != string::npos)
+				return &vertexSet[i];
+		}
+	}
+
+	return NULL;
+}*/
+
 void Graph::resetPathfinding() {
 	for(unsigned int i = 0; i < vertexSet.size(); i++) {
 		vertexSet[i].minDistance = DBL_MAX;
