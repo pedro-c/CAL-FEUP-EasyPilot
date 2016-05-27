@@ -65,7 +65,15 @@ public:
 	 * @param pattern Pattern to compute the prefix
 	 * @param prefix Prefix
 	 */
-	static void computePrefix(const string &pattern, unsigned int prefix[]);
+	static void computePrefix(const string &pattern, int prefix[]);
+
+	/**
+	 * @brief Uses the KMP algorithm to find an exact match.
+	 *
+	 * @param text Text to search in
+	 * @param pattern Pattern to search for
+	 */
+	static int exactMatch(string text, string pattern);
 private:
 	/**
 	 * @brief Populates the graph with information read from files

@@ -265,28 +265,46 @@ void EasyPilot::populateGraphViewer() {
 	gv->rearrange();
 }
 
-void EasyPilot::computePrefix(const string &pattern, unsigned int prefix[]) {
+void EasyPilot::computePrefix(const string &pattern, int prefix[]) {
 	unsigned int length = pattern.length();
 	int k = -1;
 
-	prefix[0] = 0;
+	prefix[0] = -1;
 
-	for(unsigned int i = 1; i < length; i++) {
-		while(k > 0 && pattern[k+1] != pattern[i])
+	for (unsigned int i = 1; i < length; i++) {
+		while (k > -1 && pattern[k+1] != pattern[i])
 			k = prefix[k];
 
-		if(pattern[k+1] == pattern[i])
+		if (pattern[k+1] == pattern[i])
 			k++;
 
 		prefix[i] = k;
 	}
-
-	for(unsigned int i = 0; i < length; i++) {
-		cout << prefix[i] << '|';
-	}
-
-	cout << endl;
 }
+
+int EasyPilot::exactMatch(string text, string pattern) {
+     int num=0;
+     int prefix[pattern.length()];
+
+     computePrefix(pattern, prefix);
+
+     int q = -1;
+     for (unsigned int i = 0; i < text.length(); i++) {
+
+    	 while (q > -1 && pattern[q+1] != text[i])
+           q = prefix[q];
+
+        if (pattern[q+1] == text[i])
+           q++;
+
+        if (q == pattern.length() - 1) {
+           num++;
+           q = prefix[q];
+        }
+     }
+
+     return num;
+  }
 
 unsigned int EasyPilot::editDistance(const string &pattern, const string &text) {
 	unsigned int matrix[pattern.length()+1][text.length()+1];
@@ -296,7 +314,7 @@ unsigned int EasyPilot::editDistance(const string &pattern, const string &text) 
 	}
 
 	for(unsigned int i = 1; i <= text.length(); i++) {
-			matrix[0][i] = i;
+		matrix[0][i] = i;
 	}
 
 	for(unsigned int i = 1; i <= pattern.length(); i++) {

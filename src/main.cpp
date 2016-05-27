@@ -22,7 +22,7 @@ int main() {
 	easyPilot.start();*/
 
 	string pattern = "cocacola";
-	unsigned int prefix[pattern.length()];
+	int prefix[pattern.length()];
 	EasyPilot::computePrefix(pattern, prefix);
 
 	cin.ignore();
