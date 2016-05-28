@@ -50,16 +50,6 @@ public:
 	void start();
 
 	/**
-	 * @brief Gives the distance between to strings
-	 *
-	 * @param pattern Pattern to search
-	 * @param text Text to search
-	 *
-	 * @return Returns the distance
-	 */
-	static unsigned int editDistance(const string &pattern, const string &text);
-
-	/**
 	 * @brief Computes the prefix of the given pattern
 	 *
 	 * @param pattern Pattern to compute the prefix
@@ -74,6 +64,16 @@ public:
 	 * @param pattern Pattern to search for
 	 */
 	static int exactMatch(string text, string pattern);
+
+	/**
+	 * @brief Gets the edit distance between pattern and text
+	 *
+	 * @param pattern Pattern to search for
+	 * @param text Text to search in
+	 *
+	 * @return Returns the edit distance
+	 */
+	static unsigned int editDistance(const string &pattern, const string &text);
 private:
 	/**
 	 * @brief Populates the graph with information read from files

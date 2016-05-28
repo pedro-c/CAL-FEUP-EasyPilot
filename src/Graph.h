@@ -116,6 +116,11 @@ private:
 	 * @brief Resets pathfinding atributes
 	 */
 	void resetPathfinding();
+
+	/**
+	 * @brief
+	 */
+	Vertex* getApproximateVertex(const string &roadName);
 };
 
 #endif /* GRAPH_H_ */

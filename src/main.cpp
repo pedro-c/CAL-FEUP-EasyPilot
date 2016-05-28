@@ -12,20 +12,14 @@
 using namespace std;
 
 /**
-* @brief Main do programa.
+* @brief Program entrance.
 * Populates the graph and the graphviewer with all the nodes and edges and starts
 * the interface.
 */
 
 int main() {
-	/*EasyPilot easyPilot(1200, 700);
-	easyPilot.start();*/
-
-	string pattern = "cocacola";
-	int prefix[pattern.length()];
-	EasyPilot::computePrefix(pattern, prefix);
-
-	cin.ignore();
+	EasyPilot easyPilot(1200, 700);
+	easyPilot.start();
 
 	return 0;
 }

@@ -7,12 +7,14 @@
 
 #include "Graph.h"
 #include "Vertex.h"
+#include "EasyPilot.h"
 #include <iostream>
 #include <algorithm>
 #include <vector>
 #include <map>
 #include <cfloat>
 #include <queue>
+#include <climits>
 
 using namespace std;
 
@@ -122,17 +124,47 @@ Vertex* Graph::getVertexFromID(unsigned int pointID) {
 	return NULL;
 }
 
+Vertex* Graph::getApproximateVertex(const string &roadName) {
+	unsigned int minEditDist = UINT_MAX;
+	Vertex* minVertex = NULL;
+	unsigned int roadDist, POIDist;
+
+	for(unsigned int i = 0; i < vertexSet.size(); i++) {
+		POIDist = EasyPilot::editDistance(roadName, vertexSet[i].getInfo().getPOI());
+
+		if(POIDist < minEditDist) {
+			minVertex = &vertexSet[i];
+			minEditDist = POIDist;
+		}
+
+		for(unsigned int j = 0; j < vertexSet[i].getAdj().size(); j++) {
+			roadDist = EasyPilot::editDistance(roadName, vertexSet[i].getAdj()[j]->getRoad()->getName());
+
+			if(roadDist < minEditDist) {
+				minVertex = &vertexSet[i];
+				minEditDist = roadDist;
+			}
+
+		}
+	}
+
+	cout << minVertex->getRoadName() << endl;
+	return minVertex;
+}
+
 Vertex* Graph::getVertexFromRoadName(const string &roadName) {
 
 	for(unsigned int i = 0; i < vertexSet.size(); i++){
+		if(EasyPilot::exactMatch(vertexSet[i].getInfo().getPOI(), roadName))
+			return &vertexSet[i];
+
 		for(unsigned int j = 0; j < vertexSet[i].getAdj().size();j++){
-			if(vertexSet[i].getAdj()[j]->getRoad()->getName().find(roadName) != string::npos ||
-					vertexSet[i].getInfo().getPOI().find(roadName) != string::npos)
+			if(EasyPilot::exactMatch(vertexSet[i].getAdj()[j]->getRoad()->getName(), roadName))
 				return &vertexSet[i];
 		}
 	}
 
-	return NULL;
+	return getApproximateVertex(roadName);
 }
 
 /*Vertex* Graph::getVertexFromRoadName(const string &roadName) {

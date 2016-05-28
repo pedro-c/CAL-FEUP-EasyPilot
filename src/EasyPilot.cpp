@@ -272,8 +272,10 @@ void EasyPilot::computePrefix(const string &pattern, int prefix[]) {
 	prefix[0] = -1;
 
 	for (unsigned int i = 1; i < length; i++) {
-		while (k > -1 && pattern[k+1] != pattern[i])
+		while (k > -1 && pattern[k+1] != pattern[i]) {
 			k = prefix[k];
+		}
+
 
 		if (pattern[k+1] == pattern[i])
 			k++;
@@ -283,31 +285,31 @@ void EasyPilot::computePrefix(const string &pattern, int prefix[]) {
 }
 
 int EasyPilot::exactMatch(string text, string pattern) {
-     int num=0;
-     int prefix[pattern.length()];
+	int num = 0;
+	int prefix[pattern.length()];
 
-     computePrefix(pattern, prefix);
+	computePrefix(pattern, prefix);
 
-     int q = -1;
-     for (unsigned int i = 0; i < text.length(); i++) {
+	int q = -1;
+	for (unsigned int i = 0; i < text.length(); i++) {
 
-    	 while (q > -1 && pattern[q+1] != text[i])
-           q = prefix[q];
+		while (q > -1 && pattern[q+1] != text[i])
+			q = prefix[q];
 
-        if (pattern[q+1] == text[i])
-           q++;
+		if (pattern[q+1] == text[i])
+			q++;
 
-        if (q == pattern.length() - 1) {
-           num++;
-           q = prefix[q];
-        }
-     }
+		if (q == pattern.length() - 1) {
+			num++;
+			q = prefix[q];
+		}
+	}
 
-     return num;
-  }
+	return num;
+}
 
 unsigned int EasyPilot::editDistance(const string &pattern, const string &text) {
-	unsigned int matrix[pattern.length()+1][text.length()+1];
+	/*unsigned int matrix[pattern.length()+1][text.length()+1];
 
 	for(unsigned int i = 0; i <= pattern.length(); i++) {
 		matrix[i][0] = i;
@@ -326,7 +328,33 @@ unsigned int EasyPilot::editDistance(const string &pattern, const string &text) 
 		}
 	}
 
-	return matrix[pattern.length()][text.length()];
+	return matrix[pattern.length()][text.length()];*/
+
+	unsigned int distance[text.length()+1];
+	unsigned int oldDistance, newDistance;
+
+	for (unsigned int i = 0; i <= text.length(); i++)
+		distance[i] = i;
+
+	for (unsigned int i = 1; i <= pattern.length(); i++) {
+		oldDistance = distance[0];
+		distance[0] = i;
+
+		for (unsigned int j = 1; j <= text.length(); j++) {
+			//Check is not case sensitive
+			if (tolower(pattern[i-1]) == tolower(text[j-1]))
+				newDistance = oldDistance;
+			else {
+				newDistance = min(oldDistance, min(distance[j], distance[j-1]));
+				newDistance++;
+			}
+
+			oldDistance = distance[j];
+			distance[j] = newDistance;
+		}
+	}
+
+	return distance[text.length()];
 }
 
 Vertex* EasyPilot::readVertex() {
