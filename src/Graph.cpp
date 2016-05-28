@@ -144,23 +144,26 @@ Vertex* Graph::getApproximateVertex(const string &roadName) {
 				minVertex = &vertexSet[i];
 				minEditDist = roadDist;
 			}
-
 		}
 	}
 
-	cout << minVertex->getRoadName() << endl;
+	cout << "Road name:" << minVertex->getRoadName() << "\tEdit distance: " << minEditDist << endl;
 	return minVertex;
 }
 
 Vertex* Graph::getVertexFromRoadName(const string &roadName) {
 
 	for(unsigned int i = 0; i < vertexSet.size(); i++){
-		if(EasyPilot::exactMatch(vertexSet[i].getInfo().getPOI(), roadName))
+		if(EasyPilot::exactMatch(vertexSet[i].getInfo().getPOI(), roadName)) {
+			cout << "Found an exact match.\n";
 			return &vertexSet[i];
+		}
 
 		for(unsigned int j = 0; j < vertexSet[i].getAdj().size();j++){
-			if(EasyPilot::exactMatch(vertexSet[i].getAdj()[j]->getRoad()->getName(), roadName))
+			if(EasyPilot::exactMatch(vertexSet[i].getAdj()[j]->getRoad()->getName(), roadName)) {
+				cout << "Found an exact match.\n";
 				return &vertexSet[i];
+			}
 		}
 	}
 

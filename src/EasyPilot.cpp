@@ -272,12 +272,12 @@ void EasyPilot::computePrefix(const string &pattern, int prefix[]) {
 	prefix[0] = -1;
 
 	for (unsigned int i = 1; i < length; i++) {
-		while (k > -1 && pattern[k+1] != pattern[i]) {
+		while (k > -1 && tolower(pattern[k+1]) != tolower(pattern[i])) {
 			k = prefix[k];
 		}
 
 
-		if (pattern[k+1] == pattern[i])
+		if (tolower(pattern[k+1]) == tolower(pattern[i]))
 			k++;
 
 		prefix[i] = k;
@@ -293,10 +293,10 @@ int EasyPilot::exactMatch(string text, string pattern) {
 	int q = -1;
 	for (unsigned int i = 0; i < text.length(); i++) {
 
-		while (q > -1 && pattern[q+1] != text[i])
+		while (q > -1 && tolower(pattern[q+1]) != tolower(text[i]))
 			q = prefix[q];
 
-		if (pattern[q+1] == text[i])
+		if (tolower(pattern[q+1]) == tolower(text[i]))
 			q++;
 
 		if (q == pattern.length() - 1) {
@@ -309,27 +309,6 @@ int EasyPilot::exactMatch(string text, string pattern) {
 }
 
 unsigned int EasyPilot::editDistance(const string &pattern, const string &text) {
-	/*unsigned int matrix[pattern.length()+1][text.length()+1];
-
-	for(unsigned int i = 0; i <= pattern.length(); i++) {
-		matrix[i][0] = i;
-	}
-
-	for(unsigned int i = 1; i <= text.length(); i++) {
-		matrix[0][i] = i;
-	}
-
-	for(unsigned int i = 1; i <= pattern.length(); i++) {
-		for(unsigned int j = 1; j <= text.length(); j++) {
-			if(pattern[i] == text[j])
-				matrix[i][j] = matrix[i-1][j-1];
-			else
-				matrix[i][j] = 1 + min(min(matrix[i-1][j-1], matrix[i-1][j]), matrix[i][j-1]);
-		}
-	}
-
-	return matrix[pattern.length()][text.length()];*/
-
 	unsigned int distance[text.length()+1];
 	unsigned int oldDistance, newDistance;
 
