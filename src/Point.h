@@ -28,7 +28,7 @@ class Point{
 	double x; /**< private member that contains the projected coordinate on x */
 	double y; /**< private member that contains the projected coordinate on y */
 	string POI = ""; /**< private member that, in the case of a point of interest, contains its name */
-	string suburb = "";
+	string suburb = ""; /**< private member containing info on the suburb of the point */
 
 public:
 	/**
@@ -83,14 +83,23 @@ public:
 	void setPOI(string POI);
 
 	/**
+	 * @brief sets the name of the suburb
+	 */
+	void setSuburb(string suburb);
+
+	/**
+		 * @brief returns a string with the suburb
+		 * @return string of the suburb
+	*/
+
+	string getSuburb() const;
+
+	/**
 	 * @brief if it is a point of interest returns its name, else
 	 * returns an empty string
 	 * @return string of point of interest
 	 */
 
-	void setSuburb(string suburb);
-
-	string getSuburb() const;
 	string getPOI() const;
 
 	/**
