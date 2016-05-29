@@ -209,9 +209,6 @@ void EasyPilot::displayPath(const list<Vertex*> &path, Vertex* start,
 
 	gv->setVertexColor((*path.begin())->getInfo().getId(), START_NODE_COLOR);
 	gv->setVertexColor(destination->getInfo().getId(), END_NODE_COLOR);
-
-	//Don't know why this doesn't work...
-	//gv->setVertexColor((*(path.end()--))->getInfo().getId(), END_NODE_COLOR);
 }
 
 void EasyPilot::addNodesToGraphViewer() {
@@ -278,7 +275,6 @@ void EasyPilot::computePrefix(const string &pattern, int prefix[]) {
 		while (k > -1 && tolower(pattern[k+1]) != tolower(pattern[i])) {
 			k = prefix[k];
 		}
-
 
 		if (tolower(pattern[k+1]) == tolower(pattern[i]))
 			k++;
@@ -348,6 +344,24 @@ Vertex* EasyPilot::readVertex() {
 	while ((vertex = mapGraph.getVertexFromRoadName(roadName)) == NULL) {
 		cout << "Invalid road name. Try again.\n";
 		getline(cin, roadName);
+	}
+
+	cout << "What suburb does the road belong to?\n";
+
+	string suburb;
+	getline(cin, suburb);
+
+	if(!exactMatch(vertex->getInfo().getSuburb(), suburb)) {
+		cout << "The road you provided does not belong to the suburb you specified.\nDo you want to choose another road? (Y/N)\n";
+
+		string answer;
+		cin >> answer;
+
+		cin.ignore();
+		cin.clear();
+
+		if(exactMatch("Y", answer))
+			return readVertex();
 	}
 
 	return vertex;

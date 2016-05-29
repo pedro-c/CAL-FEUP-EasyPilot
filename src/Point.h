@@ -85,7 +85,7 @@ public:
 	/**
 	 * @brief sets the name of the suburb
 	 */
-	void setSuburb(string suburb);
+	void setSuburb(const string &suburb);
 
 	/**
 		 * @brief returns a string with the suburb
