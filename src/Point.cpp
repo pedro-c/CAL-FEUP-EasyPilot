@@ -54,6 +54,14 @@ void Point::setPOI(string POI){
 	this->POI=POI;
 }
 
+void Point::setSuburb(string suburb){
+	this->suburb=suburb;
+}
+
+string Point::getSuburb() const{
+	return suburb;
+}
+
 string Point::getPOI() const{
 	return POI;
 }

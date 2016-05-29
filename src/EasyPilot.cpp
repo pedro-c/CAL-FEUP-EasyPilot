@@ -15,17 +15,17 @@ const string EasyPilot::START_NODE_COLOR = "YELLOW";
 const string EasyPilot::PATH_FOUND_COLOR = "GREEN";
 const string EasyPilot::END_NODE_COLOR = "MAGENTA";
 const string EasyPilot::POI_NODE_COLOR = "ORANGE";
-const float EasyPilot::MAX_LAT = 41.1856;
-const float EasyPilot::MIN_LAT = 41.1705;
-const float EasyPilot::MAX_LON = -8.5902;
-const float EasyPilot::MIN_LON = -8.6161;
-const int EasyPilot::IMAGE_X = 1758;
-const int EasyPilot::IMAGE_Y = 2261;
+const float EasyPilot::MAX_LAT = 41.186;
+const float EasyPilot::MIN_LAT = 41.13921;
+const float EasyPilot::MAX_LON = -8.57601;
+const float EasyPilot::MIN_LON = -8.65271;
+const int EasyPilot::IMAGE_X = 20000;
+const int EasyPilot::IMAGE_Y = 24646;
 
 EasyPilot::EasyPilot(unsigned int windowWidth, unsigned int windowHeight) {
 	mapGraph = Graph();
 	gv = new GraphViewer(windowWidth, windowHeight, false);
-	gv->setBackground("sjoao.png");
+	gv->setBackground("output.png");
 	gv->createWindow(windowWidth, windowHeight);
 	gv->defineVertexColor("blue");
 	gv->defineEdgeColor("black");
@@ -81,7 +81,7 @@ int EasyPilot::populateGraph() {
 	map<unsigned long, Road*> roads;
 
 	//2.txt SUBROADS(Road id; Road name; IsTwoWay)
-	ifstream secFile("sj2.txt");
+	ifstream secFile("porto2.txt");
 	if (secFile.is_open()) {
 		while (!secFile.eof()) {
 			unsigned long roadID;
@@ -110,17 +110,19 @@ int EasyPilot::populateGraph() {
 	}
 
 	//1.txt NODES(PointID; Latitude; Longitude; projectionCoordinates.X, projectionCoordinates.Y)
-	ifstream mainFile("sj1.txt");
+	ifstream mainFile("porto1.txt");
 	if (mainFile.is_open()) {
 		while (!mainFile.eof()) {
 			unsigned long nodeID;
 			double latitude, longitude, projectionX, projectionY;
 			char garbage;
 			string POI;
+			string suburb;
 
 			mainFile >> nodeID >> garbage >> latitude >> garbage >> longitude
 			>> garbage >> projectionX >> garbage >> projectionY >> garbage;
 
+			getline(mainFile, suburb, ';');
 			getline(mainFile, POI, ';');
 
 			if (latitude > MIN_LAT && latitude < MAX_LAT && longitude > MIN_LON	&& longitude < MAX_LON) {
@@ -128,6 +130,7 @@ int EasyPilot::populateGraph() {
 						projectionY);
 				points.insert(std::pair<unsigned long, Point*>(nodeID, c));
 				c->setPOI(POI);
+				c->setSuburb(suburb);
 				mapGraph.addVertex(*c);
 			}
 		}
@@ -138,7 +141,7 @@ int EasyPilot::populateGraph() {
 	}
 
 	//3.txt ROADS(Road id; PointID 1; PointID 2)
-	ifstream thirdFile("sj3.txt");
+	ifstream thirdFile("porto3.txt");
 	if (thirdFile.is_open()) {
 		while (!thirdFile.eof()) {
 			unsigned long roadID;
