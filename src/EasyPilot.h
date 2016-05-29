@@ -63,7 +63,7 @@ public:
 	 * @param text Text to search in
 	 * @param pattern Pattern to search for
 	 */
-	static int exactMatch(string text, string pattern);
+	static int exactMatch(const string &text, const string &pattern);
 
 	/**
 	 * @brief Gets the edit distance between pattern and text

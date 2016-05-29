@@ -44,12 +44,11 @@ void EasyPilot::start() {
 	populateGraphViewer();
 	cout << "Finished populating graph viewer...\n";
 
-	cout << "Please introduce the starting point: ";
+	//cout << "Please introduce the starting point: ";
 	Vertex* start = readVertex();
 	begin = start;
 
 	while(toupper(answer) == 'Y'){
-		cout << "Please introduce next point: ";
 		destination = readVertex();
 		list<Vertex*> temp = mapGraph.getShortestPath(start, destination);
 
@@ -283,7 +282,7 @@ void EasyPilot::computePrefix(const string &pattern, int prefix[]) {
 	}
 }
 
-int EasyPilot::exactMatch(string text, string pattern) {
+int EasyPilot::exactMatch(const string &text, const string &pattern) {
 	int num = 0;
 	int prefix[pattern.length()];
 
@@ -339,6 +338,7 @@ Vertex* EasyPilot::readVertex() {
 	Vertex *vertex;
 	string roadName;
 
+	cout << "Please introduce a point: ";
 	getline(cin, roadName);
 
 	while ((vertex = mapGraph.getVertexFromRoadName(roadName)) == NULL) {

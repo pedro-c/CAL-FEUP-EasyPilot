@@ -147,7 +147,8 @@ Vertex* Graph::getApproximateVertex(const string &roadName) {
 		}
 	}
 
-	cout << "Road name:" << minVertex->getRoadName() << "\tEdit distance: " << minEditDist << endl;
+	cout << "Could not find an exact match. Assuming " << minVertex->getRoadName();
+
 	return minVertex;
 }
 
