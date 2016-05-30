@@ -17,6 +17,15 @@ Class \hyperlink{class_easy_pilot}{Easy\+Pilot}. Main class of the program.
 void \hyperlink{class_easy_pilot_a9797d261e91d7e0c117d2233b443eb25}{start} ()\hypertarget{class_easy_pilot_a9797d261e91d7e0c117d2233b443eb25}{}\label{class_easy_pilot_a9797d261e91d7e0c117d2233b443eb25}
 
 \begin{DoxyCompactList}\small\item\em Starts the program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_easy_pilot_a074da7a515c8006cc86e158922ea5bd8}{compute\+Prefix} (const string \&pattern, int prefix\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Computes the prefix of the given pattern. \end{DoxyCompactList}\item 
+static int \hyperlink{class_easy_pilot_ad69ed26defa819f083773352a0b7f57e}{exact\+Match} (const string \&text, const string \&pattern)
+\begin{DoxyCompactList}\small\item\em Uses the K\+MP algorithm to find an exact match. \end{DoxyCompactList}\item 
+static unsigned int \hyperlink{class_easy_pilot_ade91740b52029174d1a7a2f111e7cf4b}{edit\+Distance} (const string \&pattern, const string \&text)
+\begin{DoxyCompactList}\small\item\em Gets the edit distance between pattern and text. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -40,6 +49,69 @@ $<$ Image height
 {\em window\+Width} & Graphical interface window width \\
 \hline
 {\em window\+Height} & Graphical interface window height \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Easy\+Pilot@{Easy\+Pilot}!compute\+Prefix@{compute\+Prefix}}
+\index{compute\+Prefix@{compute\+Prefix}!Easy\+Pilot@{Easy\+Pilot}}
+\subsubsection[{\texorpdfstring{compute\+Prefix(const string \&pattern, int prefix[])}{computePrefix(const string &pattern, int prefix[])}}]{\setlength{\rightskip}{0pt plus 5cm}void Easy\+Pilot\+::compute\+Prefix (
+\begin{DoxyParamCaption}
+\item[{const string \&}]{pattern, }
+\item[{int}]{prefix\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_easy_pilot_a074da7a515c8006cc86e158922ea5bd8}{}\label{class_easy_pilot_a074da7a515c8006cc86e158922ea5bd8}
+
+
+Computes the prefix of the given pattern. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pattern} & Pattern to compute the prefix \\
+\hline
+{\em prefix} & Prefix \\
+\hline
+\end{DoxyParams}
+\index{Easy\+Pilot@{Easy\+Pilot}!edit\+Distance@{edit\+Distance}}
+\index{edit\+Distance@{edit\+Distance}!Easy\+Pilot@{Easy\+Pilot}}
+\subsubsection[{\texorpdfstring{edit\+Distance(const string \&pattern, const string \&text)}{editDistance(const string &pattern, const string &text)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Easy\+Pilot\+::edit\+Distance (
+\begin{DoxyParamCaption}
+\item[{const string \&}]{pattern, }
+\item[{const string \&}]{text}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_easy_pilot_ade91740b52029174d1a7a2f111e7cf4b}{}\label{class_easy_pilot_ade91740b52029174d1a7a2f111e7cf4b}
+
+
+Gets the edit distance between pattern and text. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pattern} & Pattern to search for \\
+\hline
+{\em text} & Text to search in\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the edit distance 
+\end{DoxyReturn}
+\index{Easy\+Pilot@{Easy\+Pilot}!exact\+Match@{exact\+Match}}
+\index{exact\+Match@{exact\+Match}!Easy\+Pilot@{Easy\+Pilot}}
+\subsubsection[{\texorpdfstring{exact\+Match(const string \&text, const string \&pattern)}{exactMatch(const string &text, const string &pattern)}}]{\setlength{\rightskip}{0pt plus 5cm}int Easy\+Pilot\+::exact\+Match (
+\begin{DoxyParamCaption}
+\item[{const string \&}]{text, }
+\item[{const string \&}]{pattern}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_easy_pilot_ad69ed26defa819f083773352a0b7f57e}{}\label{class_easy_pilot_ad69ed26defa819f083773352a0b7f57e}
+
+
+Uses the K\+MP algorithm to find an exact match. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & Text to search in \\
+\hline
+{\em pattern} & Pattern to search for \\
 \hline
 \end{DoxyParams}
 

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Easy GPS: EasyPilot Class Reference</title>
+<title>CAL-FEUP-EasyPilot: EasyPilot Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Easy GPS
+   <div id="projectname">CAL-FEUP-EasyPilot
    </div>
   </td>
  </tr>
@@ -83,6 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_easy_pilot-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">EasyPilot Class Reference</div>  </div>
@@ -103,6 +104,18 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_easy_pilot.html#a9797d261e91d7e0c117d2233b443eb25">start</a> ()</td></tr>
 <tr class="memdesc:a9797d261e91d7e0c117d2233b443eb25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the program. <br /></td></tr>
 <tr class="separator:a9797d261e91d7e0c117d2233b443eb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a074da7a515c8006cc86e158922ea5bd8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_easy_pilot.html#a074da7a515c8006cc86e158922ea5bd8">computePrefix</a> (const string &amp;pattern, int prefix[])</td></tr>
+<tr class="memdesc:a074da7a515c8006cc86e158922ea5bd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the prefix of the given pattern.  <a href="#a074da7a515c8006cc86e158922ea5bd8">More...</a><br /></td></tr>
+<tr class="separator:a074da7a515c8006cc86e158922ea5bd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad69ed26defa819f083773352a0b7f57e"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_easy_pilot.html#ad69ed26defa819f083773352a0b7f57e">exactMatch</a> (const string &amp;text, const string &amp;pattern)</td></tr>
+<tr class="memdesc:ad69ed26defa819f083773352a0b7f57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses the KMP algorithm to find an exact match.  <a href="#ad69ed26defa819f083773352a0b7f57e">More...</a><br /></td></tr>
+<tr class="separator:ad69ed26defa819f083773352a0b7f57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade91740b52029174d1a7a2f111e7cf4b"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_easy_pilot.html#ade91740b52029174d1a7a2f111e7cf4b">editDistance</a> (const string &amp;pattern, const string &amp;text)</td></tr>
+<tr class="memdesc:ade91740b52029174d1a7a2f111e7cf4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the edit distance between pattern and text.  <a href="#ade91740b52029174d1a7a2f111e7cf4b">More...</a><br /></td></tr>
+<tr class="separator:ade91740b52029174d1a7a2f111e7cf4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class <a class="el" href="class_easy_pilot.html" title="Class EasyPilot. Main class of the program. ">EasyPilot</a>. Main class of the program. </p>
@@ -136,6 +149,137 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   <table class="params">
     <tr><td class="paramname">windowWidth</td><td>Graphical interface window width </td></tr>
     <tr><td class="paramname">windowHeight</td><td>Graphical interface window height </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a074da7a515c8006cc86e158922ea5bd8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EasyPilot::computePrefix </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>pattern</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>prefix</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes the prefix of the given pattern. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pattern</td><td>Pattern to compute the prefix </td></tr>
+    <tr><td class="paramname">prefix</td><td>Prefix </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ade91740b52029174d1a7a2f111e7cf4b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int EasyPilot::editDistance </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>pattern</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>text</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the edit distance between pattern and text. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pattern</td><td>Pattern to search for </td></tr>
+    <tr><td class="paramname">text</td><td>Text to search in</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the edit distance </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad69ed26defa819f083773352a0b7f57e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int EasyPilot::exactMatch </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>pattern</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Uses the KMP algorithm to find an exact match. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>Text to search in </td></tr>
+    <tr><td class="paramname">pattern</td><td>Pattern to search for </td></tr>
   </table>
   </dd>
 </dl>

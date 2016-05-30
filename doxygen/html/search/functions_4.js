@@ -17,6 +17,7 @@ var searchData=
   ['getroadname',['getRoadName',['../class_edge.html#ad0fd8905a0c065cf288e95211edc731b',1,'Edge::getRoadName()'],['../class_vertex.html#a82fdd355fdcd549c9f193fb141281246',1,'Vertex::getRoadName()']]],
   ['getshortestpath',['getShortestPath',['../class_graph.html#a856f74decc1d00f6454cdfead6980f75',1,'Graph']]],
   ['getsource',['getSource',['../class_edge.html#a81d05b230991af82d5413a80ada767e3',1,'Edge']]],
+  ['getsuburb',['getSuburb',['../class_point.html#afd53cd92f0e22830d9f9055ef37872c9',1,'Point']]],
   ['gettwoway',['getTwoWay',['../class_road.html#ac984e95bef715c5c47145ac2d47177fa',1,'Road']]],
   ['getvertexfromid',['getVertexFromID',['../class_graph.html#abeaeffa08d30d195ac640cd5b694c908',1,'Graph']]],
   ['getvertexfromindex',['getVertexFromIndex',['../class_graph.html#a1e365eb376b956218c3a9b5b042a7c41',1,'Graph']]],
