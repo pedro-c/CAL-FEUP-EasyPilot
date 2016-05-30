@@ -19,13 +19,13 @@ const float EasyPilot::MAX_LAT = 41.186;
 const float EasyPilot::MIN_LAT = 41.13921;
 const float EasyPilot::MAX_LON = -8.57601;
 const float EasyPilot::MIN_LON = -8.65271;
-const int EasyPilot::IMAGE_X = 20000;
-const int EasyPilot::IMAGE_Y = 24646;
+const int EasyPilot::IMAGE_X = 2000;
+const int EasyPilot::IMAGE_Y = 2464;
 
 EasyPilot::EasyPilot(unsigned int windowWidth, unsigned int windowHeight) {
 	mapGraph = Graph();
 	gv = new GraphViewer(windowWidth, windowHeight, false);
-	gv->setBackground("output.png");
+	gv->setBackground("outputSmall.png");
 	gv->createWindow(windowWidth, windowHeight);
 	gv->defineVertexColor("blue");
 	gv->defineEdgeColor("black");

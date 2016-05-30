@@ -21,6 +21,7 @@ int main() {
 	EasyPilot easyPilot(1200, 700);
 	easyPilot.start();
 
+	cin.ignore();
 	return 0;
 }
 
